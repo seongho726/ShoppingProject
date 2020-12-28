@@ -7,123 +7,60 @@ import java.util.ArrayList;
 
 import util.DBUtil;
 public class ProductDAO {
-    private DBUtil connPool;
-    private static final String ALLRETRIEVE_STMT
-            = "SELECT * FROM shoppingproduct";
-    private static final String INSERT_STMT = "INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)";
-    private static final String UPDATE_STMT = "UPDATE shoppingproduct SET ProductType = ? ProductName = ? Explanation = ? Price = ? Inventory = ? WHERE ProductID = ?";
-    private static final String GETID_STMT = "SELECT COUNT(ProductID) FROM shoppingproduct";
-    ArrayList<Product> allproductRetrieve() throws SQLException {
+    
+    ArrayList<Product> allproductRetrieve(int productId) throws SQLException {
         ArrayList<Product> products = new ArrayList<Product>();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rset = null;
-        try {
-            conn = connPool.getConnection();
-            stmt = conn.prepareStatement(ALLRETRIEVE_STMT);
-            rset = stmt.executeQuery();
-            while (rset.next()) {
-                int ProductID = rset.getInt(1);
-                String ProductType = rset.getString(2);
-                String ProductName = rset.getString(3);
-                String Explanation = rset.getString(4);
-                int Price = rset.getInt(5);
-                int Inventory = rset.getInt(6);
-                products.add(new Product(ProductID, ProductType, ProductName, Explanation, Price, Inventory));
-            }
-            return products;
-        } catch (SQLException se) {
-            throw new RuntimeException(
-                    "A database error occurred. " + se.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Exception: " + e.getMessage());
-        } finally {
-            if (rset != null) {
-                try {
-                    rset.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
-        }
-    }
-    ArrayList<Product> productRetrieve(String productname) throws SQLException {
-        ArrayList<Product> products = new ArrayList<Product>();
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rset = null;
-        try {
-            conn = connPool.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM shoppingproduct WHERE ProductName like '%" + productname + "%'");
-            rset = stmt.executeQuery();
-            while (rset.next()) {
-                int ProductID = rset.getInt(1);
-                String ProductType = rset.getString(2);
-                String ProductName = rset.getString(3);
-                String Explanation = rset.getString(4);
-                int Price = rset.getInt(5);
-                int Inventory = rset.getInt(6);
-                products.add(new Product(ProductID, ProductType, ProductName, Explanation, Price, Inventory));
-            }
-            return products;
-        } catch (SQLException se) {
-            throw new RuntimeException(
-                    "A database error occurred. " + se.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Exception: " + e.getMessage());
-        } finally {
-            if (rset != null) {
-                try {
-                    rset.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
-        }
-    }
-     
-    void productInsert(Product product) throws SQLException {
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
-            conn = DBUtil.getConnection();
-            pstmt = conn.prepareStatement("SELECT COUNT(ProductID) FROM shoppingproduct");
+        	con = DBUtil.getConnection();
+            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct");
+            pstmt.setInt(1, productId);
+            rset = pstmt.executeQuery();
+            while (rset.next()) {
+            	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+                						rset.getInt(5), rset.getInt(6)));
+            }
+        } finally {
+			DBUtil.close(con, pstmt, rset);
+		}
+		return products;
+
+	}
+    ArrayList<Product> productRetrieve(String productName) throws SQLException {
+        ArrayList<Product> products = new ArrayList<Product>();
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        try {
+        	con = DBUtil.getConnection();
+            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct WHERE ProductName like '%" + productName + "%'");
+            rset = pstmt.executeQuery();
+            while (rset.next()) {
+            	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+						rset.getInt(5), rset.getInt(6)));
+            }
+        } finally {
+        	DBUtil.close(con, pstmt, rset);
+        }
+        return products;
+    }
+     
+    void productInsert(int productId, String productType, String productName, String description, int price, int inventory) throws SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        try {
+            pstmt = con.prepareStatement("SELECT COUNT(ProductID) FROM shoppingproduct");
             rset = pstmt.executeQuery();
             
             int productID = -1;
             rset.next();
             productID = rset.getInt("COUNT(ProductID)");
             productID++;
-            pstmt = conn.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
+            
+            pstmt = con.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
             pstmt.setInt(1, productID);
             pstmt.setString(2, productType);
             pstmt.setString(3, productName);
@@ -131,58 +68,23 @@ public class ProductDAO {
             pstmt.setInt(5, price);
             pstmt.setInt(6, inventory);
             pstmt.executeQuery();
-        } catch (SQLException se) {
-            throw new RuntimeException(
-                    "A database error occurred. " + se.getMessage());
         } finally {
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
+        	DBUtil.close(con, pstmt, rset);
         }
     }
-    void productUpdate(int productid, String producttype, String productname, String explanation, int price, int inventory) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rset = null;
+    void productUpdate(int productId) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        
         try {
-            conn = connPool.getConnection();
-            stmt = conn.prepareStatement(UPDATE_STMT);
-            stmt.setString(1, producttype);
-            stmt.setString(2, productname);
-            stmt.setString(3, explanation);
-            stmt.setInt(4, price);
-            stmt.setInt(5, inventory);
-            stmt.setInt(6, productid);
-            stmt.executeQuery();
+            pstmt = con.prepareStatement("UPDATE shoppingproduct SET ProductType = ? ProductName = ? Explanation = ? Price = ? Inventory = ? WHERE ProductID = ?");
+            pstmt.setInt(1, productId);
+            pstmt.executeQuery();
         } catch (SQLException se) {
             throw new RuntimeException(
                     "A database error occurred. " + se.getMessage());
         } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
+        	DBUtil.close(con, pstmt);
         }
     }
 }
