@@ -41,7 +41,7 @@ public class Product {
 	@Column
 	int inventory;
 
-	@OneToMany(mappedBy = "productId")
+	@OneToMany(mappedBy = "productsId")
 	private List<Basket> baskets;
 	
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import domain.Basket;
 import domain.BasketService;
+import domain.User;
 
 @WebServlet("/RetrieveBasketServlet")
 public class RetrieveBasketServlet extends HttpServlet {
@@ -20,16 +21,14 @@ public class RetrieveBasketServlet extends HttpServlet {
 		 RequestDispatcher view = null;
 	        BasketService BasketService = null;
 
-	        HttpSession HttpSession = request.getSession();
-	        int userId = Integer.parseInt(request.getParameter("userId"));
-
+	        HttpSession session = request.getSession();
+	        int userId = ((User) session.getAttribute("user")).getUserId();
 	        ArrayList<Basket> baskets = null;
 	        BasketService = new BasketService();
 	        baskets = BasketService.getBasket(userId);
 
-	        request.setAttribute("user", HttpSession.getAttribute("user"));
+	        request.setAttribute("user", session.getAttribute("user"));
 	        request.setAttribute("baskets", baskets);
-
 	        view = request.getRequestDispatcher("basket.jsp");
 	        view.forward(request, response);
 	    }

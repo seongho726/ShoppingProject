@@ -16,8 +16,10 @@ public class BasketService {
         try {
             baskets = basketDataAccess.basketRetrieve(userId);
         } catch (Exception e) {
+        	e.printStackTrace();
             baskets = null;
         }
+        System.out.println(baskets);
         return baskets;
     }
 

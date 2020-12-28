@@ -39,7 +39,7 @@ public class User {
 	@Column(name="address")
     String address;
 	
-	@OneToMany(mappedBy = "userId")
+	@OneToMany(mappedBy = "usersId")
 	private List<Basket> baskets;
 
 	public User(int userId, String userType, String userName, String password, String email, String contact,

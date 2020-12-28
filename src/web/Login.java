@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 	        try {
 				if(LoginDAO.validate(t, n, p)){
 					if (t.equals("C")) {
-					User user = UserService.getUserservice().getUser(t, n, p);
+					User user = UserService.getUserService().getUser(t, n, p);
 						session.setAttribute("user", user);
 						RequestDispatcher rd=request.getRequestDispatcher("login.jsp"); 
 					    rd.forward(request,response); }
