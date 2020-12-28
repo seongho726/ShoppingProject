@@ -11,7 +11,7 @@
 </head>
 <body>
     <h3>Login successful!!!</h3>
-    <h4>
+    <h4>Hello, <%=session.getAttribute("name")%></h4>
     <%
     ArrayList<Product> products = (ArrayList<Product>) ProductService.getProdService().getAllProduct();
     %>
@@ -39,9 +39,9 @@
                 <td align="center">
                     <form action="AddBasketServlet" method="post">
                         Enter the numbers you want :
-                        <input type="hidden" name="userid" value="<%=((User) session.getAttribute("user")).getUserId()%>">
-                        <input type="hidden" name="productid" value="<%=product.getProductId()%>">
-                        <input type="text" name="numbers" size="5">
+                        <input type="hidden" name="userId" value="<%=((User) session.getAttribute("user")).getUserId()%>">
+                        <input type="hidden" name="productId" value="<%=product.getProductId()%>">
+                        <input type="text" name="productCount" size="5">
                         <input type="submit" value="Take">
                     </form>
                 </td>
