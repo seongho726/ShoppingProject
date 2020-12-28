@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="productcatalog.jsp" %>
 
 <html>
 <head>
