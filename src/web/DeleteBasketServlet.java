@@ -1,6 +1,7 @@
 package web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -21,12 +22,16 @@ public class DeleteBasketServlet extends HttpServlet {
         BasketService BasketService = new BasketService();
         HttpSession HttpSession = request.getSession();
 
-        int basketid = Integer.parseInt(request.getParameter("basketid"));
-        int userid = Integer.parseInt(request.getParameter("userid"));
+        int basketId = Integer.parseInt(request.getParameter("basketId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
 
         ArrayList<Basket> baskets = null;
-        BasketService.deleteBasket(userid, basketid);
-        baskets = BasketService.getBasket(userid);
+        try {
+			BasketService.deleteBasket(userId, basketId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        baskets = BasketService.getBasket(userId);
 
         request.setAttribute("baskets", baskets);
         request.setAttribute("user", HttpSession.getAttribute("user"));

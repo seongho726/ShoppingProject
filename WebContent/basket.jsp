@@ -12,7 +12,7 @@
         <% session.setAttribute("user", user);%>
     </head>
     <body>
-        <h2>Hello, <%= user.getuserName()%></h2>
+        <h2>Hello, <%= user.getUserName()%></h2>
         <table border="2px">
             <tr>
                 <th width="200">Basket ID</th>
@@ -26,14 +26,14 @@
                     Basket basket = baskets.get(i);
             %>
             <tr>
-                <td align="center"><%=basket.getBasketid()%></td>
-                <td align="center"><%=user.getUsername()%></td>
-                <td align="center"><%=basket.getProductid()%></td>
-                <td align="center"><%=basket.getNumbers()%></td>
+                <td align="center"><%=basket.getBasketId()%></td>
+                <td align="center"><%=user.getUserName()%></td>
+                <td align="center"><%=basket.getProductId()%></td>
+                <td align="center"><%=basket.getProductCount()%></td>
               	<td align="center">  
               		<form action="delete" method="post">
-                        <input type="hidden" name="basketid" value="<%=basket.getBasketid()%>">
-                        <input type="hidden" name="userid" value="<%=user.getUserid()%>">
+                        <input type="hidden" name="basketid" value="<%=basket.getBasketId()%>">
+                        <input type="hidden" name="userid" value="<%=user.getUserId()%>">
                         <input type="submit" value="Delete">
                     </form></td>
             </tr>

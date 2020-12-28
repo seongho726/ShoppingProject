@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,25 +22,17 @@ public class JoinServlet extends HttpServlet {
 		request.setAttribute("status", status);
 
 		try {
-			String username = request.getParameter("username");
+			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
-			Date birthdate = java.sql.Date.valueOf(request.getParameter("birthdate"));
-			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String contact = request.getParameter("contact");
 			String address = request.getParameter("address");
 
-			if ((username == null) || (username.length() == 0)) {
+			if ((userName == null) || (userName.length() == 0)) {
 				status.addException(new Exception("Please enter your username"));
 			}
 			if ((password == null) || (password.length() == 0)) {
 				status.addException(new Exception("Please enter your password"));
-			}
-			if ((birthdate == null) || (password.length() == 0)) {
-				status.addException(new Exception("Please enter your birthdate"));
-			}
-			if ((gender == null) || (gender.length() == 0) || !(gender.equals("Man") || gender.equals("Woman"))) {
-				status.addException(new Exception("Please check your gender input"));
 			}
 			if ((email == null) || (email.length() == 0)) {
 				status.addException(new Exception("Please enter your email"));
@@ -56,7 +47,7 @@ public class JoinServlet extends HttpServlet {
 			try {
 
 				UserService = new UserService();
-				UserService.userCreate("C", username, password, email, contact, address);
+				UserService.userCreate("C", userName, password, email, contact, address);
 
 				if (!status.isSuccessful()) {
 					view = request.getRequestDispatcher("join.jsp");

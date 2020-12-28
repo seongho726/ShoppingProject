@@ -21,11 +21,11 @@ public class RetrieveBasketServlet extends HttpServlet {
 	        BasketService BasketService = null;
 
 	        HttpSession HttpSession = request.getSession();
-	        int userid = Integer.parseInt(request.getParameter("userid"));
+	        int userId = Integer.parseInt(request.getParameter("userId"));
 
 	        ArrayList<Basket> baskets = null;
 	        BasketService = new BasketService();
-	        baskets = BasketService.getBasket(userid);
+	        baskets = BasketService.getBasket(userId);
 
 	        request.setAttribute("user", HttpSession.getAttribute("user"));
 	        request.setAttribute("baskets", baskets);

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +26,8 @@ public class Basket {
 	@Column (name = "basket_id")
     int basketId;
 	
-	@Column (name = "basketuser_id")
+	@ManyToOne
+	@JoinColumn (name = "basketuser_id")	
     int userId;
 	
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)

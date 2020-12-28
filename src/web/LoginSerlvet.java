@@ -25,13 +25,13 @@ public class LoginSerlvet extends HttpServlet {
 		ProductService ProductService = null;
 		Status status = new Status();
 		request.setAttribute("status", status);
-		String usertype = request.getParameter("usertype");
-		String username = request.getParameter("username");
+		String userType = request.getParameter("userType");
+		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		if (usertype.equals("unknown")) {
+		if (userType.equals("unknown")) {
 			status.addException(new Exception("Please select a login type"));
 		}
-		if ((username == null) || (username.length() == 0)) {
+		if ((userName == null) || (userName.length() == 0)) {
 			status.addException(new Exception("Please enter your username"));
 		}
 		if ((password == null) || (password.length() == 0)) {
@@ -41,7 +41,7 @@ public class LoginSerlvet extends HttpServlet {
 		ArrayList<Product> products = null;
 		try {
 			UserService = new UserService();
-			user = UserService.getUser(usertype, username, password);
+			user = UserService.getUser(userType, userName, password);
 			ProductService = new ProductService();
 			products = ProductService.getAllProduct();
 			if (user == null) {
@@ -63,11 +63,11 @@ public class LoginSerlvet extends HttpServlet {
 			view = request.getRequestDispatcher("main.jsp");
 			view.forward(request, response);
 		}
-		if (usertype.equals("A")) {
+		if (userType.equals("A")) {
 			view = request.getRequestDispatcher("admin/login.jsp");
 			view.forward(request, response);
 		}
-		if (usertype.equals("C")) {
+		if (userType.equals("C")) {
 			view = request.getRequestDispatcher("login.jsp");
 			view.forward(request, response);
 		}

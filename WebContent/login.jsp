@@ -12,9 +12,9 @@
         <% session.setAttribute("user", user);%>
     </head>
     <body>
-        <h2>Hello, <%= user.getUsername()%></h2>
+        <h2>Hello, <%= user.getUserName()%></h2>
         <form action="basket" method="post">
-            <input type="hidden" name="userid" value="<%=user.getUserid()%>">
+            <input type="hidden" name="userid" value="<%=user.getUserId()%>">
             <input type="submit" value="My Basket">
         </form>
         <form action="search" method="post">
@@ -37,17 +37,17 @@
                     Product product = products.get(i);
             %>
             <tr>
-                <td align="center"><%=product.getProductid()%></td>
-                <td align="center"><%=product.getProducttype()%></td>
-                <td align="center"><%=product.getProductname()%></td>
-                <td align="center"><%=product.getExplanation()%></td>
+                <td align="center"><%=product.getProductId()%></td>
+                <td align="center"><%=product.getProductType()%></td>
+                <td align="center"><%=product.getProductName()%></td>
+                <td align="center"><%=product.getDescription()%></td>
                 <td align="center">$<%=product.getPrice()%></td>
                 <td align="center"><%=product.getInventory()%></td>
                 <td align="center">
                     <form action="take" method="post">
                         Enter the numbers you want :
-                        <input type="hidden" name="userid" value="<%=user.getUserid()%>">
-                        <input type="hidden" name="productid" value="<%=product.getProductid()%>">
+                        <input type="hidden" name="userid" value="<%=user.getUserId()%>">
+                        <input type="hidden" name="productid" value="<%=product.getProductId()%>">
                         <input type="text" name="numbers" size="5">
                         <input type="submit" value="Take">
                     </form>

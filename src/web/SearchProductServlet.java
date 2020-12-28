@@ -19,12 +19,12 @@ public class SearchProductServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 RequestDispatcher view = null;
 	        ProductService ProductService = null;
-	        String ProductName = request.getParameter("productname");
+	        String productName = request.getParameter("productName");
 	        HttpSession HttpSession = request.getSession();
 	       
 	        ArrayList<Product> products = null;
 	        ProductService = new ProductService();
-	        products = ProductService.getProduct(ProductName);
+	        products = ProductService.getProduct(productName);
 	        request.setAttribute("products", products);
 	        request.setAttribute("user", HttpSession.getAttribute("user"));
 	       
