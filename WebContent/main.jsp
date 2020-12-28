@@ -10,17 +10,17 @@
             while (errors.hasNext()) {
                 Exception ex = (Exception) errors.next();%>
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
-        <form action="loginServlet" method="post">
+        <form action="Login" method="post">
             <table>
                 <tr><td>Login Select:</td>
                     <td><select name="usertype">
-                            <option name="usertype" value="unknown">Your Select
-                            <option name="usertype" value="A">Administrator
-                            <option name="usertype" value="C">Customer</select></td></tr>
+                            <option name="userType" value="unknown">Your Select
+                            <option name="userType" value="A">Administrator
+                            <option name="userType" value="C">Customer</select></td></tr>
                 <tr><td>Username:</td><td>
                         <input type="text" name="userName" size="24"></td></tr>
                 <tr><td>Password:</td><td>
-                        <input type="password" name="Password" size="24"></td></tr></table>
+                        <input type="password" name="password" size="24"></td></tr></table>
             <input type="submit" value="Submit">
         </form>
         if you have not your ID, you should join to my shopping site!

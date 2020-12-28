@@ -3,7 +3,7 @@
     <head><title>Join Form</title></head>
     <body>
         <h2>Join Form</h2>
-        <form action="join" method="post">
+        <form action="JoinServlet" method="post">
             <table>
                 <tr><td>Username:</td><td>
                         <input type="text" name="username" size="24"></td></tr>

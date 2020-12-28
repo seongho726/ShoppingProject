@@ -16,8 +16,8 @@ import domain.User;
 import domain.UserService;
 import util.Status;
 
-@WebServlet("/LoginSerlvet")
-public class LoginSerlvet extends HttpServlet {
+@WebServlet("/LoginSerlvet0")
+public class LoginSerlvet0 extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher view = null;
@@ -25,9 +25,11 @@ public class LoginSerlvet extends HttpServlet {
 		ProductService ProductService = null;
 		Status status = new Status();
 		request.setAttribute("status", status);
+		
 		String userType = request.getParameter("userType");
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		
 		if (userType.equals("unknown")) {
 			status.addException(new Exception("Please select a login type"));
 		}
@@ -37,7 +39,9 @@ public class LoginSerlvet extends HttpServlet {
 		if ((password == null) || (password.length() == 0)) {
 			status.addException(new Exception("Please enter your password"));
 		}
+		
 		User user = null;
+		
 		ArrayList<Product> products = null;
 		try {
 			UserService = new UserService();
