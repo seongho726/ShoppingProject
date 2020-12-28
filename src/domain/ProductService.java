@@ -31,6 +31,16 @@ public class ProductService {
         }
         return products;
     }
+    
+    public ArrayList<Product> getProductById(int productId) {
+        ArrayList<Product> products = null;
+        try {
+            products = productDataAccess.productRetrieveById(productId);
+        } catch (Exception e) {
+            products = null;
+        }
+        return products;
+    }
    
     public void insertProduct(int productId, String productType, String productName, String description, int price, int inventory) throws SQLException {
         productDataAccess.productInsert(productId, productType, productName, description, price, inventory);

@@ -45,6 +45,28 @@ public class ProductDAO {
         }
         return products;
     }
+    
+    
+    ArrayList<Product> productRetrieveById(int productId) throws SQLException {
+        ArrayList<Product> products = new ArrayList<Product>();
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        try {
+        	con = DBUtil.getConnection();
+            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct WHERE product_id = ?");
+            pstmt.setInt(1, productId);
+            rset = pstmt.executeQuery();
+            while (rset.next()) {
+            	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+						rset.getInt(5), rset.getInt(6)));
+            }
+        } finally {
+        	DBUtil.close(con, pstmt, rset);
+        }
+        return products;
+    }
+    
      
     void productInsert(int productId, String productType, String productName, String description, int price, int inventory) throws SQLException {
         Connection con = null;

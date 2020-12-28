@@ -25,15 +25,14 @@
             <%
                 for (int i = 0; i < baskets.size(); i++) {
                     Basket basket = baskets.get(i);
-/*                     int total += (basket.getProductCount())*(basket.getProductsId().getPrice());
- */
+/* /*                     int total += (basket.getProductCount())*(basket.getProductsId().getPrice());
+ */ 
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
                 <td align="center"><%=user.getUserName()%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
-          
               	<td align="center">  
               		<form action="delete" method="post">
                         <input type="hidden" name="basketid" value="<%=basket.getBasketId()%>">
@@ -51,6 +50,6 @@
         </table>
         
       		    <tr><td align="center">Total Count = <%=calculate.getTotalProductCount()%></td>
-            <td align=center>Total Price<%=calculate.getTotalBasketPrice()%></td></tr>  
+            <td align=center>Total Price = <%=calculate.getTotalBasketPrice()%></td></tr>  
     </body>
 </html>
