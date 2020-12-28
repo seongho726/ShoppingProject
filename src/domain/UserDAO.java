@@ -16,7 +16,7 @@ import util.DBUtil;
 public class UserDAO {
 	
 
-   public static User userRetrieve(String usertype, String username, String password) throws SQLException {
+    User userRetrieve(String userType, String userName, String password) throws SQLException {
         User user = null;
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -25,18 +25,18 @@ public class UserDAO {
         try {
             con = DBUtil.getConnection();
             pstmt = con.prepareStatement("SELECT * FROM shoppinguser WHERE usertype=? AND username=? AND password =?");
-            pstmt.setString(1, usertype);
-            pstmt.setString(2, username);
+            pstmt.setString(1, userType);
+            pstmt.setString(2, userName);
             pstmt.setString(3, password);
             rset = pstmt.executeQuery();
             while (rset.next()) {
-                int UserID = rset.getInt("userId");
-                String UserType = rset.getString("userType");
-                String UserName = rset.getString("userName");
-                String Password = rset.getString("password");
-                String Email = rset.getString("email");
-                String Contact = rset.getString("contact");
-                String Address = rset.getString("address");
+                int UserID = rset.getInt("UserID");
+                String UserType = rset.getString("UserType");
+                String UserName = rset.getString("UserName");
+                String Password = rset.getString("Password");
+                String Email = rset.getString("Email");
+                String Contact = rset.getString("Contact");
+                String Address = rset.getString("Address");
                 rows++;
                 if (rows > 1) {
                     throw new SQLException("Too many rows were returned.");
@@ -49,22 +49,22 @@ public class UserDAO {
 		return user;
     }
 
-    void userAdd(String usertype, String username, String password, String email, String contact, String address) throws SQLException{
+    void userAdd(String userType, String userName, String password, String email, String contact, String address) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
             con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT COUNT(userID) FROM shoppinguser");
+            pstmt = con.prepareStatement("SELECT COUNT(shoppinguser_id) FROM shoppinguser");
             rset = pstmt.executeQuery();
             int ID = -1;
             rset.next();
-            ID = rset.getInt("COUNT(UserID)");
+            ID = rset.getInt("COUNT(shoppinguser_id)");
             ID++;
             pstmt = con.prepareStatement("INSERT INTO shoppinguser VALUES(?,?,?,?,?,?,?)");
             pstmt.setInt(1, ID);
-            pstmt.setString(2, usertype);
-            pstmt.setString(3, username);
+            pstmt.setString(2, userType);
+            pstmt.setString(3, userName);
             pstmt.setString(4, password);
             pstmt.setString(5, email);
             pstmt.setString(6, contact);
