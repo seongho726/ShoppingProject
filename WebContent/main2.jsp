@@ -10,7 +10,7 @@
             while (errors.hasNext()) {
                 Exception ex = (Exception) errors.next();%>
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
-        <form action="loginServlet" method="post">
+        <form action="login" method="post">
             <table>
                 <tr><td>Login Select:</td>
                     <td><select name="usertype">

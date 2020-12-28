@@ -35,7 +35,7 @@ public class ProductDAO {
         ResultSet rset = null;
         try {
         	con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct WHERE ProductName like '%" + productName + "%'");
+            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct WHERE productName like '%" + productName + "%'");
             rset = pstmt.executeQuery();
             while (rset.next()) {
             	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
@@ -52,12 +52,12 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
-            pstmt = con.prepareStatement("SELECT COUNT(ProductID) FROM shoppingproduct");
+            pstmt = con.prepareStatement("SELECT COUNT(productId) FROM shoppingproduct");
             rset = pstmt.executeQuery();
             
             int productID = -1;
             rset.next();
-            productID = rset.getInt("COUNT(ProductID)");
+            productID = rset.getInt("COUNT(productId)");
             productID++;
             
             pstmt = con.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
@@ -77,7 +77,7 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         
         try {
-            pstmt = con.prepareStatement("UPDATE shoppingproduct SET ProductType = ? ProductName = ? Explanation = ? Price = ? Inventory = ? WHERE ProductID = ?");
+            pstmt = con.prepareStatement("UPDATE shoppingproduct SET productType = ? productName = ? description = ? price = ? inventory = ? WHERE productId = ?");
             pstmt.setInt(1, productId);
             pstmt.executeQuery();
         } catch (SQLException se) {
