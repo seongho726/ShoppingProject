@@ -24,24 +24,22 @@ public class Login extends HttpServlet {
 			response.setContentType("text/html");  
 	        PrintWriter out = response.getWriter();  
 	        
-	        String t = request.getParameter("userType");
-	        String n=request.getParameter("userName");  
-	        String p=request.getParameter("password"); 
+	        String t = request.getParameter("userType").trim().replaceAll("\\\"","");  
+	        String n = request.getParameter("userName").trim().replaceAll("\\\"","");  
+	        String p = request.getParameter("password").trim().replaceAll("\\\"",""); 
 	        
 	        HttpSession session = request.getSession(false);
-	        
+	        if(session!=null)
+	        session.setAttribute("name", n);
 	        try {
-				if(LoginDAO.validate(t, n, p)){ 
+				if(LoginDAO.validate(t, n, p)){
 					if (t.equals("C")) {
-						RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
-					    rd.forward(request,response);  
-					   
-					}
+						RequestDispatcher rd=request.getRequestDispatcher("login.jsp"); 
+					    rd.forward(request,response); }
 					if (t.equals("A")) {
-						RequestDispatcher rd=request.getRequestDispatcher("admin/login.jsp");  
-					    rd.forward(request,response);  
-					}
-				}  
+				RequestDispatcher rd=request.getRequestDispatcher("admin/login.jsp"); 
+			    rd.forward(request,response);
+				} } 
 				else{  
 				    out.print("<p style=\"color:red\">Sorry username or password error</p>");  
 				    RequestDispatcher rd=request.getRequestDispatcher("main.jsp");  

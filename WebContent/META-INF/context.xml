@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Connection Pooling 기술
+- 모든 사이트에 다 반영 
+
+1. 개념
+	Was 입장에서 DB 시스템에 접속하는 Connection 개수를 제한하는 설정
+	DB접속 모든 정보를 별도로 분리해 놓은 설정
+
+2. 원리
+	Connection Pool
+		- Connection 객체들만 관리하는 메모리가 별도로 존재
+
+
+3. 
+name="jdbc/myoracle"  - 자원 구분을 위해 부여되는 중복 불가인 이름
+auth="Container"  - 관리 권한은 container에게 즉 tomcat이 보유
+type="javax.sql.DataSource" - CP기술에선 Connection 관리해주는 객체
+maxActive="20" - 최대 동시 접속 가능한 Connection 객체 수  
+maxIdle="10" - 유휴 개수
+maxWait="-1" - 대기 시간, -1은 무한 대기 허용      
+-->
+<Context>
+	 <Resource 
+	 		  name="jdbc/myoracle" auth="Container"
+              type="javax.sql.DataSource" 
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+              username="SCOTT" password="TIGER" 
+              maxActive="20" maxIdle="10"
+              maxWait="-1"/> 
+</Context>
