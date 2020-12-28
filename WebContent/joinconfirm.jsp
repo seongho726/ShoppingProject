@@ -7,6 +7,11 @@
 <title>Join Confirmed</title>
 </head>
 <body>
-감사합니다 !
+
+  <h2>Welcome to Join!</h2>
+        <form>
+            <input type="button" value="Go to login page"
+            		Onclick="location.href='main.jsp'">
+        </form>  
 </body>
 </html>
