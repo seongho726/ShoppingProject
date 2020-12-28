@@ -28,12 +28,12 @@ public class JoinServlet extends HttpServlet {
 	
 	public void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user = new User(request.getParameter("username").trim(), 
-					request.getParameter("password").trim(),
-					request.getParameter("email").trim(),
-					request.getParameter("contact").trim(),
-					request.getParameter("address").trim());
+							request.getParameter("password").trim(),
+							request.getParameter("email").trim(),
+							request.getParameter("contact").trim(),
+							request.getParameter("address").trim());
 				
-			String url = "joinfailure.jsp";	
+		String url = "joinfailure.jsp";	
 			try {		
 				boolean result = UserService.getUserService().userCreate(user.getUserName(), user.getPassword(),
 									user.getEmail(), user.getContact(), user.getAddress());

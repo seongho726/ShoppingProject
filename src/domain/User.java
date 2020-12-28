@@ -24,10 +24,10 @@ public class User {
 	@Column(name="usertype")
     String userType;
 	
-	@Column(name="username", unique=true, nullable=false)
+	@Column(name="username", unique=true)
     String userName;
 	
-	@Column(name="password")
+	@Column(name="password", nullable=false)
     String password;
 	
 	@Column(name="email")

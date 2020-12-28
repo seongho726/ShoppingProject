@@ -37,10 +37,6 @@ public class UserDAO {
                 String Email = rset.getString("email");
                 String Contact = rset.getString("contact");
                 String Address = rset.getString("address");
-//                rows++;
-//                if (rows > 1) {
-//                    throw new SQLException("Too many rows were returned.");
-//                }
                 user = new User(UserID, UserType, UserName, Password, Email, Contact, Address);
             }
         }   finally {
