@@ -12,7 +12,7 @@
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
         <form action="Login" method="post">
             <table>
-              <tr><td>Login SELECT:</td>
+              <tr><td>Login Select:</td>
                     <td><select name="userType">
                             <option value="unknown">Your Select
                             <option value="A">Administrator
