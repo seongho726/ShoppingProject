@@ -50,14 +50,6 @@
         </table>    
     
     
-    
-    
-    
-    
-    
-    
-    
-    
         <%-- Hello,
         <%=session.getAttribute("name")%></h4>
         <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");%>

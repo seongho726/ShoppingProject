@@ -3,7 +3,6 @@ package web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,14 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.LoginDAO;
-import domain.Product;
-import domain.ProductService;
 import domain.User;
 import domain.UserService;
 
-/**
- * Servlet implementation class Login
- */
+
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
