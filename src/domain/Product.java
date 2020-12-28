@@ -44,27 +44,6 @@ public class Product {
 
 	@OneToMany(mappedBy = "productId")
 	private List<Basket> baskets;
-	
-	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Product [productid=");
-		builder.append(productId);
-		builder.append(", producttype=");
-		builder.append(productType);
-		builder.append(", productname=");
-		builder.append(productName);
-		builder.append(", explanation=");
-		builder.append(description);
-		builder.append(", price=");
-		builder.append(price);
-		builder.append(", inventory=");
-		builder.append(inventory);
-		builder.append("]");
-		return builder.toString();
-	}
-
 
 	public Product(int productId, String productType, String productName, String description, int price,
 			int inventory) {

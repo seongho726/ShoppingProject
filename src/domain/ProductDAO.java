@@ -56,7 +56,7 @@ public class ProductDAO {
             pstmt = con.prepareStatement("SELECT COUNT(productId) FROM shoppingproduct");
             rset = pstmt.executeQuery();
             
-            int productId = -1;
+            productId = -1;
             rset.next();
             productId = rset.getInt("COUNT(productId)");
             productId++;
