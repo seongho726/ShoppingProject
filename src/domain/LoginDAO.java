@@ -15,10 +15,10 @@ public class LoginDAO {
 		  boolean status = false;
 	      try {
 	        		con = DBUtil.getConnection();
-	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where userType = ? and userName = ? and password = ?");
+	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where usertype = ? and username = ? and password = ?");
 	                pstmt.setString(1, userType);
 	                pstmt.setString(2, userName);
-	        		pstmt.setString(3, password);
+	                pstmt.setString(3, password);
 	                rset = pstmt.executeQuery();
 	                status = rset.next();
 	} finally {

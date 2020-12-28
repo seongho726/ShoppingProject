@@ -4,7 +4,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
-    <head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Welcome <%=session.getAttribute("name")%></title>
+</head>
+<body>
+    <h3>Login successful!!!</h3>
+    <h4>
+        Hello,
+        <%=session.getAttribute("name")%></h4>
+</body>
+
+   <%--  <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
         <% ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");%>
@@ -54,6 +65,6 @@
                 </td>
             </tr>
             <% }%>
-        </table>
+        </table> --%>
     </body>
 </html>

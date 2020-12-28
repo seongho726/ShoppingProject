@@ -12,11 +12,11 @@
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
         <form action="LoginSerlvet0" method="post">
             <table>
-                <tr><td>Login Select:</td>
-                    <td><select name="usertype">
-                            <option name="userType" value="unknown">Your Select
-                            <option name="userType" value="A">Administrator
-                            <option name="userType" value="C">Customer</select></td></tr>
+              <tr><td>Login Select:</td>
+                    <td><select name="userType">
+                            <option value="unknown">Your Select
+                            <option value="A">Administrator
+                            <option value="C">Customer</select></td></tr> 
                 <tr><td>Username:</td><td>
                         <input type="text" name="userName" size="24"></td></tr>
                 <tr><td>Password:</td><td>

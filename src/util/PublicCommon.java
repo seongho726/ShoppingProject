@@ -9,7 +9,7 @@ public class PublicCommon {
 	private static EntityManagerFactory emf;
 	
 	static {
-		emf = Persistence.createEntityManagerFactory("shopppingmallpoject");
+		emf = Persistence.createEntityManagerFactory("oracleDBUse");
 	}
 	
 	public static EntityManager getEntityManager() {
