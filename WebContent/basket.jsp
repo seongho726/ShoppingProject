@@ -12,7 +12,7 @@
         <% session.setAttribute("user", user);%>
     </head>
     <body>
-        <h2>Hello, <%= user.getUsername()%></h2>
+        <h2>Hello, <%= user.getuserName()%></h2>
         <table border="2px">
             <tr>
                 <th width="200">Basket ID</th>

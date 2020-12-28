@@ -1,45 +1,39 @@
+
+
 package domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+
+@Entity
 public class Basket {
-    int basketid;
-    int userid;
-    int productid;
-    int numbers;
+	@Id 
+	@Column (name = "basket_id")
+    int basketId;
+	
+	@Column (name = "basketuser_id")
+    int userId;
+	
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)
+    Product productId;
+	
+	@Column (name = "product_count")
+    int productCount;
+	
+	@Column (name = "validity")
     int validity;
-    public Basket(int basketid, int userid, int productid, int numbers, int validity) {
-        this.basketid = basketid;
-        this.userid = userid;
-        this.productid = productid;
-        this.numbers = numbers;
-        this.validity = validity;
-    }
-    public int getBasketid() {
-        return basketid;
-    }
-    public void setBasketid(int basketid) {
-        this.basketid = basketid;
-    }
-    public int getUserid() {
-        return userid;
-    }
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-    public int getProductid() {
-        return productid;
-    }
-    public void setProductid(int productid) {
-        this.productid = productid;
-    }
-    public int getNumbers() {
-        return numbers;
-    }
-    public void setNumbers(int numbers) {
-        this.numbers = numbers;
-    }
-    public int getValidity() {
-        return validity;
-    }
-    public void setValidity(int validity) {
-        this.validity = validity;
-    }
 }

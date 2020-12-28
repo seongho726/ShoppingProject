@@ -28,23 +28,23 @@ public class User {
 	
 	@Id
 	@Column(name="shoppinguser_id")
-    int userid;
+    int userId;
 	
 	@Column(name="usertype")
-    String usertype;
+    String userType;
 	
 	@Column(name="username")
-    String username;
+    String userName;
 	
 	@Column(name="password")
-    String password;
+    String Password;
 	
-	@Column(name="")
-    String email;
+	@Column(name="email")
+    String Email;
 	
-	@Column(name="")
-    String contact;
+	@Column(name="contact")
+    String Contact;
 	
-	@Column(name="")
-    String address;
+	@Column(name="address")
+    String Address;
 }

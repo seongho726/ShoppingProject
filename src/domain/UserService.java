@@ -1,7 +1,5 @@
 package domain;
 
-import java.sql.Date;
-
 public class UserService {
 
     private UserDAO userDataAccess;
@@ -20,7 +18,7 @@ public class UserService {
         return user;
     }
 
-    public void userCreate(String usertype, String username, String password, Date birthdate, String gender, String email, String contact, String address) {
-        userDataAccess.userCreate(usertype, username, password, birthdate, gender, email, contact, address);
+    public void userCreate(String usertype, String username, String password, String email, String contact, String address) {
+        userDataAccess.userCreate(usertype, username, password, email, contact, address);
     }
 }

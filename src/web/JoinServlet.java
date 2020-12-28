@@ -56,7 +56,7 @@ public class JoinServlet extends HttpServlet {
 			try {
 
 				UserService = new UserService();
-				UserService.userCreate("C", username, password, birthdate, gender, email, contact, address);
+				UserService.userCreate("C", username, password, email, contact, address);
 
 				if (!status.isSuccessful()) {
 					view = request.getRequestDispatcher("join.jsp");

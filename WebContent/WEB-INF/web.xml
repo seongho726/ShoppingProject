@@ -1,61 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>ShoppingProject</display-name>
+  <display-name>step10_step02Test_ksh</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  <resource-ref>
-    <res-ref-name>jdbc/oracleDS</res-ref-name>
-    <res-type>javax.sql.DataSource</res-type>
-    <res-auth>Container</res-auth>
-  </resource-ref>
-  <servlet>
-    <servlet-name>LoginController</servlet-name>
-    <servlet-class>web.LoginServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginController</servlet-name>
-    <url-pattern>/login</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>JoinController</servlet-name>
-    <servlet-class>web.JoinServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>JoinController</servlet-name>
-    <url-pattern>/join</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>SearchController</servlet-name>
-    <servlet-class>web.SearchProductServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SearchController</servlet-name>
-    <url-pattern>/search</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>TakeController</servlet-name>
-    <servlet-class>web.AddBasketServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TakeController</servlet-name>
-    <url-pattern>/take</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>BasketController</servlet-name>
-    <servlet-class>web.RetrieveBasketServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>BasketController</servlet-name>
-    <url-pattern>/basket</url-pattern>
-  </servlet-mapping>
-  <servlet>
-        <servlet-name>DeleteController</servlet-name>
-        <servlet-class>web.DeleteBasketServlet</servlet-class>
-    </servlet>
-   
-    <servlet-mapping>
-        <servlet-name>DeleteController</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>​
 </web-app>

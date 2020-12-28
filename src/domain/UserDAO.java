@@ -7,45 +7,48 @@
 package domain;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import util.DBUtil;
+import util.PublicCommon;
 
 public class UserDAO {
 
-//	public static boolean addUser(User user) throws Exception {
-//		EntityManager em = PublicCommon.getEntityManager();
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		try {
-//			em.persist(user);
-//			tx.commit();
-//			return true;
-//		} catch (Exception e) {
-//			tx.rollback();
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			em.close();
-//		}
-//	}
-//
-//	// id로 해당 기부자의 모든 정보 반환
-//	public static User getUser(String userid) throws Exception {
-//		EntityManager em = PublicCommon.getEntityManager();
-//		try {
-//			return em.find(User.class, userid);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			em.close();
-//		}
-//	}
-//
+	public static boolean addUser(User user) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			em.persist(user);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
+
+	// id로 해당 기부자의 모든 정보 반환
+	public static User getUser(String userid) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
+		try {
+			return em.find(User.class, userid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			em.close();
+		}
+	}
+
 //	// 모든 기부자 검색해서 반환
 //	public static List<User> getAllActivists() throws Exception {
 //		EntityManager em = PublicCommon.getEntityManager();
@@ -59,11 +62,10 @@ public class UserDAO {
 //		}
 //	}
 	
-	private DBUtil connPool;
     private static final String RETRIEVE_STMT
-            = "SELECT * FROM shoppinguser WHERE UserType=? AND UserName=? AND Password =?";
-    private static final String GETID_STMT = "SELECT COUNT(UserID) FROM shoppinguser";
-    private static final String CREATE_STMT = "INSERT INTO shoppinguser VALUES(?,?,?,?,?,?,?,?,?)";
+            = "SELECT * FROM shoppinguser WHERE usertype=? AND username=? AND Password =?";
+    private static final String GETID_STMT = "SELECT COUNT(userID) FROM shoppinguser";
+    private static final String CREATE_STMT = "INSERT INTO shoppinguser VALUES(?,?,?,?,?,?,?)";
 
     User userRetrieve(String usertype, String username, String password) throws SQLException {
         User user = null;
@@ -72,7 +74,7 @@ public class UserDAO {
         ResultSet rset = null;
         int rows = 0;
         try {
-            conn = connPool.getConnection();
+            conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(RETRIEVE_STMT);
             stmt.setString(1, usertype);
             stmt.setString(2, username);
@@ -83,8 +85,6 @@ public class UserDAO {
                 String UserType = rset.getString("UserType");
                 String UserName = rset.getString("UserName");
                 String Password = rset.getString("Password");
-                Date BirthDate = rset.getDate("BirthDate");
-                String Gender = rset.getString("Gender");
                 String Email = rset.getString("Email");
                 String Contact = rset.getString("Contact");
                 String Address = rset.getString("Address");
@@ -92,7 +92,7 @@ public class UserDAO {
                 if (rows > 1) {
                     throw new SQLException("Too many rows were returned.");
                 }
-                user = new User(UserID, UserType, UserName, Password, BirthDate, Gender, Email, Contact, Address);
+                user = new User(UserID, UserType, UserName, Password, Email, Contact, Address);
             }
             return user;
         } catch (SQLException se) {
@@ -125,12 +125,12 @@ public class UserDAO {
         }
     }
 
-    void userCreate(String usertype, String username, String password, Date birthdate, String gender, String email, String contact, String address) {
+    void userCreate(String usertype, String username, String password, String email, String contact, String address) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rset = null;
         try {
-            conn = connPool.getConnection();
+            conn = DBUtil.getConnection();
             stmt = conn.prepareStatement(GETID_STMT);
             rset = stmt.executeQuery();
             int ID = -1;
@@ -142,11 +142,9 @@ public class UserDAO {
             stmt.setString(2, usertype);
             stmt.setString(3, username);
             stmt.setString(4, password);
-            stmt.setDate(5, birthdate);
-            stmt.setString(6, gender);
-            stmt.setString(7, email);
-            stmt.setString(8, contact);
-            stmt.setString(9, address);
+            stmt.setString(5, email);
+            stmt.setString(6, contact);
+            stmt.setString(7, address);
             stmt.executeQuery();
         } catch (SQLException se) {
             throw new RuntimeException(
