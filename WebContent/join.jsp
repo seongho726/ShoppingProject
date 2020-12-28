@@ -15,7 +15,10 @@
                         <input type="text" name="contact" size="24"></td></tr>
                 <tr><td>Address:</td><td>
                         <input type="text" name="address" size="50"></td></tr></table>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Join">&nbsp;&nbsp;
+            <input type="reset" value="reset">&nbsp;&nbsp;
+            <input type="button" value="Back to main"
+            		Onclick="location.href='main.jsp'">
         </form>        
     </body>
 </html>
