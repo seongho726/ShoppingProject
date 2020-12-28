@@ -23,6 +23,18 @@ public class BasketService {
         return baskets;
     }
 
+    public Calculate calculateBasket(int userId) {
+    	Calculate calculate = null;
+    	try {
+    		calculate = basketDataAccess.calculateBasket(userId);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		calculate = null;
+    	}
+    	System.out.println(calculate);
+    	return calculate;
+    }
+
     public void addBasket(int userId, int productId, int productCount) throws SQLException {
         basketDataAccess.basketAdd(userId, productId, productCount);
     }
@@ -34,4 +46,5 @@ public class BasketService {
     public void cleanBasket(int userId) throws SQLException {
         basketDataAccess.basketClean(userId);
     }
+
 }

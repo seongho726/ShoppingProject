@@ -32,7 +32,40 @@ public class BasketDAO {
 		return baskets;
 
 	}
+	
+	
+	public Calculate calculateBasket(int userId) throws SQLException {
+		Calculate calculate = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement("SELECT SUM( shoppingbasket.product_count* shoppingproduct.price), SUM(shoppingbasket.product_count)\r\n" + 
+					"FROM shoppingbasket\r\n" + 
+					"LEFT JOIN shoppingproduct on shoppingbasket.product_id = shoppingproduct.product_id\r\n" + 
+					"WHERE basketuser_id = ? AND validity = 1\r\n" + 
+					"GROUP BY basketuser_id");
+			pstmt.setInt(1, userId);
+
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				int totalBasketPrice = rset.getInt(1);
+				int totalProductCount = rset.getInt(2);
+				calculate = new Calculate(totalBasketPrice, totalProductCount);
+			}
+
+		} finally {
+			DBUtil.close(con, pstmt, rset);
+		}
+		return calculate;
+
+	}
+	
+	
+	
+	
 	void basketAdd(int userId, int productId, int productCount) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
