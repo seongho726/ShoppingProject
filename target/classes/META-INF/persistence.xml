@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
 	<persistence-unit name="shopppingmallpoject">
-<<<<<<< HEAD
-		<class>domain.User</class>
-=======
 		<class>domain.Basket</class>
->>>>>>> c01236ef33d5b8661d43c7b317a3a47baa7fa789
+		<class>domain.Product</class>
+		<class>domain.User</class>		
+		
 				
 		<properties>
 			<!-- db접속 정보 설정 tag와  속성 -->
