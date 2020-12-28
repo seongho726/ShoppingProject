@@ -28,11 +28,11 @@ public class ProductService {
         return products;
     }
    
-    public void insertProduct(String producttype, String productname, String explanation, int price, int inventory) {
-        productDataAccess.productInsert(producttype, productname, explanation, price, inventory);
+    public void insertProduct(String productType, String productName, String description, int price, int inventory) {
+        productDataAccess.productInsert(productType, productName, description, price, inventory);
     }
    
-    public void updateProduct(int productid, String producttype, String productname, String explanation, int price, int inventory) {
-        productDataAccess.productUpdate(productid, producttype, productname, explanation, price, inventory);
+    public void updateProduct(int productId, String productType, String productName, String description, int price, int inventory) {
+        productDataAccess.productUpdate(productId, productType, productName, description, price, inventory);
     }
 }
