@@ -109,33 +109,35 @@ public class ProductDAO {
             }
         }
     }
-    void productInsert(String producttype, String productname, String explanation, int price, int inventory) {
+     
+    void productInsert(Product product) throws SQLException {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
-            conn = connPool.getConnection();
-            stmt = conn.prepareStatement(GETID_STMT);
-            rset = stmt.executeQuery();
-            int ID = -1;
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement("SELECT COUNT(ProductID) FROM shoppingproduct");
+            rset = pstmt.executeQuery();
+            
+            int productID = -1;
             rset.next();
-            ID = rset.getInt("COUNT(ProductID)");
-            ID++;
-            stmt = conn.prepareStatement(INSERT_STMT);
-            stmt.setInt(1, ID);
-            stmt.setString(2, producttype);
-            stmt.setString(3, productname);
-            stmt.setString(4, explanation);
-            stmt.setInt(5, price);
-            stmt.setInt(6, inventory);
-            stmt.executeQuery();
+            productID = rset.getInt("COUNT(ProductID)");
+            productID++;
+            pstmt = conn.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
+            pstmt.setInt(1, productID);
+            pstmt.setString(2, productType);
+            pstmt.setString(3, productName);
+            pstmt.setString(4, description);
+            pstmt.setInt(5, price);
+            pstmt.setInt(6, inventory);
+            pstmt.executeQuery();
         } catch (SQLException se) {
             throw new RuntimeException(
                     "A database error occurred. " + se.getMessage());
         } finally {
-            if (stmt != null) {
+            if (pstmt != null) {
                 try {
-                    stmt.close();
+                    pstmt.close();
                 } catch (SQLException se) {
                     se.printStackTrace(System.err);
                 }
