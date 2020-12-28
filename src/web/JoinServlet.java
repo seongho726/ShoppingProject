@@ -16,6 +16,7 @@ import util.Status;
 public class JoinServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher view = null;
 		UserService UserService = null;
 		Status status = new Status();
@@ -51,22 +52,22 @@ public class JoinServlet extends HttpServlet {
 
 				if (!status.isSuccessful()) {
 					view = request.getRequestDispatcher("join.jsp");
-					view.forward(request, response);
+					view.include(request, response);
 					return;
 				}
 
 				view = request.getRequestDispatcher("joinconfirm.jsp");
-				view.forward(request, response);
+				view.include(request, response);
 
 			} catch (Exception e) {
 				status.addException(e);
 				view = request.getRequestDispatcher("join.jsp");
-				view.forward(request, response);
+				view.include(request, response);
 			}
 		} catch (IllegalArgumentException e) {
 			status.addException(e);
 			view = request.getRequestDispatcher("join.jsp");
-			view.forward(request, response);
+			view.include(request, response);
 		}
 	}
 
