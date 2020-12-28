@@ -10,7 +10,7 @@
                 <tr><td>Password:</td><td>
                         <input type="password" name="password" size="24" required="required"></td></tr>
                 <tr><td>Email:</td><td>
-                        <input type="text" name="email" size="24" required="required"></td></tr>
+                        <input type="email" name="email" size="24" required="required"></td></tr>
                 <tr><td>Contact:</td><td>
                         <input type="text" name="contact" size="24" required="required"></td></tr>
                 <tr><td>Address:</td><td>
