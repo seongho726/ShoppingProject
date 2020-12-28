@@ -1,55 +1,62 @@
 package domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.sql.DataSource;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import util.DBUtil;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Builder
+
 public class Product {
-   
-    int productid;
-    String producttype;
-    String productname;
-    String explanation;
+   @Id
+	@Column(name="product_id")
+    int productId;
+	
+	@Column(name="product_type")
+    String productType;
+	
+	@Column(name="product_name")
+    String productName;
+	
+	@Column
+    String description;
+	
+	@Column
     int price;
-    public int getProductid() {
-        return productid;
-    }
-    public Product(int productid, String producttype, String productname, String explanation, int price, int inventory) {
-        this.productid = productid;
-        this.producttype = producttype;
-        this.productname = productname;
-        this.explanation = explanation;
-        this.price = price;
-        this.inventory = inventory;
-    }
-    public void setProductid(int productid) {
-        this.productid = productid;
-    }
-    public String getProducttype() {
-        return producttype;
-    }
-    public void setProducttype(String producttype) {
-        this.producttype = producttype;
-    }
-    public String getProductname() {
-        return productname;
-    }
-    public void setProductname(String productname) {
-        this.productname = productname;
-    }
-    public String getExplanation() {
-        return explanation;
-    }
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
-    public int getPrice() {
-        return price;
-    }
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    public int getInventory() {
-        return inventory;
-    }
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
-    }
-    int inventory;
+	
+	@Column
+	int inventory;
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Product [productid=");
+		builder.append(productId);
+		builder.append(", producttype=");
+		builder.append(productType);
+		builder.append(", productname=");
+		builder.append(productName);
+		builder.append(", explanation=");
+		builder.append(description);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append(", inventory=");
+		builder.append(inventory);
+		builder.append("]");
+		return builder.toString();
+	}
+    
    
 }
