@@ -52,6 +52,7 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
+        	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("SELECT COUNT(productId) FROM shoppingproduct");
             rset = pstmt.executeQuery();
             
@@ -77,6 +78,7 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         
         try {
+        	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("UPDATE shoppingproduct SET productType = ? productName = ? description = ? price = ? inventory = ? WHERE productId = ?");
             pstmt.setInt(1, productId);
             pstmt.executeQuery();
