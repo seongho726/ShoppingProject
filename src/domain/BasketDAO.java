@@ -62,7 +62,7 @@ public class BasketDAO {
             }
         }
     }
-    void basketAdd(int userid, int productid, int numbers) {
+    void basketAdd(int userId, int productId, int productCount) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rset = null;
@@ -76,9 +76,9 @@ public class BasketDAO {
             ID++;
             stmt = conn.prepareStatement(ADD_STMT);
             stmt.setInt(1, ID);
-            stmt.setInt(2, userid);
-            stmt.setInt(3, productid);
-            stmt.setInt(4, numbers);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, productId);
+            stmt.setInt(4, productCount);
             stmt.executeQuery();
         } catch (SQLException se) {
             throw new RuntimeException(
