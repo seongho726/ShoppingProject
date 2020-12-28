@@ -25,11 +25,11 @@ public class LoginServlet extends HttpServlet{
         
         String n=request.getParameter("userName");  
         String p=request.getParameter("password"); 
-        
+        String t=request.getParameter("userType");
         HttpSession session = request.getSession(false);
         
         try {
-			if(LoginDAO.validate(n, p)){  
+			if(LoginDAO.validate(n, p, t)){  
 			    RequestDispatcher rd=request.getRequestDispatcher("login.jsp");  
 			    rd.forward(request,response);  
 			}  

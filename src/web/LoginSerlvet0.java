@@ -47,7 +47,7 @@ public class LoginSerlvet0 extends HttpServlet {
 			UserService = new UserService();
 			user = UserService.getUser(userType, userName, password);
 			ProductService = new ProductService();
-			products = ProductService.getAllProduct();
+			products = ProductService.getAllProduct(0);
 			if (user == null) {
 				status.addException(new Exception("Please enter your user information in the right way"));
 			}

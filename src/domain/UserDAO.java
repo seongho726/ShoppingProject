@@ -16,7 +16,7 @@ import util.DBUtil;
 public class UserDAO {
 	
 
-    User userRetrieve(String usertype, String username, String password) throws SQLException {
+   public static User userRetrieve(String usertype, String username, String password) throws SQLException {
         User user = null;
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -24,19 +24,19 @@ public class UserDAO {
         int rows = 0;
         try {
             con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT * FROM shoppinguser WHERE usertype=? AND username=? AND Password =?");
+            pstmt = con.prepareStatement("SELECT * FROM shoppinguser WHERE usertype=? AND username=? AND password =?");
             pstmt.setString(1, usertype);
             pstmt.setString(2, username);
             pstmt.setString(3, password);
             rset = pstmt.executeQuery();
             while (rset.next()) {
-                int UserID = rset.getInt("UserID");
-                String UserType = rset.getString("UserType");
-                String UserName = rset.getString("UserName");
-                String Password = rset.getString("Password");
-                String Email = rset.getString("Email");
-                String Contact = rset.getString("Contact");
-                String Address = rset.getString("Address");
+                int UserID = rset.getInt("userId");
+                String UserType = rset.getString("userType");
+                String UserName = rset.getString("userName");
+                String Password = rset.getString("password");
+                String Email = rset.getString("email");
+                String Contact = rset.getString("contact");
+                String Address = rset.getString("address");
                 rows++;
                 if (rows > 1) {
                     throw new SQLException("Too many rows were returned.");

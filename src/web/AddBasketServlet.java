@@ -40,7 +40,7 @@ public class AddBasketServlet extends HttpServlet {
 
 		ArrayList<Product> products = null;
 		ProductService = new ProductService();
-		products = ProductService.getAllProduct();
+		products = ProductService.getAllProduct(productCount);
 
 		request.setAttribute("products", products);
 		request.setAttribute("user", HttpSession.getAttribute("user"));
