@@ -52,16 +52,17 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         try {
+        	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("SELECT COUNT(productId) FROM shoppingproduct");
             rset = pstmt.executeQuery();
             
-            int productID = -1;
+            int productId = -1;
             rset.next();
-            productID = rset.getInt("COUNT(productId)");
-            productID++;
+            productId = rset.getInt("COUNT(productId)");
+            productId++;
             
             pstmt = con.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
-            pstmt.setInt(1, productID);
+            pstmt.setInt(1, productId);
             pstmt.setString(2, productType);
             pstmt.setString(3, productName);
             pstmt.setString(4, description);
@@ -77,6 +78,7 @@ public class ProductDAO {
         PreparedStatement pstmt = null;
         
         try {
+        	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("UPDATE shoppingproduct SET productType = ? productName = ? description = ? price = ? inventory = ? WHERE productId = ?");
             pstmt.setInt(1, productId);
             pstmt.executeQuery();

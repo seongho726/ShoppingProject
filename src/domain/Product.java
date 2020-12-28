@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +15,12 @@ import lombok.Setter;
 import lombok.ToString;
 import util.DBUtil;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Builder
+
 
 public class Product {
     @Id
@@ -39,6 +42,10 @@ public class Product {
 	@Column
 	int inventory;
 
+	@OneToMany(mappedBy = "productId")
+	private List<Basket> baskets;
+	
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -57,6 +64,17 @@ public class Product {
 		builder.append("]");
 		return builder.toString();
 	}
-    
-   
+
+
+	public Product(int productId, String productType, String productName, String description, int price,
+			int inventory) {
+		super();
+		this.productId = productId;
+		this.productType = productType;
+		this.productName = productName;
+		this.description = description;
+		this.price = price;
+		this.inventory = inventory;
+	}
+	
 }
