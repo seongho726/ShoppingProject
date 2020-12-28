@@ -25,8 +25,6 @@ public class JoinServlet extends HttpServlet {
 		try {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
-			Date birthdate = java.sql.Date.valueOf(request.getParameter("birthdate"));
-			String gender = request.getParameter("gender");
 			String email = request.getParameter("email");
 			String contact = request.getParameter("contact");
 			String address = request.getParameter("address");
@@ -36,12 +34,6 @@ public class JoinServlet extends HttpServlet {
 			}
 			if ((password == null) || (password.length() == 0)) {
 				status.addException(new Exception("Please enter your password"));
-			}
-			if ((birthdate == null) || (password.length() == 0)) {
-				status.addException(new Exception("Please enter your birthdate"));
-			}
-			if ((gender == null) || (gender.length() == 0) || !(gender.equals("Man") || gender.equals("Woman"))) {
-				status.addException(new Exception("Please check your gender input"));
 			}
 			if ((email == null) || (email.length() == 0)) {
 				status.addException(new Exception("Please enter your email"));
