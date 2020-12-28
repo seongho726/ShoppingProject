@@ -27,8 +27,8 @@ public class Basket {
     int basketId;
 	
 	@ManyToOne
-	@JoinColumn (name = "basketuser_id")	
-    int userId;
+	@JoinColumn (name = "basketuser_id", referencedColumnName = "shoppinguser_id", nullable=false)	
+    User userId;
 	
 	@ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)

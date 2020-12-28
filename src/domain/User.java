@@ -1,14 +1,4 @@
-﻿/*create table shoppinguser(
-  UserID number constraints user_UserID_PK primary key,
-  UserType varchar2(20),
-  UserName varchar2(20),
-  Password varchar2(20),
-  BirthDate date,
-  Email varchar2(30),
-  Contact varchar2(20),
-  Address varchar2(50));
- */
-package domain;
+﻿package domain;
 import java.util.List;
 
 import javax.persistence.Column;

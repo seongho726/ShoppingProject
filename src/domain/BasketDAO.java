@@ -23,7 +23,7 @@ public class BasketDAO {
 
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				baskets.add(new Basket(rset.getInt(1), rset.getInt(2), (Product) rset.getObject(3),
+				baskets.add(new Basket(rset.getInt(1), (User) rset.getObject(2), (Product) rset.getObject(3),
 						rset.getInt(4), rset.getInt(5)));
 			}
 

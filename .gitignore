@@ -1,3 +1,5 @@
 
-WebContent/main2.jsp
-WebContent/main2.jsp
+/.recommenders/
+*/.settings/
+*/bin/
+*/target/

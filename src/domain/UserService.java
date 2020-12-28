@@ -9,7 +9,9 @@ public class UserService {
     public UserService() {
         userDataAccess = new UserDAO();
     }
+
     public static UserService getUserService(){
+
     	return new UserService();
     }
 
@@ -18,6 +20,7 @@ public class UserService {
         try {
             user = userDataAccess.userRetrieve(userType, userName, password);
         } catch (Exception e) {
+        	e.printStackTrace();
             user = null;
         }
         return user;
