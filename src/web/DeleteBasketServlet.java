@@ -22,16 +22,16 @@ public class DeleteBasketServlet extends HttpServlet {
         BasketService BasketService = new BasketService();
         HttpSession HttpSession = request.getSession();
 
-        int basketid = Integer.parseInt(request.getParameter("basketid"));
-        int userid = Integer.parseInt(request.getParameter("userid"));
+        int basketId = Integer.parseInt(request.getParameter("basketId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
 
         ArrayList<Basket> baskets = null;
         try {
-			BasketService.deleteBasket(userid, basketid);
+			BasketService.deleteBasket(userId, basketId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        baskets = BasketService.getBasket(userid);
+        baskets = BasketService.getBasket(userId);
 
         request.setAttribute("baskets", baskets);
         request.setAttribute("user", HttpSession.getAttribute("user"));

@@ -27,15 +27,15 @@ public class AddBasketServlet extends HttpServlet {
 		request.setAttribute("status", status);
 		HttpSession HttpSession = request.getSession();
 
-		int userid = Integer.parseInt(request.getParameter("userid"));
-		int productid = Integer.parseInt(request.getParameter("productid"));
-		int numbers = Integer.parseInt(request.getParameter("numbers"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		int productCount = Integer.parseInt(request.getParameter("productCount"));
 
-		if ((request.getParameter("numbers") == null)) {
-			status.addException(new Exception("Please enter product numbers"));
+		if ((request.getParameter("productCount") == null)) {
+			status.addException(new Exception("Please enter product count."));
 		}
-		if ((numbers == 0)) {
-			status.addException(new Exception("Please enter product numbers"));
+		if ((productCount == 0)) {
+			status.addException(new Exception("Please enter product count."));
 		}
 
 		ArrayList<Product> products = null;
@@ -48,7 +48,7 @@ public class AddBasketServlet extends HttpServlet {
 		try {
 
 			BasketService = new BasketService();
-			BasketService.addBasket(userid, productid, numbers);
+			BasketService.addBasket(userId, productId, productCount);
 
 			if (!status.isSuccessful()) {
 				view = request.getRequestDispatcher("login.jsp");
