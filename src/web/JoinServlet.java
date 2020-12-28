@@ -1,6 +1,7 @@
 package web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.User;
+import domain.UserDAO;
 import domain.UserService;
 import util.Status;
 
@@ -17,58 +20,37 @@ public class JoinServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		RequestDispatcher view = null;
-		UserService UserService = null;
-		Status status = new Status();
-		request.setAttribute("status", status);
-
-		try {
-			String userName = request.getParameter("userName");
-			String password = request.getParameter("password");
-			String email = request.getParameter("email");
-			String contact = request.getParameter("contact");
-			String address = request.getParameter("address");
-
-			if ((userName == null) || (userName.length() == 0)) {
-				status.addException(new Exception("Please enter your username"));
-			}
-			if ((password == null) || (password.length() == 0)) {
-				status.addException(new Exception("Please enter your password"));
-			}
-			if ((email == null) || (email.length() == 0)) {
-				status.addException(new Exception("Please enter your email"));
-			}
-			if ((contact == null) || (contact.length() == 0)) {
-				status.addException(new Exception("Please enter your contact"));
-			}
-			if ((address == null) || (address.length() == 0)) {
-				status.addException(new Exception("Please enter your address"));
-			}
-
-			try {
-
-				UserService = new UserService();
-				UserService.userCreate("C", userName, password, email, contact, address);
-
-				if (!status.isSuccessful()) {
-					view = request.getRequestDispatcher("join.jsp");
-					view.include(request, response);
-					return;
-				}
-
-				view = request.getRequestDispatcher("joinconfirm.jsp");
-				view.include(request, response);
-
-			} catch (Exception e) {
-				status.addException(e);
-				view = request.getRequestDispatcher("join.jsp");
-				view.include(request, response);
-			}
-		} catch (IllegalArgumentException e) {
-			status.addException(e);
-			view = request.getRequestDispatcher("join.jsp");
-			view.include(request, response);
+		String command = request.getParameter("command");
+		if(command.equals("insert")){  //write.html
+			insert(request, response);
 		}
+	}	
+	
+	public void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = new User(request.getParameter("username").trim(), 
+					request.getParameter("password").trim(),
+					request.getParameter("email").trim(),
+					request.getParameter("contact").trim(),
+					request.getParameter("address").trim());
+				
+			String url = "joinfailure.jsp";	
+			try {		
+				boolean result = UserService.getUserService().userCreate(user.getUserName(), user.getPassword(),
+									user.getEmail(), user.getContact(), user.getAddress());
+					request.getSession().setAttribute("user", user);
+					if(result = true) {
+						url = "joinconfirm.jsp";
+					}
+					else {
+						request.setAttribute("error","가입 실패");
+						
+					}
+				} catch (SQLException e) {		
+					request.getSession().setAttribute("error", "입력 실패");
+					e.printStackTrace();
+				}
+				request.getRequestDispatcher(url).forward(request, response);
+			}	
 	}
 
-}
+

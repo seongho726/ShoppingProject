@@ -64,4 +64,14 @@ public class User {
 		this.address = address;
 	}
 	
+	public User(String userName, String password, String email, String contact,
+			String address) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.contact = contact;
+		this.address = address;
+	}
+	
 }

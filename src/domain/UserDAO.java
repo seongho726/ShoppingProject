@@ -49,30 +49,54 @@ public class UserDAO {
 		return user;
     }
 
-    void userAdd(String userType, String userName, String password, String email, String contact, String address) throws SQLException{
+    @SuppressWarnings("resource")
+	public static boolean userAdd(String userName, String password, String email, String contact, String address) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rset = null;
+        boolean result = false;
         try {
             con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT COUNT(shoppinguser_id) FROM shoppinguser");
-            rset = pstmt.executeQuery();
-            int ID = -1;
-            rset.next();
-            ID = rset.getInt("COUNT(shoppinguser_id)");
-            ID++;
-            pstmt = con.prepareStatement("INSERT INTO shoppinguser VALUES(?,?,?,?,?,?,?)");
-            pstmt.setInt(1, ID);
-            pstmt.setString(2, userType);
-            pstmt.setString(3, userName);
-            pstmt.setString(4, password);
-            pstmt.setString(5, email);
-            pstmt.setString(6, contact);
-            pstmt.setString(7, address);
-            pstmt.executeQuery();
+            pstmt = con.prepareStatement("INSERT INTO shoppinguser VALUES(shoppinguser_id_seq.nextval,'C',?,?,?,?,?)");
+                  
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+            pstmt.setString(3, email);
+            pstmt.setString(4, contact);
+            pstmt.setString(5, address);
+            pstmt.executeUpdate();
+            result = true;
+        } catch(Exception e) {
+        	e.printStackTrace();
         } finally {
         	DBUtil.close(con, pstmt);
-        }
+        } return result;
         
+//    void userAdd(String userType, String userName, String password, String email, String contact, String address) throws SQLException{
+//        Connection con = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rset = null;
+//        try {
+//            con = DBUtil.getConnection();
+//            pstmt = con.prepareStatement("SELECT COUNT(shoppinguser_id) FROM shoppinguser");
+//            rset = pstmt.executeQuery();
+//            int ID = -1;
+//            rset.next();
+//            ID = rset.getInt("COUNT(shoppinguser_id)");
+//            ID++;
+//            pstmt = con.prepareStatement("INSERT INTO shoppinguser VALUES(?,?,?,?,?,?,?)");
+//            pstmt.setInt(1, ID);
+//            pstmt.setString(2, userType);
+//            pstmt.setString(3, userName);
+//            pstmt.setString(4, password);
+//            pstmt.setString(5, email);
+//            pstmt.setString(6, contact);
+//            pstmt.setString(7, address);
+//            pstmt.executeQuery();
+//        } finally {
+//        	DBUtil.close(con, pstmt);
+//        }
+//        
+//    }
     }
 }

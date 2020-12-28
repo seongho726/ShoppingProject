@@ -9,6 +9,9 @@ public class UserService {
     public UserService() {
         userDataAccess = new UserDAO();
     }
+    public static UserService getUserService(){
+    	return new UserService();
+    }
 
     public User getUser(String userType, String userName, String password) {
         User user = null;
@@ -20,7 +23,7 @@ public class UserService {
         return user;
     }
 
-    public void userCreate(String userType, String userName, String password, String email, String contact, String address) throws SQLException {
-        userDataAccess.userAdd(userType, userName, password, email, contact, address);
+    public boolean userCreate(String userName, String password, String email, String contact, String address) throws SQLException {
+        return userDataAccess.userAdd(userName, password, email, contact, address);
     }
 }
