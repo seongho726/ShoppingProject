@@ -15,7 +15,6 @@ import lombok.Setter;
 import lombok.ToString;
 import util.DBUtil;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
