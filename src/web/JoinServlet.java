@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,13 +22,13 @@ public class JoinServlet extends HttpServlet {
 		request.setAttribute("status", status);
 
 		try {
-			String username = request.getParameter("username");
+			String userName = request.getParameter("userName");
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
 			String contact = request.getParameter("contact");
 			String address = request.getParameter("address");
 
-			if ((username == null) || (username.length() == 0)) {
+			if ((userName == null) || (userName.length() == 0)) {
 				status.addException(new Exception("Please enter your username"));
 			}
 			if ((password == null) || (password.length() == 0)) {
@@ -48,7 +47,7 @@ public class JoinServlet extends HttpServlet {
 			try {
 
 				UserService = new UserService();
-				UserService.userCreate("C", username, password, email, contact, address);
+				UserService.userCreate("C", userName, password, email, contact, address);
 
 				if (!status.isSuccessful()) {
 					view = request.getRequestDispatcher("join.jsp");

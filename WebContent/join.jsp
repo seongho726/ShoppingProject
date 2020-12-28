@@ -5,7 +5,7 @@
         <h2>Join Form</h2>
         <form action="join" method="post">
             <table>
-                <tr><td>username:</td><td>
+                <tr><td>Username:</td><td>
                         <input type="text" name="username" size="24"></td></tr>
                 <tr><td>Password:</td><td>
                         <input type="password" name="password" size="24"></td></tr>
