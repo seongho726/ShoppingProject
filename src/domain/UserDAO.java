@@ -30,17 +30,17 @@ public class UserDAO {
             pstmt.setString(3, password);
             rset = pstmt.executeQuery();
             while (rset.next()) {
-                int UserID = rset.getInt("UserID");
-                String UserType = rset.getString("UserType");
-                String UserName = rset.getString("UserName");
-                String Password = rset.getString("Password");
-                String Email = rset.getString("Email");
-                String Contact = rset.getString("Contact");
-                String Address = rset.getString("Address");
-                rows++;
-                if (rows > 1) {
-                    throw new SQLException("Too many rows were returned.");
-                }
+                int UserID = rset.getInt("shoppinguser_id");
+                String UserType = rset.getString("usertype");
+                String UserName = rset.getString("username");
+                String Password = rset.getString("password");
+                String Email = rset.getString("email");
+                String Contact = rset.getString("contact");
+                String Address = rset.getString("address");
+//                rows++;
+//                if (rows > 1) {
+//                    throw new SQLException("Too many rows were returned.");
+//                }
                 user = new User(UserID, UserType, UserName, Password, Email, Contact, Address);
             }
         }   finally {

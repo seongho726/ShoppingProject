@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import util.DBUtil;
 public class ProductDAO {
     
-    ArrayList<Product> allproductRetrieve(int productId) throws SQLException {
+    ArrayList<Product> allproductRetrieve() throws SQLException {
         ArrayList<Product> products = new ArrayList<Product>();
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -16,7 +16,6 @@ public class ProductDAO {
         try {
         	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("SELECT * FROM shoppingproduct");
-            pstmt.setInt(1, productId);
             rset = pstmt.executeQuery();
             while (rset.next()) {
             	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),

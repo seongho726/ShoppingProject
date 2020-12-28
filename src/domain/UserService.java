@@ -9,12 +9,17 @@ public class UserService {
     public UserService() {
         userDataAccess = new UserDAO();
     }
+    
+    public static UserService getUserservice() {
+    	return new UserService();
+    }
 
     public User getUser(String usertype, String username, String password) {
         User user = null;
         try {
             user = userDataAccess.userRetrieve(usertype, username, password);
         } catch (Exception e) {
+        	e.printStackTrace();
             user = null;
         }
         return user;

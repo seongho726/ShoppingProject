@@ -8,11 +8,14 @@ public class ProductService {
     public ProductService() {
         productDataAccess = new ProductDAO();
     }
+    public static ProductService getProdService() {
+    	return new ProductService();
+    }
    
-    public ArrayList<Product> getAllProduct(int productId) {
+    public ArrayList<Product> getAllProduct() {
         ArrayList<Product> products = null;
         try {
-            products = productDataAccess.allproductRetrieve(productId);
+            products = productDataAccess.allproductRetrieve();
         } catch (Exception e) {
             products = null;
         }

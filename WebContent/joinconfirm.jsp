@@ -7,6 +7,6 @@
 <title>Join Confirmed</title>
 </head>
 <body>
-
+감사합니다 !
 </body>
 </html>

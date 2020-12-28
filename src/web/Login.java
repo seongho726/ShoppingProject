@@ -3,6 +3,7 @@ package web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.LoginDAO;
+import domain.Product;
+import domain.ProductService;
+import domain.User;
+import domain.UserService;
 
 /**
  * Servlet implementation class Login
@@ -34,6 +39,8 @@ public class Login extends HttpServlet {
 	        try {
 				if(LoginDAO.validate(t, n, p)){
 					if (t.equals("C")) {
+					User user = UserService.getUserservice().getUser(t, n, p);
+						session.setAttribute("user", user);
 						RequestDispatcher rd=request.getRequestDispatcher("login.jsp"); 
 					    rd.forward(request,response); }
 					if (t.equals("A")) {
@@ -53,4 +60,6 @@ public class Login extends HttpServlet {
 
 	        out.close();  
 	    }  
+	
+	
 	}
