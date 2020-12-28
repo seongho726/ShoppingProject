@@ -3,6 +3,7 @@
 	
 	<persistence-unit name="oracleDBUse">
 		<class>domain.Basket</class>
+		<class>domain.Payment</class>
 		<class>domain.Product</class>
 		<class>domain.User</class>
 		

@@ -43,6 +43,7 @@ public class Product {
 
 	@OneToMany(mappedBy = "productId")
 	private List<Basket> baskets;
+	
 
 	public Product(int productId, String productType, String productName, String description, int price,
 			int inventory) {
