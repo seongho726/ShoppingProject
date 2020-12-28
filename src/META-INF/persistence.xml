@@ -10,11 +10,7 @@
 			<property name="javax.persistence.jdbc.password" value="TIGER" />
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
-
-
-			<!-- 옵션 : table을 java 어노테이션을 통해서 자동 생성시키는 옵션들-->
 			
-			<!-- console창에 sql 문장 출력 -->
 			<property name="hibernate.show_sql" value="true" />
 			<!-- SQL출력시 보기쉽게 정렬-->
 		<!-- 	<property name="hibernate.format_sql" value="true" /> -->
@@ -25,7 +21,6 @@
 
 			<!-- 애플리케이션 실행 시점에 데이터베이스 테이블 자동 생성 -->
  			<property name="hibernate.hbm2ddl.auto" value="none" /> 
-		 	<!-- <property name="hibernate.hbm2ddl.auto" value="none" />  -->
 			
 			</properties>
 		</persistence-unit>

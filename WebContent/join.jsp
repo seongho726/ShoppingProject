@@ -12,10 +12,6 @@
                         <input type="text" name="username" size="24"></td></tr>
                 <tr><td>Password:</td><td>
                         <input type="password" name="password" size="24"></td></tr>
-                <tr><td>BirthDate(YYYY-MM-DD):</td><td>
-                        <input type="text" name="birthdate" size="24"></td></tr>
-                <tr><td>Gender(Man or Woman):</td><td>
-                        <input type="text" name="gender" size="24"></td></tr>
                 <tr><td>Email:</td><td>
                         <input type="text" name="email" size="24"></td></tr>
                 <tr><td>Contact:</td><td>
