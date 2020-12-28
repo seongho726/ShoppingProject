@@ -21,7 +21,7 @@ public class JoinServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String command = request.getParameter("command");
-		if(command.equals("insert")){  //write.html
+		if(command.equals("insert")){  
 			insert(request, response);
 		}
 	}	

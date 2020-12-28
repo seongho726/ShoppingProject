@@ -24,7 +24,7 @@ public class User {
 	@Column(name="usertype")
     String userType;
 	
-	@Column(name="username")
+	@Column(name="username", unique=true, nullable=false)
     String userName;
 	
 	@Column(name="password")
