@@ -1,5 +1,7 @@
 package domain;
 
+import java.sql.SQLException;
+
 public class UserService {
 
     private UserDAO userDataAccess;
@@ -18,7 +20,7 @@ public class UserService {
         return user;
     }
 
-    public void userCreate(String usertype, String username, String password, String email, String contact, String address) {
-        userDataAccess.userCreate(usertype, username, password, email, contact, address);
+    public void userCreate(String usertype, String username, String password, String email, String contact, String address) throws SQLException {
+        userDataAccess.userAdd(usertype, username, password, email, contact, address);
     }
 }
