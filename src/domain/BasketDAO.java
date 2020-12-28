@@ -18,7 +18,7 @@ public class BasketDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT * FROM shoppingbasket where userId = ? and validity = 1");
+			pstmt = con.prepareStatement("SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1");
 			pstmt.setInt(1, userId);
 
 			rset = pstmt.executeQuery();
@@ -40,12 +40,12 @@ public class BasketDAO {
 		ResultSet rset = null;
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT COUNT(basketId) FROM shoppingbasket");
+			pstmt = con.prepareStatement("SELECT COUNT(basket_id) FROM shoppingbasket");
 			rset = pstmt.executeQuery();
 
 			int basketId = -1;
 			rset.next();
-			basketId = rset.getInt("COUNT(basketId)");
+			basketId = rset.getInt("COUNT(basket_id)");
 			basketId++;
 
 			pstmt = con.prepareStatement("INSERT INTO shoppingbasket VALUES(?,?,?,?,1)");
@@ -65,7 +65,7 @@ public class BasketDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE userId = ? AND basketId = ?");
+			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?");
 			pstmt.setInt(1, userId);
 			pstmt.setInt(2, basketId);
 			pstmt.executeQuery();
@@ -80,7 +80,7 @@ public class BasketDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("UPDATE shoppingbasket SET Validity = 2 WHERE UserID = ?");
+			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ?");
 			pstmt.setInt(1, userId);
 			pstmt.executeQuery();
 		} finally {
