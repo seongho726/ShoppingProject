@@ -12,7 +12,7 @@
         <% session.setAttribute("user", user);%>
     </head>
     <body>
-        <h2>Hello, <%= user.getUsername()%></h2>
+        <h2>Hello, <%= user.getUserName()%></h2>
         <form action="basket" method="post">
             <input type="hidden" name="userid" value="<%=user.getUserid()%>">
             <input type="submit" value="My Basket">
