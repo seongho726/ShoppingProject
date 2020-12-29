@@ -18,14 +18,15 @@ DROP SEQUENCE shoppinguser_id_seq;
 
 CREATE SEQUENCE shoppinguser_id_seq;
 
+DROP TABLE shoppinguser cascade constraint;
 CREATE TABLE shoppinguser(
- shoppinguser_id  NUMBER(5) PRIMARY KEY,
- usetype VARCHAR2(20),
- username VARCHAR2(20),
- password VARCHAR2(20),
- email VARCHAR2(30),
- contact VARCHAR2(20),
- address VARCHAR2(50));
+ shoppinguser_id       NUMBER(5) PRIMARY KEY,
+ usertype varchar2(20),
+ username varchar2(20) UNIQUE,
+ password varchar2(20) NOT NULL,
+ email varchar2(30),
+ contact varchar2(20),
+ address varchar2(50));
 
 CREATE TABLE shoppingproduct(
   product_id NUMBER PRIMARY KEY,
