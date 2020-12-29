@@ -36,13 +36,34 @@
         </table>
         <br>
         <div> <h4 align="center">Total Count = <%=calculate.getTotalProductCount()%></h4>
-            <h4 align=center>Total Price = <%=calculate.getTotalBasketPrice()%></h4> </div>
+            <h4 align=center>Total Price = $<%=calculate.getTotalBasketPrice()%></h4> </div>
             
-        <form action="PayBasketServlet" method="post">
-                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                        <input type="submit" value="Pay">
-                    </form>
+ 
+        <h2>Pay Form</h2>
         
+        <form action="PayBasketServlet" method="post">
+            <table>
+            
+                <tr><td>Address:</td><td>
+                        <input type="text" name="address" size="24" required="required"></td></tr>
+                <tr><td>Contact:</td><td>
+                        <input type="text" name="contact" size="24" required="required"></td></tr>
+                <tr><td>Credit Card Number:</td><td>
+                        <input type="text" name="ccNumber" size="24" required="required"></td></tr>
+                <tr><td>Credit Card Expiration:</td><td>
+                        <input type="text" name="ccExpiration" size="24" required="required"></td></tr>
+                <tr><td>Credit Card Password:</td><td>
+                        <input type="text" name="ccPassword" size="24" required="required"></td></tr></table>
+                <br>
+                
+             <br>
+            <input type="hidden" name="userId" value="<%=user.getUserId()%>"> 
+            <input type="hidden" name="command" value="insert">
+            <input type="submit" value="Pay">&nbsp;&nbsp;
+            <input type="reset" value="reset">&nbsp;&nbsp;
+            <input type="button" value="Back to main"
+            		Onclick="location.href='main.jsp'">
+        </form>        
       	<form>&nbsp;&nbsp;&nbsp;
             <input type="button" value="Go back to add more items"
             Onclick="location.href='login.jsp'">

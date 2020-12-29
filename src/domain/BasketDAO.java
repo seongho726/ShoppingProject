@@ -32,8 +32,7 @@ public class BasketDAO {
 		return baskets;
 
 	}
-	
-	
+
 	public Calculate calculateBasket(int userId) throws SQLException {
 		Calculate calculate = null;
 		Connection con = null;
@@ -42,11 +41,11 @@ public class BasketDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT SUM( shoppingbasket.product_count* shoppingproduct.price), SUM(shoppingbasket.product_count)\r\n" + 
-					"FROM shoppingbasket\r\n" + 
-					"LEFT JOIN shoppingproduct on shoppingbasket.product_id = shoppingproduct.product_id\r\n" + 
-					"WHERE basketuser_id = ? AND validity = 1\r\n" + 
-					"GROUP BY basketuser_id");
+			pstmt = con.prepareStatement(
+					"SELECT SUM( shoppingbasket.product_count* shoppingproduct.price), SUM(shoppingbasket.product_count)\r\n"
+							+ "FROM shoppingbasket\r\n"
+							+ "LEFT JOIN shoppingproduct on shoppingbasket.product_id = shoppingproduct.product_id\r\n"
+							+ "WHERE basketuser_id = ? AND validity = 1\r\n" + "GROUP BY basketuser_id");
 			pstmt.setInt(1, userId);
 
 			rset = pstmt.executeQuery();
@@ -62,10 +61,7 @@ public class BasketDAO {
 		return calculate;
 
 	}
-	
-	
-	
-	
+
 	void basketAdd(int userId, int productId, int productCount) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -97,7 +93,8 @@ public class BasketDAO {
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?");
+			pstmt = con.prepareStatement(
+					"UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?");
 			pstmt.setInt(1, userId);
 			pstmt.setInt(2, basketId);
 			pstmt.executeUpdate();

@@ -24,13 +24,14 @@ public class Payment {
 	@Column (name = "payment_id")
     int paymentId;
 	
-	@ManyToOne
-	@JoinColumn (name = "paymentuser_id", referencedColumnName = "shoppinguser_id", nullable=false)	
-	User userId;
+	@Column (name ="paymentuser_id" )
+	int userId;
 	
-	@ManyToOne
-	@JoinColumn (name = "product_id", referencedColumnName = "product_id", nullable=false)	
-	Product productId;
+	@Column (name = "total_count")
+	int totalCount;
+	
+	@Column (name = "total_price")
+	int totalPrice;
 	
 	@Column (name = "address")
 	String address;
@@ -46,5 +47,20 @@ public class Payment {
 	
 	@Column (name = "cc_password")
 	String ccPassword;
+	
+	@ManyToOne
+	@JoinColumn (name = "paymentusers_id", referencedColumnName = "shoppinguser_id", nullable=false)	
+	User usersId;
+	
 
+	public Payment(int userId, String address, String contact, String ccNumber, 
+			String ccExpiration, String ccPassword) {
+		super();
+		this.userId = userId;
+		this.address = address;
+		this.contact = contact;
+		this.ccNumber = ccNumber;
+		this.ccExpiration = ccExpiration;
+		this.ccPassword = ccPassword;
+	}
 }
