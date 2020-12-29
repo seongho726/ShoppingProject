@@ -68,32 +68,28 @@ public class ProductDAO {
     }
     
      
-    void productInsert(int productId, String productType, String productName, String description, int price, int inventory) throws SQLException {
+    public static boolean productAdd(String productType, String productName, String description, int price, int inventory) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
-        ResultSet rset = null;
+        boolean result = false;
         try {
         	con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT COUNT(product_id) FROM shoppingproduct");
-            rset = pstmt.executeQuery();
+            pstmt = con.prepareStatement("INSERT INTO shoppingproduct VALUES(product_id_seq.nextval,?,?,?,?,?)");
             
-            productId = -1;
-            rset.next();
-            productId = rset.getInt("COUNT(product_id)");
-            productId++;
-            
-            pstmt = con.prepareStatement("INSERT INTO shoppingproduct VALUES(?,?,?,?,?,?)");
-            pstmt.setInt(1, productId);
-            pstmt.setString(2, productType);
-            pstmt.setString(3, productName);
-            pstmt.setString(4, description);
-            pstmt.setInt(5, price);
-            pstmt.setInt(6, inventory);
+            pstmt.setString(1, productType);
+            pstmt.setString(2, productName);
+            pstmt.setString(3, description);
+            pstmt.setInt(4, price);
+            pstmt.setInt(5, inventory);
             pstmt.executeQuery();
+            result = true;
+        }catch(Exception e) {
+        	e.printStackTrace();
         } finally {
-        	DBUtil.close(con, pstmt, rset);
-        }
+        	DBUtil.close(con, pstmt);
+        }return result;
     }
+    
     void productUpdate(int productId) {
         Connection con = null;
         PreparedStatement pstmt = null;

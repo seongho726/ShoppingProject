@@ -42,8 +42,8 @@ public class ProductService {
         return products;
     }
    
-    public void insertProduct(int productId, String productType, String productName, String description, int price, int inventory) throws SQLException {
-        productDataAccess.productInsert(productId, productType, productName, description, price, inventory);
+    public boolean insertProduct(String productType, String productName, String description, int price, int inventory) throws SQLException {
+       return productDataAccess.productAdd(productType, productName, description, price, inventory); 
     }
    
     public void updateProduct(int productId) throws SQLException{
