@@ -16,45 +16,45 @@ import domain.LoginDAO;
 import domain.User;
 import domain.UserService;
 
-
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			request.setCharacterEncoding("utf-8"); 
-			response.setContentType("text/html");  
-	        PrintWriter out = response.getWriter();  
-	        
-	        String t = request.getParameter("userType").trim().replaceAll("\\\"","");  
-	        String n = request.getParameter("userName").trim().replaceAll("\\\"","");  
-	        String p = request.getParameter("password").trim().replaceAll("\\\"",""); 
-	        
-	        HttpSession session = request.getSession(false);
-	        if(session!=null)
-	        session.setAttribute("name", n);
-	        try {
-				if(LoginDAO.validate(t, n, p)){
-					if (t.equals("C")) {
-					User user = UserService.getUserService().getUser(t, n, p);
-						session.setAttribute("user", user);
-						RequestDispatcher rd=request.getRequestDispatcher("login.jsp"); 
-					    rd.forward(request,response); }
-					if (t.equals("A")) {
-				RequestDispatcher rd=request.getRequestDispatcher("admin/login.jsp"); 
-			    rd.forward(request,response);
-				} } 
-				else{  
-				    out.print("<p style=\"color:red\">Sorry username or password error</p>");  
-				    RequestDispatcher rd=request.getRequestDispatcher("main.jsp");  
-				    rd.include(request,response);  
-				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}  
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 
-	        out.close();  
-	    }  
-	
-	
+		String t = request.getParameter("userType").trim().replaceAll("\\\"", "");
+		String n = request.getParameter("userName").trim().replaceAll("\\\"", "");
+		String p = request.getParameter("password").trim().replaceAll("\\\"", "");
+
+		HttpSession session = request.getSession(false);
+		if (session != null)
+			session.setAttribute("name", n);
+		try {
+			if (LoginDAO.validate(t, n, p)) {
+				if (t.equals("C")) {
+					User user = UserService.getUserService().getUser(t, n, p);
+					session.setAttribute("user", user);
+					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+					rd.forward(request, response);
+				}
+				if (t.equals("A")) {
+					RequestDispatcher rd = request.getRequestDispatcher("admin/login.jsp");
+					rd.forward(request, response);
+				}
+			} else {
+				out.print("<p style=\"color:red\">Sorry username or password error</p>");
+				RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
+				rd.include(request, response);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		out.close();
 	}
+
+}
