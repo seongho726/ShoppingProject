@@ -11,8 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Calculate {
-int totalBasketPrice;
-int totalProductCount;
+	public class Calculate {
+	int totalBasketPrice;
+	int totalProductCount;
 
-}
+	}
