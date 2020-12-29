@@ -15,7 +15,7 @@ public class ProductDAO {
         ResultSet rset = null;
         try {
         	con = DBUtil.getConnection();
-            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct");
+            pstmt = con.prepareStatement("SELECT * FROM shoppingproduct order by product_id");
             rset = pstmt.executeQuery();
             while (rset.next()) {
             	products.add(new Product(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),

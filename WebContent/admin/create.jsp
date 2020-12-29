@@ -1,4 +1,3 @@
-<%@page import="domain.User"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -25,6 +24,4 @@
            <br> <input type="hidden" name="command" value="insertProduct">
         </form>        
     </body>
-</html>
-</body>
 </html>
