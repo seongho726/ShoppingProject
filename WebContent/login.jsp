@@ -19,11 +19,11 @@
             <input type="hidden" name="userid" value="<%=((User) session.getAttribute("user")).getUserId()%>">
             <input type="submit" value="My Basket">
         </form>
-        <form action="SearchProductServlet" method="post">
+        <!-- <form action="SearchProductServlet" method="post">
             Search the product you want :
             <input type="text" name="productname" size="24">
             <input type="submit" value="Submit">
-        </form>
+        </form> -->
 	<table border="2px">
             <tr>
                 <th width="100">Product ID</th>
