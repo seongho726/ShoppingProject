@@ -40,9 +40,13 @@
                         <input type="submit" value="Delete">
                     </form></td>
             </tr>
-
+			
+            </form>
             <% }%>
         </table>
-      
+        <br>
+      	<form>&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Go back to add more items"
+            Onclick="location.href='login.jsp'">
     </body>
 </html>
