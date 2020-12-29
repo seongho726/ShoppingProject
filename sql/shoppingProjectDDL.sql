@@ -53,7 +53,7 @@ CREATE TABLE shoppingpayment(
   cc_expiration VARCHAR2(20),
   cc_password VARCHAR2(10));
 
-
+ALTER SEQUENCE PRODUCT_ID_SEQ INCREMENT BY 1;
 ALTER TABLE shoppingbasket ADD FOREIGN KEY (basketuser_id) REFERENCES shoppinguser  (shoppinguser_id);
 ALTER TABLE shoppingpayment ADD FOREIGN KEY (paymentuser_id)  REFERENCES shoppinguser  (shoppinguser_id);
 ALTER TABLE shoppingpayment ADD FOREIGN KEY (product_id)  REFERENCES shoppingproduct  (product_id);

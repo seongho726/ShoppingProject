@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Product;
 import domain.ProductService;
-import domain.UserService;
 
 @WebServlet("/createprocess")
 public class ProcessProductServlet extends HttpServlet {
@@ -21,9 +20,10 @@ public class ProcessProductServlet extends HttpServlet {
 		String command = request.getParameter("command");
 		if (command.equals("insertProduct")) {
 			productInsert(request, response);
+		}if (command.equals("updateProduct")) {
+			productUpdate(request, response);
 		}
 	}
-
 	public void productInsert(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Product product = new Product(request.getParameter("producttype").trim(),
@@ -42,6 +42,23 @@ public class ProcessProductServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			request.getSession().setAttribute("error", "입력 실패");
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+	//roductid, producttype, productname, explanation, price, inventory
+	public void productUpdate(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "admin/createfailure.jsp";
+		String id = request.getParameter("productId");
+
+		try {
+			ProductService.getProdService().updateProduct(productId);
+			request.getSession().setAttribute("product", ProductService.getProdService().getProductById(productId));
+			request.getSession().setAttribute("successMsg", id + "재능 기부자 수정");
+			url = "activistDetail.jsp";
+		} catch (Exception e) {
+			request.getSession().setAttribute("errMSg", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
