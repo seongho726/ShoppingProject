@@ -21,7 +21,7 @@ Validity의 데이터는 1과 2로 구성되어있고 Validity의 값이 1인 �
 상품 데이터 테이블 
 
 #### shoppingpayment:
-장바구니에 담긴 제품들이 Checkout에서 구매가 이루어지면 결제정보와 구매한 제품의 총합과 갯수를 저장한다.  
+장바구니에 담긴 제품들이 Checkout에서 구매가 이루어지면 결제정보와 구매한 제품의 총합과 총계를 저장한다.  
 
 ## Technologies Used 
 
