@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import domain.Payment;
 import domain.PaymentService;
@@ -22,30 +22,26 @@ public class PayBasketServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8"); 
 		response.setContentType("text/html");  
-		String command = request.getParameter("command");
+	    HttpSession HttpSession = request.getSession();
+		
+        int userId = Integer.parseInt(request.getParameter("userId"));
 
-		if(command.equals("insert")){  
-			insert(request, response);
-		}
-	}	
-	
-	public void insert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Payment payment = new Payment (Integer.parseInt(request.getParameter("userId").trim()), 
+		Payment payment = new Payment (userId, 
 							request.getParameter("address").trim(),
 							request.getParameter("contact").trim(),
 							request.getParameter("ccNumber").trim(),
 							request.getParameter("ccExpiration").trim(),
 							request.getParameter("ccPassword").trim());
 				
-		String url = null;	
+		String url = "payfail.jsp";	
+		
 			try {		
-				boolean result = PaymentService.getPaymentService().paymentCreate(payment.getUserId(), payment.getAddress(), payment.getContact(),
+				boolean result = PaymentService.getPaymentService().paymentCreate(userId, payment.getAddress(), payment.getContact(),
 						payment.getCcNumber(), payment.getCcExpiration(), payment.getCcPassword());
 					request.getSession().setAttribute("payment", payment);
 					if(result = true) {
-						url = "joinconfirm.jsp";
-				        PrintWriter out = response.getWriter();  
-						out.print("성공");
+						url = "pay.jsp";
+				      
 					}
 					else {
 						request.setAttribute("error","주문 실패");
