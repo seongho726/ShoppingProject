@@ -1,4 +1,4 @@
-<%@page import="domain.Basket, domain.User"%>
+<%@page import="domain.Basket, domain.User, domain.Calculate"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,6 +9,7 @@
         <title>Product List</title>
         <% ArrayList<Basket> baskets = (ArrayList<Basket>) request.getAttribute("baskets");%>
         <% User user = (User) request.getAttribute("user");%>
+        <% Calculate calculate = (Calculate) request.getAttribute("calculate");%>
         <% session.setAttribute("user", user);%>
     </head>
     <body>
@@ -19,7 +20,6 @@
                 <th width="200">User Name</th>
                 <th width="200">Product ID</th>
                 <th width="200">Product Count</th>
-                <th width="200">Delete</th>
             </tr>
             <%
                 for (int i = 0; i < baskets.size(); i++) {
@@ -30,22 +30,17 @@
                 <td align="center"><%=user.getUserName()%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
-              	<td align="center">  
-              		<form action="DeleteBasketServlet" method="post">
-                        <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
-                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
-                    </form></td>
             </tr>
 			
-            </form>
             <% }%>
         </table>
         <br>
-        
-        <form action="BuyBasketServlet" method="post">
+        <div> <h4 align="center">Total Count = <%=calculate.getTotalProductCount()%></h4>
+            <h4 align=center>Total Price = <%=calculate.getTotalBasketPrice()%></h4> </div>
+            
+        <form action="PayBasketServlet" method="post">
                         <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                        <input type="submit" value="Checkout">
+                        <input type="submit" value="Pay">
                     </form>
         
       	<form>&nbsp;&nbsp;&nbsp;

@@ -29,12 +29,8 @@ public class RetrieveBasketServlet extends HttpServlet {
 	        BasketService = new BasketService();
 	        baskets = BasketService.getBasket(userId);
 	        
-	        Calculate calculate = null;
-	        calculate = BasketService.calculateBasket(userId);
-	       
 	        request.setAttribute("user", session.getAttribute("user"));
 	        request.setAttribute("baskets", baskets);
-	        request.setAttribute("calculate", calculate);
 	        view = request.getRequestDispatcher("basket.jsp");
 	        view.forward(request, response);
 	    }
