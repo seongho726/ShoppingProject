@@ -43,10 +43,15 @@ CREATE TABLE shoppingbasket(
  product_count NUMBER,
  validity NUMBER);
 
+DROP SEQUENCE payment_id_seq;
+
+CREATE SEQUENCE payment_id_seq;
+
 CREATE TABLE shoppingpayment(
   payment_id NUMBER PRIMARY KEY,
   paymentuser_id NUMBER,
-  product_id NUMBER,
+  total_count NUMBER, 
+  total_price NUMBER,
   address VARCHAR2(50),
   contact VARCHAR2(20),
   cc_number VARCHAR2(20),
@@ -56,5 +61,4 @@ CREATE TABLE shoppingpayment(
 
 ALTER TABLE shoppingbasket ADD FOREIGN KEY (basketuser_id) REFERENCES shoppinguser  (shoppinguser_id);
 ALTER TABLE shoppingpayment ADD FOREIGN KEY (paymentuser_id)  REFERENCES shoppinguser  (shoppinguser_id);
-ALTER TABLE shoppingpayment ADD FOREIGN KEY (product_id)  REFERENCES shoppingproduct  (product_id);
 ALTER TABLE shoppingbasket ADD FOREIGN KEY (product_id) REFERENCES shoppingproduct  (product_id);
