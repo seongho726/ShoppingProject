@@ -27,7 +27,7 @@
 			<th width="400">Explanation</th>
 			<th width="150">Price</th>
 			<th width="100">Inventory</th>
-			<th width="100">Update</th>
+		<!-- 	<th width="100">Update</th> -->
 		</tr>
 		<%
 			for (int i = 0; i < products.size(); i++) {
@@ -40,10 +40,10 @@
 			<td align="center"><%=product.getDescription()%></td>
 			<td align="center">$<%=product.getPrice()%></td>
 			<td align="center"><%=product.getInventory()%></td>
-			<td align="center">
-                    <form action="updateprocess" method="post">
+			<%-- <td align="center">
+                    <form action="CreateProduct" method="post">
                         <input type="hidden" name="productid" value="<%=product.getProductId()%>">
-                        <input type="submit" value="Update"> </form>
+                        <input type="submit" value="Update"> </form> --%>
 		</tr>
 		<%
 			}

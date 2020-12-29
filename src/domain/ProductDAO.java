@@ -90,14 +90,19 @@ public class ProductDAO {
         }return result;
     }
     
-    void productUpdate(int productId) {
+    void productUpdate(int productId, String productType, String productName, String description, int price, int inventory) {
         Connection con = null;
         PreparedStatement pstmt = null;
         
         try {
         	con = DBUtil.getConnection();
             pstmt = con.prepareStatement("UPDATE shoppingproduct SET product_type = ? product_name = ? description = ? price = ? inventory = ? WHERE product_id = ?");
-            pstmt.setInt(1, productId);
+            pstmt.setString(1, productType);
+            pstmt.setString(2, productName);
+            pstmt.setString(3, description);
+            pstmt.setInt(4, price);
+            pstmt.setInt(5, inventory);
+            pstmt.setInt(6, productId);
             pstmt.executeQuery();
         } catch (SQLException se) {
             throw new RuntimeException(

@@ -8,13 +8,6 @@
             session.setAttribute("productid", productid);
             session.setAttribute("user", user);%></head>
     <body>
-        <h2>Hello<br/>This is Update Form</h2>
-            <%if ((status != null) && !status.isSuccessful()) {%>
-        <font color="red">There were problems processing your request:
-        <ul><%Iterator errors = status.getExceptions();
-            while (errors.hasNext()) {
-                Exception ex = (Exception) errors.next();%>
-            <li><%= ex.getMessage()%><%}%></ul></font><%}%>
         <form action="updateprocess" method="post">
             <table>
                 <tr><td>Product ID:</td><td>
@@ -30,8 +23,8 @@
                 <tr><td>Inventory:</td><td>
                         <input type="text" name="inventory" size="5"></td></tr>
             </table>
-            <input type="hidden" name="command" value="updateProduct">
             <input type="submit" value="Submit">
+            <input type="hidden" name="command" value="updateProduct">
         </form>        
     </body>
 </html>

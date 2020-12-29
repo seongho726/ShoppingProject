@@ -47,6 +47,6 @@ public class ProductService {
     }
    
     public void updateProduct(int productId) throws SQLException{
-        productDataAccess.productUpdate(productId);
+        productDataAccess.productUpdate(productId, null, null, null, productId, productId);
     }
 }
