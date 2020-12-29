@@ -1,4 +1,4 @@
-<%@page import="domain.Basket, domain.User, domain.Calculate"%>
+<%@page import="domain.Basket, domain.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -8,7 +8,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
         <% ArrayList<Basket> baskets = (ArrayList<Basket>) request.getAttribute("baskets");%>
-        <% Calculate calculate = (Calculate) request.getAttribute("calculate"); %>
         <% User user = (User) request.getAttribute("user");%>
         <% session.setAttribute("user", user);%>
     </head>
@@ -25,8 +24,6 @@
             <%
                 for (int i = 0; i < baskets.size(); i++) {
                     Basket basket = baskets.get(i);
-/* /*                     int total += (basket.getProductCount())*(basket.getProductsId().getPrice());
- */ 
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
@@ -37,7 +34,7 @@
               		<form action="DeleteBasketServlet" method="post">
                         <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
                         <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                        <input type="submit" value="Delete">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                     </form></td>
             </tr>
 			
