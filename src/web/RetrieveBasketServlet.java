@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import domain.calculate
 import domain.Basket;
 import domain.BasketService;
-import domain.Calculate;
-import domain.Product;
-import domain.ProductService;
 import domain.User;
 
 @WebServlet("/RetrieveBasketServlet")
@@ -31,7 +29,7 @@ public class RetrieveBasketServlet extends HttpServlet {
 	        BasketService = new BasketService();
 	        baskets = BasketService.getBasket(userId);
 	        
-			Calculate calculate = null;
+	        Calculate calculate = null;
 	        calculate = BasketService.calculateBasket(userId);
 	       
 	        request.setAttribute("user", session.getAttribute("user"));
