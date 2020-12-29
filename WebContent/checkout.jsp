@@ -36,12 +36,9 @@
         </table>
         <br>
         <div> <h4 align="center">Total Count = <%=calculate.getTotalProductCount()%></h4>
-            <h4 align=center>Total Price = <%=calculate.getTotalBasketPrice()%></h4> </div>
+            <h4 align=center>Total Price = $<%=calculate.getTotalBasketPrice()%></h4> </div>
             
-        <form action="PayBasketServlet" method="post">
-                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                        <input type="submit" value="Pay">
-                    </form>
+ 
         <h2>Pay Form</h2>
         
         <form action="PayBasketServlet" method="post">

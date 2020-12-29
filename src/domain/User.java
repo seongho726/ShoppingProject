@@ -1,4 +1,5 @@
 ﻿package domain;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,29 +17,29 @@ import lombok.Setter;
 
 @Entity
 public class User {
-	
+
 	@Id
-	@Column(name="shoppinguser_id")
-    int userId;
-	
-	@Column(name="usertype")
-    String userType;
-	
-	@Column(name="username", unique=true)
-    String userName;
-	
-	@Column(name="password", nullable=false)
-    String password;
-	
-	@Column(name="email")
-    String email;
-	
-	@Column(name="contact")
-    String contact;
-	
-	@Column(name="address")
-    String address;
-	
+	@Column(name = "shoppinguser_id")
+	int userId;
+
+	@Column(name = "usertype")
+	String userType;
+
+	@Column(name = "username", unique = true)
+	String userName;
+
+	@Column(name = "password", nullable = false)
+	String password;
+
+	@Column(name = "email")
+	String email;
+
+	@Column(name = "contact")
+	String contact;
+
+	@Column(name = "address")
+	String address;
+
 	@OneToMany(mappedBy = "usersId")
 	private List<Basket> baskets;
 
@@ -53,9 +54,8 @@ public class User {
 		this.contact = contact;
 		this.address = address;
 	}
-	
-	public User(String userName, String password, String email, String contact,
-			String address) {
+
+	public User(String userName, String password, String email, String contact, String address) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -63,5 +63,5 @@ public class User {
 		this.contact = contact;
 		this.address = address;
 	}
-	
+
 }

@@ -16,9 +16,6 @@ import domain.BasketService;
 import domain.Calculate;
 import domain.User;
 
-/**
- * Servlet implementation class BuyBasketServlet
- */
 @WebServlet("/BuyBasketServlet")
 public class BuyBasketServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
