@@ -85,7 +85,7 @@ public class BasketDAO {
 			pstmt.setInt(2, userId);
 			pstmt.setInt(3, productId);
 			pstmt.setInt(4, productCount);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} finally {
 			DBUtil.close(con, pstmt, rset);
 		}
@@ -100,7 +100,7 @@ public class BasketDAO {
 			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?");
 			pstmt.setInt(1, userId);
 			pstmt.setInt(2, basketId);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} finally {
 			DBUtil.close(con, pstmt);
 		}
@@ -114,7 +114,7 @@ public class BasketDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ?");
 			pstmt.setInt(1, userId);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 		} finally {
 			DBUtil.close(con, pstmt);
 		}

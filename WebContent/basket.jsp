@@ -34,22 +34,15 @@
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
               	<td align="center">  
-              		<form action="delete" method="post">
-                        <input type="hidden" name="basketid" value="<%=basket.getBasketId()%>">
-                        <input type="hidden" name="userid" value="<%=user.getUserId()%>">
+              		<form action="DeleteBasketServlet" method="post">
+                        <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
+                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
                         <input type="submit" value="Delete">
                     </form></td>
             </tr>
-            
-        <!--     <tr><td colspan = 4>Total purchase</td>
-            <td align=right>"$(total)"</td></tr> -->
-        
-        
-          
+
             <% }%>
         </table>
-        
-      		    <tr><td align="center">Total Count = <%=calculate.getTotalProductCount()%></td>
-            <td align=center>Total Price = <%=calculate.getTotalBasketPrice()%></td></tr>  
+      
     </body>
 </html>

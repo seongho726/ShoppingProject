@@ -6,10 +6,6 @@
 		<class>domain.Payment</class>
 		<class>domain.Product</class>
 		<class>domain.User</class>
-		
-		
-				
-		
 				
 		<properties>
 			<!-- db접속 정보 설정 tag와  속성 -->
