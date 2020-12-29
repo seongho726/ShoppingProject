@@ -154,7 +154,6 @@ JDBC, Servlet, JSP, Tomcat 8.5, Lombok
 
 
 ## Team Member 
-https://github.com/ajdeve
-https://github.com/seongho726
-https://github.com/EunbeeGo
-			
+@ajdeve
+@seongho726
+@EunbeeGo
