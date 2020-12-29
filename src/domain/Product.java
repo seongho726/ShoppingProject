@@ -55,5 +55,14 @@ public class Product {
 		this.price = price;
 		this.inventory = inventory;
 	}
+		public Product(String productType, String productName, String description, int price,
+				int inventory) {
+			super();
+			this.productType = productType;
+			this.productName = productName;
+			this.description = description;
+			this.price = price;
+			this.inventory = inventory;
+	}
 	
 }
