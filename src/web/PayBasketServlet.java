@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import domain.Payment;
-import domain.PaymentService;
+import dto.Payment;
+import model.PaymentService;
 
 /**
  * Servlet implementation class PayBasketServlet

@@ -1,6 +1,6 @@
-<%@page import="domain.Basket, domain.User, domain.Calculate"%>
+<%@page import="dto.Basket,dto.User,dto.Calculate"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="domain.User"%>
+<%@page import="dto.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>

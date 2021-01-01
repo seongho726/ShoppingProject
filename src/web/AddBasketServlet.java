@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import domain.BasketService;
-import domain.Product;
-import domain.ProductService;
+import model.BasketService;
+import model.ProductService;
+import model.domain.Product;
 import util.Status;
 
 @WebServlet("/AddBasketServlet")

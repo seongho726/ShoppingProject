@@ -1,6 +1,6 @@
-<%@page import="domain.User"%>
+<%@page import="dto.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="domain.Product, domain.ProductService"%>
+<%@page import="dto.Product,model.ProductService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>

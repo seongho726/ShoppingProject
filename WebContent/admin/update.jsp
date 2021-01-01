@@ -1,4 +1,4 @@
-<%@page import="domain.User"%>
+<%@page import="dto.User"%>
 <%@page import="java.util.Iterator"%>
 <jsp:useBean id="status" scope="request" class="util.Status"/>
 <html>

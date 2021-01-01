@@ -1,6 +1,8 @@
-package domain;
+package model;
 
 import java.sql.SQLException;
+
+import model.domain.User;
 
 public class UserService {
 

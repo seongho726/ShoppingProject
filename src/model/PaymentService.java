@@ -1,7 +1,9 @@
-package domain;
+package model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import model.domain.Payment;
 
 public class PaymentService {
 

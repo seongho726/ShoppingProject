@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import domain.Basket;
-import domain.BasketService;
-import domain.Calculate;
-import domain.User;
+import dto.Basket;
+import dto.Calculate;
+import dto.User;
+import model.BasketService;
 
 @WebServlet("/BuyBasketServlet")
 public class BuyBasketServlet extends HttpServlet {

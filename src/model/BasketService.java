@@ -1,7 +1,10 @@
-package domain;
+package model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import model.domain.Basket;
+import model.domain.Calculate;
 
 public class BasketService {
 

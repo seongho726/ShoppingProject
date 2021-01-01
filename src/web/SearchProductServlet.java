@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import domain.Product;
-import domain.ProductService;
+import dto.Product;
+import model.ProductService;
 
 @WebServlet("/SearchProductServlet")
 public class SearchProductServlet extends HttpServlet {

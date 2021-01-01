@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.User;
-import domain.UserService;
+import dto.User;
+import model.UserService;
 
 @WebServlet("/JoinServlet")
 public class JoinServlet extends HttpServlet {

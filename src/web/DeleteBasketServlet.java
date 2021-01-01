@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import domain.Basket;
-import domain.BasketService;
+import dto.Basket;
+import model.BasketService;
 
 @WebServlet("/DeleteBasketServlet")
 public class DeleteBasketServlet extends HttpServlet {

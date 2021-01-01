@@ -10,4 +10,4 @@
 	Payment did not go through. 
 	<%=request.getAttribute("error")%>
 </body>
-</html>
+</html>R
