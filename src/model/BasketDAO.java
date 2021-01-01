@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -19,18 +18,19 @@ public class BasketDAO {
 	public static Basket getBasket(int userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			 return (Basket) em.createNativeQuery("SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1",
-					Basket.class).setParameter(1, userId).getSingleResult();
+			return (Basket) em
+					.createNativeQuery("SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1",
+							Basket.class)
+					.setParameter(1, userId).getSingleResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
 			em.close();
 		}
-		
 	}
 
-	public Calculate calculateBasket(int userId) throws SQLException {
+	public static Calculate calculateBasket(int userId) throws SQLException {
 		Calculate calculate = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;

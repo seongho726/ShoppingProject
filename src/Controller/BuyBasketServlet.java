@@ -1,4 +1,4 @@
-package web;
+package Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.Basket;
-import dto.Calculate;
-import dto.User;
 import model.BasketService;
+import model.domain.Basket;
+import model.domain.Calculate;
+import model.domain.User;
 
 @WebServlet("/BuyBasketServlet")
 public class BuyBasketServlet extends HttpServlet {

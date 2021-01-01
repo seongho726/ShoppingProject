@@ -1,4 +1,4 @@
-package web;
+package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;

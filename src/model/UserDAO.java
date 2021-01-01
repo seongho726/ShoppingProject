@@ -85,7 +85,7 @@ public class UserDAO {
 	}
 
 	// id로 유저검색
-	public static User getUser(String userId) throws Exception {
+	public static User getUser(int userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return em.find(User.class, userId);

@@ -80,7 +80,7 @@ public class ProductDAO {
 	}
 
 	// id로 물품검색
-	public static Product getProduct(String ProductId) throws Exception {
+	public static Product getProduct(int ProductId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return em.find(Product.class, ProductId);
