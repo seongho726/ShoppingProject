@@ -16,7 +16,7 @@ import util.PublicCommon;
 
 public class UserDAO {
 	// 유저 추가
-	public static boolean userAdd(String userName, String password, String email, String contact, String address)
+	public static boolean addUser(String userName, String password, String email, String contact, String address)
 			throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();

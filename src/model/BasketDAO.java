@@ -4,35 +4,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import model.domain.Basket;
 import model.domain.Calculate;
 import util.DBUtil;
+import util.PublicCommon;
 
 public class BasketDAO {
-
-	ArrayList<Basket> basketRetrieve(int userId) throws SQLException {
-		ArrayList<Basket> baskets = new ArrayList<Basket>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
+	// "SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1"
+	public static Basket getBasket(int userId) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1");
-			pstmt.setInt(1, userId);
-
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				baskets.add(new Basket(rset.getInt(1), rset.getInt(2), rset.getInt(3), rset.getInt(4), rset.getInt(5)));
-			}
-
+			 return (Basket) em.createNativeQuery("SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1",
+					Basket.class).setParameter(1, userId).getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBUtil.close(con, pstmt, rset);
+			em.close();
 		}
-		return baskets;
-
+		
 	}
 
 	public Calculate calculateBasket(int userId) throws SQLException {
@@ -64,58 +59,56 @@ public class BasketDAO {
 
 	}
 
-	void basketAdd(int userId, int productId, int productCount) throws SQLException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+	// 장바구니 추가
+	public static boolean addbasket(int userId, int productId, int productCount) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT COUNT(basket_id) FROM shoppingbasket");
-			rset = pstmt.executeQuery();
-
-			int basketId = -1;
-			rset.next();
-			basketId = rset.getInt("COUNT(basket_id)");
-			basketId++;
-
-			pstmt = con.prepareStatement("INSERT INTO shoppingbasket VALUES(?,?,?,?,1)");
-			pstmt.setInt(1, basketId);
-			pstmt.setInt(2, userId);
-			pstmt.setInt(3, productId);
-			pstmt.setInt(4, productCount);
-			pstmt.executeUpdate();
+			em.createNativeQuery("INSERT INTO shoppingbasket VALUES(shoppingproduct_id_seq.nextval,?,?,?,?,1)")
+					.setParameter(1, userId).setParameter(2, productId).setParameter(3, productCount).executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBUtil.close(con, pstmt, rset);
+			em.close();
 		}
+		return true;
 	}
 
-	void basketDelete(int userId, int basketId) throws SQLException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
+	// 장바구니 삭제
+	public static boolean deleteBasket(int userId, int basketId) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(
-					"UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?");
-			pstmt.setInt(1, userId);
-			pstmt.setInt(2, basketId);
-			pstmt.executeUpdate();
+			em.createNativeQuery("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?")
+					.setParameter(1, userId).setParameter(2, basketId).executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBUtil.close(con, pstmt);
+			em.close();
 		}
+		return true;
 	}
 
-	void basketClean(int userId) throws SQLException {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
+	public static boolean cleanBasket(int userId) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ?");
-			pstmt.setInt(1, userId);
-			pstmt.executeUpdate();
+			em.createNativeQuery("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ?")
+					.setParameter(1, userId).executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBUtil.close(con, pstmt);
+			em.close();
 		}
+		return true;
 	}
 }
