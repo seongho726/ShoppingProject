@@ -1,10 +1,10 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import model.domain.Basket;
 import model.domain.Calculate;
+import model.domain.Payment;
 import model.domain.Product;
 import model.domain.User;
 
@@ -72,7 +72,7 @@ public class Service {
 
 	// 3. Basket - CRUD
 	// 검색
-	public static Basket getBasket(int userId) throws Exception {
+	public static List<Basket> getBasket(int userId) throws Exception {
 		return BasketDAO.getBasket(userId);
 	}
 	
@@ -94,4 +94,14 @@ public class Service {
 		return BasketDAO.cleanBasket(userId);
 	}
 	
+	// 4. Payment
+	// 검색
+	public static List<Payment> getPayment(int userId) throws Exception {
+		return PaymentDAO.getPayement(userId);
+	}
+	
+	public static boolean addPayment(int userId, String address, String contact, String ccNumber, String ccExpiration,
+			String ccPassword) throws Exception {
+		return PaymentDAO.addPayment(userId, address, contact, ccNumber, ccExpiration, ccPassword);
+	}
 }

@@ -3,37 +3,32 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import model.domain.Payment;
 import util.DBUtil;
+import util.PublicCommon;
 
 public class PaymentDAO {
-
-	ArrayList<Payment> paymentRetrieve(int userId) throws SQLException {
-		ArrayList<Payment> payments = new ArrayList<Payment>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
+	// id로 payment 검색
+//	"SELECT * FROM shoppingpayment WHERE paymentuser_id=?"
+	public static List<Payment> getPayement(int userId) throws Exception {
+		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("SELECT * FROM shoppingpayment WHERE paymentuser_id=?");
-			pstmt.setObject(1, userId);
-			rset = pstmt.executeQuery();
-			while (rset.next()) {
-				payments.add(new Payment());
-
-			}
+			return (List<Payment>) em.createNativeQuery(
+					"SELECT * FROM shoppingpayment WHERE paymentuser_id=" + userId + "", Payment.class).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		} finally {
-			DBUtil.close(con, pstmt, rset);
+			em.close();
 		}
-		return payments;
 	}
 
-	public static boolean paymentAdd(int userId, String address, String contact, String ccNumber, String ccExpiration,
-			String ccPassword) throws SQLException {
+	public static boolean addPayment(int userId, String address, String contact, String ccNumber, String ccExpiration,
+			String ccPassword) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

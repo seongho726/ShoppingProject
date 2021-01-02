@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 
-@Entity
+@Entity(name="shoppingbasket")
 public class Basket {
 	@Id 
 	@Column (name = "basket_id")
@@ -32,13 +32,13 @@ public class Basket {
     int validity;
 	
 	
-	@ManyToOne
-	@JoinColumn (name = "basketusers_id", referencedColumnName = "shoppinguser_id", nullable=false)	
-	User usersId;
-	
-	@ManyToOne
-	@JoinColumn(name = "products_id", referencedColumnName = "product_id", nullable=false)
-	Product productsId;
+//	@ManyToOne
+//	@JoinColumn (name = "basketuser_id", referencedColumnName = "shoppinguser_id", nullable=false)	
+//	User usersId;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)
+//	Product productsId;
 	
 	public Basket(int basketId, int userId, int productId, int productCount, int validity) {
 		super();
@@ -49,10 +49,7 @@ public class Basket {
 		this.validity = validity;
 	}
 
-	@Override
-	public String toString() {
-		return "Basket [basketId=" + basketId + ", userId=" + userId + ", productId=" + productId + ", productCount=" + productCount + ", validity=" + validity + " ]";
-	}
+	
 
 	public int getBasketId() {
 		return basketId;
@@ -70,8 +67,24 @@ public class Basket {
 		return productCount;
 	}
 
-	public Product getProductsId() {
-		return productsId;
+
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Basket [basketId=");
+		builder.append(basketId);
+		builder.append(", userId=");
+		builder.append(userId);
+		builder.append(", productId=");
+		builder.append(productId);
+		builder.append(", productCount=");
+		builder.append(productCount);
+		builder.append(", validity=");
+		builder.append(validity);
+		builder.append("]");
+		return builder.toString();
 	}
 	
 }

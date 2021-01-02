@@ -18,7 +18,7 @@ import lombok.ToString;
 @Builder
 @ToString
 
-@Entity
+@Entity(name="shoppinguser")
 public class User {
 
 	@Id
