@@ -25,6 +25,7 @@ public class UserDAO {
 			em.createNativeQuery("INSERT INTO shoppinguser VALUES (shoppinguser_id_seq.nextval,'C',?,?,?,?,?)")
 					.setParameter(1, userName).setParameter(2, password).setParameter(3, email).setParameter(4, contact)
 					.setParameter(5, address).executeUpdate();
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

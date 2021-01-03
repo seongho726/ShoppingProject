@@ -3,10 +3,10 @@
     <head><title>Join Form</title></head>
     <body>
         <h2>Join Form</h2>
-        <form action="JoinServlet" method="post">
+        <form action="Controller" method="post">
             <table>
                 <tr><td>Username:</td><td>
-                        <input type="text" name="username" size="24" required="required"></td></tr>
+                        <input type="text" name="userName" size="24" required="required"></td></tr>
                 <tr><td>Password:</td><td>
                         <input type="password" name="password" size="24" required="required"></td></tr>
                 <tr><td>Email:</td><td>
@@ -16,7 +16,7 @@
                 <tr><td>Address:</td><td>
                         <input type="text" name="address" size="50" required="required"></td></tr></table>
                 <br>
-                <br> <input type="hidden" name="command" value="insert">
+                <br> <input type="hidden" name="command" value="addUser">
             <input type="submit" value="Join">&nbsp;&nbsp;
             <input type="reset" value="reset">&nbsp;&nbsp;
             <input type="button" value="Back to main"
