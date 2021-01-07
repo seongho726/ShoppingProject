@@ -16,13 +16,11 @@ DROP TABLE shoppingpayment cascade constraint;
 
 DROP SEQUENCE shoppinguser_id_seq;
 
-CREATE SEQUENCE shoppinguser_id_seq;
-
 DROP TABLE shoppinguser cascade constraint;
 CREATE TABLE shoppinguser(
- shoppinguser_id       NUMBER(5) PRIMARY KEY,
+ shoppinguser_id varchar2(50) PRIMARY KEY,
  usertype varchar2(20),
- username varchar2(20) UNIQUE,
+ username varchar2(20) ,
  password varchar2(20) NOT NULL,
  email varchar2(30),
  contact varchar2(20),
@@ -38,7 +36,7 @@ CREATE TABLE shoppingproduct(
 
 CREATE TABLE shoppingbasket(
  basket_id NUMBER PRIMARY KEY,
- basketuser_id NUMBER,
+ basketuser_id VARCHAR2(50),
  product_id NUMBER,
  product_count NUMBER,
  validity NUMBER);
@@ -49,7 +47,7 @@ CREATE SEQUENCE payment_id_seq;
 
 CREATE TABLE shoppingpayment(
   payment_id NUMBER PRIMARY KEY,
-  paymentuser_id NUMBER,
+  paymentuser_id VARCHAR2(50),
   total_count NUMBER, 
   total_price NUMBER,
   address VARCHAR2(50),

@@ -21,7 +21,7 @@ public class User {
 
 	@Id
 	@Column(name = "shoppinguser_id")
-	int userId;
+	String userId;
 
 
 	@Column(name = "usertype")
@@ -42,14 +42,19 @@ public class User {
 	@Column(name = "address")
 	String address;
 
-	public User(String userName, String password, String email, String contact, String address) {
+	public User(String userId, String userName, String password, String email, String contact,
+			String address) {
 		super();
+		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.contact = contact;
 		this.address = address;
 	}
+
+	
+	
 
 	
 }

@@ -1,6 +1,5 @@
-<%@page import="dto.Basket,dto.User"%>
+<%@page import="model.domain.Basket, model.domain.User"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dto.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>

@@ -5,6 +5,8 @@
         <h2>Join Form</h2>
         <form action="Controller" method="post">
             <table>
+            	 <tr><td>UserId:</td><td>
+                        <input type="text" name="userId" size="24" required="required"></td></tr>
                 <tr><td>Username:</td><td>
                         <input type="text" name="userName" size="24" required="required"></td></tr>
                 <tr><td>Password:</td><td>

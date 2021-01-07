@@ -13,7 +13,7 @@
 		Hello,
 		<%=session.getAttribute("name")%></h4>
 	<%
-		ArrayList<Product> products = (ArrayList<Product>) ProductService.getProdService().getAllProduct();
+		ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();
 	%>
 	<form action="RetrieveBasketServlet" method="post">
 		<input type="hidden" name="userid"

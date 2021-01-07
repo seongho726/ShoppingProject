@@ -19,7 +19,7 @@ public class Basket {
     int basketId;
 	
 	@Column (name ="basketuser_id" )
-	int userId;
+	String userId;
 	
 	@Column (name = "product_id")
 	int productId;
@@ -40,7 +40,7 @@ public class Basket {
 //	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)
 //	Product productsId;
 	
-	public Basket(int basketId, int userId, int productId, int productCount, int validity) {
+	public Basket(int basketId, String userId, int productId, int productCount, int validity) {
 		super();
 		this.basketId = basketId;
 		this.userId = userId;
@@ -55,7 +55,7 @@ public class Basket {
 		return basketId;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 

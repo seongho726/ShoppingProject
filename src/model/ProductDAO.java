@@ -11,7 +11,7 @@ import util.PublicCommon;
 public class ProductDAO {
 	// 물품추가
 	public static boolean addProduct(String productType, String productName, String description, int price,
-			String inventory) throws Exception {
+			int inventory) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

@@ -8,16 +8,16 @@ import java.sql.SQLException;
 import util.DBUtil;
 
 public class LoginDAO {
-	public static boolean validate(String userType, String userName, String password) throws ClassNotFoundException, SQLException {
+	public static boolean validate(String userType, String userId, String password) throws ClassNotFoundException, SQLException {
 		  Connection con = null;
 	      PreparedStatement pstmt = null;
 	      ResultSet rset = null;  
 		  boolean status = false;
 	      try {
 	        		con = DBUtil.getConnection();
-	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where usertype = ? and username = ? and password = ?");
+	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where usertype = ? and shoppinguser_id = ? and password = ?");
 	                pstmt.setString(1, userType);
-	                pstmt.setString(2, userName);
+	                pstmt.setString(2, userId);
 	                pstmt.setString(3, password);
 	                rset = pstmt.executeQuery();
 	                status = rset.next();

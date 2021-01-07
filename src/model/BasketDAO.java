@@ -15,7 +15,7 @@ import util.DBUtil;
 import util.PublicCommon;
 
 public class BasketDAO {
-	public static List<Basket> getBasket(int userId) throws Exception {
+	public static List<Basket> getBasket(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return (List<Basket>) em.createNativeQuery(
@@ -29,7 +29,7 @@ public class BasketDAO {
 		}
 	}
 
-	public static Calculate calculateBasket(int userId) throws SQLException {
+	public static Calculate calculateBasket(String userId) throws SQLException {
 		Calculate calculate = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -42,7 +42,7 @@ public class BasketDAO {
 							+ "FROM shoppingbasket\r\n"
 							+ "LEFT JOIN shoppingproduct on shoppingbasket.product_id = shoppingproduct.product_id\r\n"
 							+ "WHERE basketuser_id = ? AND validity = 1\r\n" + "GROUP BY basketuser_id");
-			pstmt.setInt(1, userId);
+			pstmt.setString(1, userId);
 
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
@@ -59,7 +59,7 @@ public class BasketDAO {
 	}
 
 	// 장바구니 추가
-	public static boolean addbasket(int userId, int productId, int productCount) throws Exception {
+	public static boolean addbasket(String userId, int productId, int productCount) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -77,7 +77,7 @@ public class BasketDAO {
 	}
 
 	// 장바구니 삭제
-	public static boolean deleteBasket(int userId, int basketId) throws Exception {
+	public static boolean deleteBasket(String userId, int basketId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -94,7 +94,7 @@ public class BasketDAO {
 		return true;
 	}
 
-	public static boolean cleanBasket(int userId) throws Exception {
+	public static boolean cleanBasket(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

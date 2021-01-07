@@ -25,7 +25,7 @@ public class Payment {
     int paymentId;
 	
 	@Column (name ="paymentuser_id" )
-	int userId;
+	String userId;
 	
 	@Column (name = "total_count")
 	int totalCount;
@@ -53,7 +53,7 @@ public class Payment {
 	User usersId;
 	
 
-	public Payment(int userId, String address, String contact, String ccNumber, 
+	public Payment(String userId, String address, String contact, String ccNumber, 
 			String ccExpiration, String ccPassword) {
 		super();
 		this.userId = userId;

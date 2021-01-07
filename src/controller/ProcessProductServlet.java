@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.Product;
-import model.ProductService;
+import model.Service;
+import model.domain.Product;
 
 @WebServlet("/createprocess")
 public class ProcessProductServlet extends HttpServlet {
@@ -31,8 +31,9 @@ public class ProcessProductServlet extends HttpServlet {
 				Integer.parseInt(request.getParameter("price")), Integer.parseInt(request.getParameter("inventory")));
 		String url = "admin/createfailure.jsp";
 		try {
-			boolean result = ProductService.getProdService().insertProduct(product.getProductType(),
+			boolean result = Service.addProduct(product.getProductType(),
 					product.getProductName(), product.getDescription(), product.getPrice(), product.getInventory());
+			
 			request.getSession().setAttribute("product", product);
 			if (result = true) {
 				url = "admin/login.jsp";
@@ -40,7 +41,7 @@ public class ProcessProductServlet extends HttpServlet {
 				request.setAttribute("error", "생성 실패");
 
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			request.getSession().setAttribute("error", "입력 실패");
 			e.printStackTrace();
 		}

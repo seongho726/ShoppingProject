@@ -14,7 +14,7 @@ import util.PublicCommon;
 public class PaymentDAO {
 	// id로 payment 검색
 //	"SELECT * FROM shoppingpayment WHERE paymentuser_id=?"
-	public static List<Payment> getPayement(int userId) throws Exception {
+	public static List<Payment> getPayement(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return (List<Payment>) em.createNativeQuery(
@@ -27,7 +27,7 @@ public class PaymentDAO {
 		}
 	}
 
-	public static boolean addPayment(int userId, String address, String contact, String ccNumber, String ccExpiration,
+	public static boolean addPayment(String userId, String address, String contact, String ccNumber, String ccExpiration,
 			String ccPassword) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -40,7 +40,7 @@ public class PaymentDAO {
 							+ "FROM shoppingbasket\r\n"
 							+ "LEFT JOIN shoppingproduct on shoppingbasket.product_id = shoppingproduct.product_id\r\n"
 							+ "WHERE basketuser_id = ? AND validity = 1\r\n" + "GROUP BY basketuser_id");
-			pstmt.setInt(1, userId);
+			pstmt.setString(1, userId);
 			rset = pstmt.executeQuery();
 
 			int totalBasketPrice = -1;
@@ -52,7 +52,7 @@ public class PaymentDAO {
 
 			pstmt = con.prepareStatement("INSERT INTO shoppingpayment VALUES(payment_id_seq.nextval,?,?,?,?,?,?,?,?)");
 
-			pstmt.setInt(1, userId);
+			pstmt.setString(1, userId);
 			pstmt.setInt(2, totalBasketPrice);
 			pstmt.setInt(3, totalProductCount);
 			pstmt.setString(4, address);

@@ -1,13 +1,12 @@
-<%@page import="dto.User"%>
+<%@page import="model.domain.User, model.domain.Product, model.Service"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dto.Product,model.ProductService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Product List</title>
 	<%
-	ArrayList<Product> products = (ArrayList<Product>) ProductService.getProdService().getAllProduct();
+	ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();
 	%>
 	<%User user = (User) request.getAttribute("user");%>
 	<%session.setAttribute("user", user);%>

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.LoginDAO;
-import model.UserService;
+import model.Service;
 import model.domain.User;
 
 @WebServlet("/Login")
@@ -25,16 +24,16 @@ public class Login extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String t = request.getParameter("userType").trim().replaceAll("\\\"", "");
-		String n = request.getParameter("userName").trim().replaceAll("\\\"", "");
+		String i = request.getParameter("userId").trim().replaceAll("\\\"", "");
 		String p = request.getParameter("password").trim().replaceAll("\\\"", "");
 
 		HttpSession session = request.getSession(false);
 		if (session != null)
-			session.setAttribute("name", n);
+			session.setAttribute("userId", i);
 		try {
-			if (LoginDAO.validate(t, n, p)) {
+			if (LoginDAO.validate(t, i, p)) {
 				if (t.equals("C")) {
-					User user = UserService.getUserService().getUser(t, n, p);
+					User user = Service.validate(t, i, p);
 					session.setAttribute("user", user);
 					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 					rd.forward(request, response);
@@ -48,9 +47,8 @@ public class Login extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
 				rd.include(request, response);
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

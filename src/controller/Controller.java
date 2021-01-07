@@ -52,11 +52,11 @@ public class Controller extends HttpServlet {
 
 	public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "showError.jsp";
-		int userId;
+		String userId;
 		try {
-			userId = Integer.valueOf((String) request.getSession().getAttribute("userId"));
+			userId = (String) request.getSession().getAttribute("userId");
 
-			request.setAttribute("getUser", Service.getUser(userId));
+			request.getSession().setAttribute("getUser", Service.getUser(userId));
 			url = "userDetail.jsp";
 		} catch (Exception e) {
 			request.setAttribute("errorMsg", e.getMessage());
@@ -66,12 +66,12 @@ public class Controller extends HttpServlet {
 	}
 
 	public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user = new User(request.getParameter("userName"), request.getParameter("password"),
+		User user = new User(request.getParameter("userId"), request.getParameter("userName"), request.getParameter("password"),
 				request.getParameter("email"), request.getParameter("contact"), request.getParameter("address"));
 		String url = "showError.jsp";
 		try {
 			Service.getInstance();
-			boolean result = Service.addUser(user.getUserName(), user.getPassword(), user.getEmail(), user.getContact(),
+			boolean result = Service.addUser(user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(), user.getContact(),
 					user.getAddress());
 			request.getSession().setAttribute("user", user);
 			if (result = true) {
