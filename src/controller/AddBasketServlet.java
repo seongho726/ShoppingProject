@@ -27,7 +27,7 @@ public class AddBasketServlet extends HttpServlet {
 		request.setAttribute("status", status);
 		HttpSession HttpSession = request.getSession();
 
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		String userId = request.getParameter("userId");
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int productCount = Integer.parseInt(request.getParameter("productCount"));
 

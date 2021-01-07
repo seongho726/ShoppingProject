@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
- <form action="createprocess" method="post">
+ <form action="Controller" method="post">
             <table>
                 <tr><td>Product Type:</td><td>
                         <input type="text" name="producttype" size="20"></td></tr>
@@ -20,8 +20,8 @@
                 <tr><td>Inventory:</td><td>
                         <input type="text" name="inventory" size="5"></td></tr>
             </table>
-            <input type="submit" value="Submit">
-           <br> <input type="hidden" name="command" value="insertProduct">
+            <input type="submit" value="제품 생성">
+           <br> <input type="hidden" name="command" value="addProduct">
         </form>        
     </body>
 </html>

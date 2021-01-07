@@ -11,15 +11,15 @@
 	<h3>Login successful!!!</h3>
 	<h4>
 		Hello,
-		<%=session.getAttribute("name")%></h4>
+		<%=session.getAttribute("userId")%></h4>
 	<%
 		ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();
 	%>
-	<form action="RetrieveBasketServlet" method="post">
-		<input type="hidden" name="userid"
+	<%-- <form action="Controller" method="post">
+		<input type="hidden" name="userId"
 			value="<%=((User) session.getAttribute("user")).getUserId()%>">
 		<input type="submit" value="My Basket">
-	</form>
+	</form> --%>
 	<!-- <form action="SearchProductServlet" method="post">
             Search the product you want :
             <input type="text" name="productname" size="24">
@@ -47,13 +47,13 @@
 			<td align="center">$<%=product.getPrice()%></td>
 			<td align="center"><%=product.getInventory()%></td>
 			<td align="center">
-				<form action="AddBasketServlet" method="post">
+				<%-- <form action="AddBasketServlet" method="post">
 					Enter the numbers you want : <input type="hidden" name="userId"
 						value="<%=((User) session.getAttribute("user")).getUserId()%>">
 					<input type="hidden" name="productId"
 						value="<%=product.getProductId()%>"> <input type="text"
 						name="productCount" size="5"> <input type="submit"
-						value="Take">
+						value="Take"> --%>
 				</form>
 			</td>
 		</tr>

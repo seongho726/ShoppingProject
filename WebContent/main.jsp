@@ -10,7 +10,9 @@
             while (errors.hasNext()) {
                 Exception ex = (Exception) errors.next();%>
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
-        <form action="Login" method="post">
+        <form action="Controller" method="post">
+      	<input type="hidden" name="command" value="validate">
+        
             <table>
               <tr><td>Login Select:</td>
                     <td><select name="userType">

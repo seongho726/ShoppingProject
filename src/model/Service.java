@@ -65,7 +65,7 @@ public class Service {
 	}
 
 	// 수정
-	public static boolean updateProduct(int productId, String description, int price, String inventory)
+	public static boolean updateProduct(int productId, String description, int price, int inventory)
 			throws Exception {
 		return ProductDAO.updateProduct(productId, description, price, inventory);
 	}

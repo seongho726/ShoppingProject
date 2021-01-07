@@ -11,24 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.Basket;
-import dto.Calculate;
-import dto.User;
-import model.BasketService;
+import model.Service;
+import model.domain.Basket;
+import model.domain.User;
 
 @WebServlet("/RetrieveBasketServlet")
 public class RetrieveBasketServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher view = null;
-		BasketService BasketService = null;
+		Service BasketService = null;
 
 		HttpSession session = request.getSession();
-		int userId = ((User) session.getAttribute("user")).getUserId();
+		String userId = ((User) session.getAttribute("user")).getUserId();
 
 		ArrayList<Basket> baskets = null;
-		BasketService = new BasketService();
-		baskets = BasketService.getBasket(userId);
+		BasketService = new Service();
+		try {
+			baskets = (ArrayList<Basket>) Service.getBasket(userId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		request.setAttribute("user", session.getAttribute("user"));
 		request.setAttribute("baskets", baskets);

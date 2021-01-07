@@ -19,6 +19,7 @@ public class ProductDAO {
 			em.createNativeQuery("INSERT INTO shoppingproduct VALUES (shoppingproduct_id_seq.nextval,?,?,?,?,?)")
 					.setParameter(1, productType).setParameter(2, productName).setParameter(3, description)
 					.setParameter(4, price).setParameter(5, inventory).executeUpdate();
+			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -29,7 +30,7 @@ public class ProductDAO {
 	}
 
 	// 물품 업데이트
-	public static boolean updateProduct(int productId, String description, int price, String inventory)
+	public static boolean updateProduct(int productId, String description, int price, int inventory)
 			throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
@@ -54,8 +55,7 @@ public class ProductDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Product p = em.find(Product.class, productId);
-			em.remove(p);
+			em.createNativeQuery("delete from shoppingproduct where product_id=?").setParameter(1, productId).executeUpdate();
 			tx.commit();
 			return true;
 		} catch (Exception e) {
