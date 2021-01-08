@@ -18,7 +18,7 @@ public class PaymentDAO {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return em.createNativeQuery(
-					"SELECT * FROM shoppingpayment WHERE paymentuser_id = ?", Payment.class).setParameter(1, userId)
+					"SELECT * FROM shoppingpayment WHERE paymentuser_id = ? order by payment_id", Payment.class).setParameter(1, userId)
 					.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
