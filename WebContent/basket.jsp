@@ -30,9 +30,10 @@
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
               	<td align="center">  
-              		<form action="DeleteBasketServlet" method="post">
+              		<form action="Controller" method="post">
                         <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
                         <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                        <input type="hidden" name="command" value="deleteBasket">
                         <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                     </form></td>
             </tr>
@@ -40,8 +41,9 @@
         </table>
         <br>
         
-        <form action="BuyBasketServlet" method="post">
+        <form action="Controller" method="post">
                         <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                        <input type="hidden" name="command" value="buyBasket">
                         <input type="submit" value="Checkout">
                     </form>
         

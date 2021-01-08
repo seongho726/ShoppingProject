@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import model.LoginDAO;
 import model.Service;
 import model.domain.Basket;
+import model.domain.Calculate;
+import model.domain.Payment;
 import model.domain.Product;
 import model.domain.User;
 import util.Status;
@@ -51,6 +53,10 @@ public class Controller extends HttpServlet {
 				getBasket(request, response);
 			} else if (command.equals("addBasket")) {
 				addBasket(request, response);
+			} else if (command.equals("buyBasket")) {
+				buyBasket(request, response);
+			} else if (command.equals("payBasket")) {
+				payBasket(request, response);
 			} else {
 				System.out.println("showError.jsp");
 			}
@@ -267,6 +273,7 @@ public class Controller extends HttpServlet {
 		products = Service.getProducts();
 		request.setAttribute("products", products);
 		request.setAttribute("user", HttpSession.getAttribute("user"));
+		
 		try {
 			instance = new Service();
 			Service.addBasket(userId, productId, productCount);
@@ -305,4 +312,58 @@ public class Controller extends HttpServlet {
         view = request.getRequestDispatcher("basket.jsp");
         view.forward(request, response);
     }
+
+	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "showError.jsp";
+		RequestDispatcher view = null;
+		Service BasketService = null;
+
+		HttpSession session = request.getSession();
+		String userId = ((User) session.getAttribute("user")).getUserId();
+
+		List<Basket> baskets = null;
+		baskets = Service.getBasket(userId);
+
+		Calculate calculate = null;
+		calculate = Service.calculateBasket(userId);
+
+		request.setAttribute("user", session.getAttribute("user"));
+		request.setAttribute("baskets", baskets);
+		request.setAttribute("calculate", calculate);
+		view = request.getRequestDispatcher("checkout.jsp");
+		view.forward(request, response);
+		
+	}
+	
+	public void payBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "payfail.jsp";
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html");
+		HttpSession HttpSession = request.getSession();
+
+		String userId = request.getParameter("userId");
+
+		Payment payment = new Payment(userId, request.getParameter("address").trim(),
+				request.getParameter("contact").trim(), request.getParameter("ccNumber").trim(),
+				request.getParameter("ccExpiration").trim(), request.getParameter("ccPassword").trim());
+
+		try {
+			boolean result = Service.addPayment(userId, payment.getAddress(),
+					payment.getContact(), payment.getCcNumber(), payment.getCcExpiration(), payment.getCcPassword());
+			request.getSession().setAttribute("payment", payment);
+			if (result = true) {
+				url = "pay.jsp";
+
+			} else {
+				request.setAttribute("error", "주문 실패");
+
+			}
+		} catch (SQLException e) {
+			request.getSession().setAttribute("error", "입력 실패");
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+
 }
+

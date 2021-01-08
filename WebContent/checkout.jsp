@@ -40,7 +40,7 @@
  
         <h2>Pay Form</h2>
         
-        <form action="PayBasketServlet" method="post">
+        <form action="Controller" method="post">
             <table>
             
                 <tr><td>Address:</td><td>
@@ -57,7 +57,7 @@
                 
              <br>
             <input type="hidden" name="userId" value="<%=user.getUserId()%>"> 
-            <input type="hidden" name="command" value="insert">
+            <input type="hidden" name="command" value="payBasket">
             <input type="submit" value="Pay">&nbsp;&nbsp;
             <input type="reset" value="reset">&nbsp;&nbsp;
             <input type="button" value="Back to main"
