@@ -16,7 +16,7 @@ import model.domain.Basket;
 import model.domain.User;
 
 @WebServlet("/RetrieveBasketServlet")
-public class RetrieveBasketServlet extends HttpServlet {
+public class getBasket extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher view = null;
@@ -30,7 +30,6 @@ public class RetrieveBasketServlet extends HttpServlet {
 		try {
 			baskets = (ArrayList<Basket>) Service.getBasket(userId);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

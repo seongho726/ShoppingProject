@@ -51,9 +51,7 @@
                         <input type="hidden" name="command" value="deleteProduct">
                         <input type="submit" value="Delete"> </form>             
 		</tr>
-		<%
-			}
-		%>
+		<%}%>
 	</table>
 	 <form action="admin/create.jsp" method="post">
             <input type="submit" value="Product Create">

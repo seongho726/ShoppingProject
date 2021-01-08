@@ -70,7 +70,7 @@ public class ProductDAO {
 	public static List<Product> getProducts() throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			return em.createNativeQuery("select * from shoppingproduct", Product.class).getResultList();
+			return em.createNativeQuery("select * from shoppingproduct order by product_id asc" , Product.class).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

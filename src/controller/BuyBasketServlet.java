@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.BasketService;
+import model.Service;
 import model.domain.Basket;
 import model.domain.Calculate;
 import model.domain.User;
@@ -21,17 +21,16 @@ public class BuyBasketServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher view = null;
-		BasketService BasketService = null;
+		Service BasketService = null;
 
 		HttpSession session = request.getSession();
-		int userId = ((User) session.getAttribute("user")).getUserId();
+		String userId = ((User) session.getAttribute("user")).getUserId();
 
-		ArrayList<Basket> baskets = null;
-		BasketService = new BasketService();
-		baskets = BasketService.getBasket(userId);
+		List<Basket> baskets = null;
+		baskets = Service.getBasket(userId);
 
 		Calculate calculate = null;
-		calculate = BasketService.calculateBasket(userId);
+		calculate = Service.calculateBasket(userId);
 
 		request.setAttribute("user", session.getAttribute("user"));
 		request.setAttribute("baskets", baskets);

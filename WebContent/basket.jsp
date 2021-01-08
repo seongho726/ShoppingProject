@@ -11,11 +11,11 @@
         <% session.setAttribute("user", user);%>
     </head>
     <body>
-        <h2>Hello, <%= user.getUserName()%></h2>
-        <table border="2px">
+        <h2>Hello,<%=session.getAttribute("userId")%></h2>
+        <table border=1>
             <tr>
                 <th width="200">Basket ID</th>
-                <th width="200">User Name</th>
+                <th width="200">User Id</th>
                 <th width="200">Product ID</th>
                 <th width="200">Product Count</th>
                 <th width="200">Delete</th>
@@ -26,7 +26,7 @@
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
-                <td align="center"><%=user.getUserName()%></td>
+                <td align="center"><%=user.getUserId()%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
               	<td align="center">  
@@ -36,8 +36,6 @@
                         <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                     </form></td>
             </tr>
-			
-            </form>
             <% }%>
         </table>
         <br>

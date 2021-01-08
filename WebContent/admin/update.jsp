@@ -14,11 +14,11 @@
                 <tr><td>Product Name:</td><td>
                         <input type="text" name="productname" size="20" value="${sessionScope.product.productName}" readonly></td></tr>
                 <tr><td>Description:</td><td>
-                        <input type="text" name="description" size="50" value="${sessionScope.product.productId}"></td></tr>
+                        <input type="text" name="description" size="50"></td></tr>
                 <tr><td>Price:</td><td>
-                        <input type="text" name="price" size="5" value= "${sessionScope.product.productId}"></td></tr>
+                        <input type="text" name="price" size="5"></td></tr>
                 <tr><td>Inventory:</td><td>
-                        <input type="text" name="inventory" size="5" value= "${sessionScope.product.productId}"></td></tr>
+                        <input type="text" name="inventory" size="5"></td></tr>
             </table>
             <input type="submit" value="Submit">
             <input type="hidden" name="command" value="updateProduct">
