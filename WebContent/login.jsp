@@ -14,7 +14,7 @@
 		<%=session.getAttribute("userId")%></h4>
 
 		<% ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();%>
-		<%User user = (User) request.getAttribute("user");%>
+		<%User user = (User) session.getAttribute("user");%>
 		<%session.setAttribute("user", user);%>
 	<%--  <form action="Controller" method="post">
 		<input type="hidden" name="userId"

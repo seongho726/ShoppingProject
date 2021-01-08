@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- <form action="Controller" method="post">
+ <form action="..\Controller" method="post">
             <table>
                 <tr><td>Product Type:</td><td>
                         <input type="text" name="producttype" size="20"></td></tr>
@@ -21,7 +21,7 @@
                         <input type="text" name="inventory" size="5"></td></tr>
             </table>
             <input type="submit" value="제품 생성">
-           <br> <input type="hidden" name="command" value="addProduct">
+           <br><input type="hidden" name="command" value="addProduct">
         </form>        
     </body>
 </html>

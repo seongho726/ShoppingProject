@@ -40,6 +40,9 @@ CREATE TABLE shoppingbasket(
  product_id NUMBER,
  product_count NUMBER,
  validity NUMBER);
+ 
+DROP SEQUENCE basket_id_seq;
+CREATE SEQUENCE basket_id_seq;
 
 DROP SEQUENCE payment_id_seq;
 

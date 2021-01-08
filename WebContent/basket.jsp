@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
         <% ArrayList<Basket> baskets = (ArrayList<Basket>) Service.getBasket(userId);%>
-        <% User user = (User) request.getAttribute("user");%>
+        <% User user = (User) session.getAttribute("user");%>
         <%String userId = ((User) session.getAttribute("user")).getUserId(); %>
         <% session.setAttribute("user", user);%>
         <%System.out.println(); %>
