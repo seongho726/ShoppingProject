@@ -14,11 +14,12 @@ import util.PublicCommon;
 public class PaymentDAO {
 	// id로 payment 검색
 //	"SELECT * FROM shoppingpayment WHERE paymentuser_id=?"
-	public static List<Payment> getPayement(String userId) throws Exception {
+	public static List<Payment> getPayment(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			return (List<Payment>) em.createNativeQuery(
-					"SELECT * FROM shoppingpayment WHERE paymentuser_id=" + userId + "", Payment.class).getResultList();
+			return em.createNativeQuery(
+					"SELECT * FROM shoppingpayment WHERE paymentuser_id = ?", Payment.class).setParameter(1, userId)
+					.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -53,8 +54,8 @@ public class PaymentDAO {
 			pstmt = con.prepareStatement("INSERT INTO shoppingpayment VALUES(payment_id_seq.nextval,?,?,?,?,?,?,?,?)");
 
 			pstmt.setString(1, userId);
-			pstmt.setInt(2, totalBasketPrice);
-			pstmt.setInt(3, totalProductCount);
+			pstmt.setInt(2, totalProductCount);
+			pstmt.setInt(3, totalBasketPrice);
 			pstmt.setString(4, address);
 			pstmt.setString(5, contact);
 			pstmt.setString(6, ccNumber);

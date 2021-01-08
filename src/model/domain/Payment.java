@@ -48,10 +48,10 @@ public class Payment {
 	@Column (name = "cc_password")
 	String ccPassword;
 	
-	@ManyToOne
-	@JoinColumn (name = "paymentusers_id", referencedColumnName = "shoppinguser_id", nullable=false)	
-	User usersId;
-	
+//	@ManyToOne
+//	@JoinColumn (name = "paymentusers_id", referencedColumnName = "shoppinguser_id", nullable=false)	
+//	User usersId;
+//	
 
 	public Payment(String userId, String address, String contact, String ccNumber, 
 			String ccExpiration, String ccPassword) {

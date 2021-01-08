@@ -6,13 +6,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
-        <% ArrayList<Basket> baskets = (ArrayList<Basket>) request.getAttribute("baskets");%>
-        <% User user = (User) request.getAttribute("user");%>
-        <% Calculate calculate = (Calculate) request.getAttribute("calculate");%>
-        <% session.setAttribute("user", user);%>
-    </head>
+        <% String userId=(String) session.getAttribute("userId");%>
+        <% ArrayList<Basket> baskets = (ArrayList<Basket>) session.getAttribute("baskets");%>
+        <% Calculate calculate = (Calculate) session.getAttribute("calculate");%>
+<%--         <% session.setAttribute("user", user);%>
+ --%>    </head>
     <body>
-        <h2>Hello, <%= user.getUserName()%></h2>
+        <h2>Hello, <%=userId%></h2>
         <table border="2px">
             <tr>
                 <th width="200">Basket ID</th>
@@ -26,7 +26,7 @@
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
-                <td align="center"><%=user.getUserName()%></td>
+                <td align="center"><%=userId%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
             </tr>
@@ -56,7 +56,7 @@
                 <br>
                 
              <br>
-            <input type="hidden" name="userId" value="<%=user.getUserId()%>"> 
+            <input type="hidden" name="userId" value="<%=userId%>"> 
             <input type="hidden" name="command" value="payBasket">
             <input type="submit" value="Pay">&nbsp;&nbsp;
             <input type="reset" value="reset">&nbsp;&nbsp;
