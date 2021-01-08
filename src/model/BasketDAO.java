@@ -19,7 +19,7 @@ public class BasketDAO {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return em.createNativeQuery(
-					"SELECT * FROM shoppingbasket where basketuser_id = " + userId + " and validity = 1", Basket.class)
+					"SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1", Basket.class).setParameter(1, userId)
 					.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,17 +93,19 @@ public class BasketDAO {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
+		boolean result = false;
 		try {
 			em.createNativeQuery("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ? AND basket_id = ?")
 					.setParameter(1, userId).setParameter(2, basketId).executeUpdate();
 			tx.commit();
+			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
 			em.close();
 		}
-		return true;
+		return result;
 	}
 
 	public static boolean cleanBasket(String userId) throws Exception {

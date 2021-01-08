@@ -12,10 +12,7 @@
 	<h4>
 		Hello,
 		<%=session.getAttribute("userId")%></h4>
-
-		<% ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();%>
-		<%User user = (User) session.getAttribute("user");%>
-		<%session.setAttribute("user", user);%>
+		<%ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();%>
 	<%--  <form action="Controller" method="post">
 		<input type="hidden" name="userId"
 			value="<%=((User) session.getAttribute("user")).getUserId()%>">
@@ -50,8 +47,6 @@
 			 <td align="center">
 				<form action="Controller" method="post">
 					Enter the numbers you want : 
-<%-- 					<input type="hidden" name="userId" value="<%=((User) session.getAttribute("user")).getUserId()%>">
- --%>				<input type="hidden" name="userId" value="userId">	
  					<input type="hidden" name="productId" value="<%=product.getProductId()%>">
 					<input type="text" name="productCount">
 					<input type="hidden" name="command" value="addBasket">
@@ -63,8 +58,8 @@
 			}
 		%>
 	</table>
-	<form>&nbsp;&nbsp;&nbsp;
-            <input type="button" value="Basket" Onclick="location.href='basket.jsp'">
+		<form></form>
+            <button value="Basket" Onclick="location.href='basket.jsp'"> Basket</button> 
 </body>
 
 </html>

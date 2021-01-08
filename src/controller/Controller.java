@@ -21,7 +21,6 @@ import model.domain.Calculate;
 import model.domain.Payment;
 import model.domain.Product;
 import model.domain.User;
-import util.Status;
 
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
@@ -57,6 +56,8 @@ public class Controller extends HttpServlet {
 				buyBasket(request, response);
 			} else if (command.equals("payBasket")) {
 				payBasket(request, response);
+			} else if (command.equals("deleteBasket")) {
+				deleteBasket(request, response);
 			} else {
 				System.out.println("showError.jsp");
 			}
@@ -232,86 +233,62 @@ public class Controller extends HttpServlet {
 		}
 		out.close();
 	}
-	
-	public void getBasket(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "showError.jsp";
-		RequestDispatcher view = null;
-		Service BasketService = null;
 
+	public void getBasket(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "showError.jsp";
 		HttpSession session = request.getSession();
 		String userId = ((User) session.getAttribute("user")).getUserId();
-
 		ArrayList<Basket> baskets = null;
-		BasketService = new Service();
 		try {
 			baskets = (ArrayList<Basket>) Service.getBasket(userId);
+			session.setAttribute("baskets", baskets);
+			url = "basket.jsp";
 		} catch (Exception e) {
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 		}
-		request.setAttribute("user", session.getAttribute("user"));
-		request.setAttribute("baskets", baskets);
-		view = request.getRequestDispatcher("basket.jsp");
-		view.forward(request, response);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
-	
+
 	public void addBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
-		RequestDispatcher view = null;
-		Status status = new Status();
-		request.setAttribute("status", status);
-		HttpSession HttpSession = request.getSession();
-		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int productCount = Integer.parseInt(request.getParameter("productCount"));
-		if ((request.getParameter("productCount") == null)) {
-			status.addException(new Exception("Please enter product count."));
-		}
-		if ((productCount == 0)) {
-			status.addException(new Exception("Please enter product count."));
-		}
-		List<Product> products = null;
-		products = Service.getProducts();
-		request.setAttribute("products", products);
-		request.setAttribute("user", HttpSession.getAttribute("user"));
-		
 		try {
-			instance = new Service();
-			Service.addBasket(userId, productId, productCount);
-			if (!status.isSuccessful()) {
-				view = request.getRequestDispatcher("login.jsp");
-				view.forward(request, response);
-				return;
+			boolean result = Service.addBasket(userId, productId, productCount);
+			if (result) {
+				url = "login.jsp";
+			} else {
+				request.getSession().setAttribute("errMsg", "추가실패");
 			}
-			view = request.getRequestDispatcher("login.jsp");
-			view.forward(request, response);
 		} catch (Exception e) {
-			status.addException(e);
-			view = request.getRequestDispatcher("login.jsp");
-			view.forward(request, response);
-		}
-	}
-	public void deleteBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String url = "showError.jsp";
-		RequestDispatcher view = null;
-        HttpSession HttpSession = request.getSession();
-
-        int basketId = Integer.parseInt(request.getParameter("basketId"));
-        String userId = request.getParameter("userId");
-
-        List<Basket> baskets = null;
-        try {
-			Service.deleteBasket(userId, basketId);
-		} catch (SQLException e) {
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 		}
-        baskets = Service.getBasket(userId);
+		request.getRequestDispatcher(url).forward(request, response);
+	}
 
-        request.setAttribute("baskets", baskets);
-        request.setAttribute("user", HttpSession.getAttribute("user"));
-
-        view = request.getRequestDispatcher("basket.jsp");
-        view.forward(request, response);
-    }
+	public void deleteBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "showError.jsp";
+		HttpSession session = request.getSession();
+		int basketId = Integer.parseInt(request.getParameter("basketId"));
+		String userId = (String) session.getAttribute("userId");
+		try {
+			boolean result = Service.deleteBasket(userId, basketId);
+			if (result) {
+				url = "basket.jsp";
+			} else {
+				request.getSession().setAttribute("errMsg", "삭제실패");
+			}
+		} catch (Exception e) {
+			request.getSession().setAttribute("errMsg", e.getMessage());
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
 
 	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
@@ -332,9 +309,9 @@ public class Controller extends HttpServlet {
 		request.setAttribute("calculate", calculate);
 		view = request.getRequestDispatcher("checkout.jsp");
 		view.forward(request, response);
-		
+
 	}
-	
+
 	public void payBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "payfail.jsp";
 		request.setCharacterEncoding("utf-8");
@@ -348,8 +325,8 @@ public class Controller extends HttpServlet {
 				request.getParameter("ccExpiration").trim(), request.getParameter("ccPassword").trim());
 
 		try {
-			boolean result = Service.addPayment(userId, payment.getAddress(),
-					payment.getContact(), payment.getCcNumber(), payment.getCcExpiration(), payment.getCcPassword());
+			boolean result = Service.addPayment(userId, payment.getAddress(), payment.getContact(),
+					payment.getCcNumber(), payment.getCcExpiration(), payment.getCcPassword());
 			request.getSession().setAttribute("payment", payment);
 			if (result = true) {
 				url = "pay.jsp";
@@ -366,4 +343,3 @@ public class Controller extends HttpServlet {
 	}
 
 }
-

@@ -6,14 +6,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
+        <%String userId=(String) session.getAttribute("userId");%>
         <% ArrayList<Basket> baskets = (ArrayList<Basket>) Service.getBasket(userId);%>
-        <% User user = (User) session.getAttribute("user");%>
-        <%String userId = ((User) session.getAttribute("user")).getUserId(); %>
-        <% session.setAttribute("user", user);%>
-        <%System.out.println(); %>
     </head>
     <body>
-        <h2>Hello,<%=session.getAttribute("userId")%></h2>
+        <h2>Hello,<%=userId%></h2>
         <table border=1>
             <tr>
                 <th width="200">Basket ID</th>
@@ -28,13 +25,13 @@
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
-                <td align="center"><%=user.getUserId()%></td>
+                <td align="center"><%=userId%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
               	<td align="center">  
               		<form action="Controller" method="post">
                         <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
-                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                        <input type="hidden" name="userId" value="<%=userId%>">
                         <input type="hidden" name="command" value="deleteBasket">
                         <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
                     </form></td>
@@ -44,7 +41,7 @@
         <br>
         
         <form action="Controller" method="post">
-                        <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                        <input type="hidden" name="userId" value="<%=userId%>">
                         <input type="hidden" name="command" value="buyBasket">
                         <input type="submit" value="Checkout">
                     </form>

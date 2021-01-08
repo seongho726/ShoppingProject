@@ -15,50 +15,47 @@ PAYMENT
 DROP TABLE shoppingpayment cascade constraint;
 
 DROP SEQUENCE shoppinguser_id_seq;
-
+DROP SEQUENCE basket_id_seq;
+DROP SEQUENCE payment_id_seq;
 DROP TABLE shoppinguser cascade constraint;
 CREATE TABLE shoppinguser(
- shoppinguser_id varchar2(50) PRIMARY KEY,
- usertype varchar2(20),
- username varchar2(20) ,
- password varchar2(20) NOT NULL,
- email varchar2(30),
- contact varchar2(20),
- address varchar2(50));
+ shoppinguser_id varchar2(255) PRIMARY KEY,
+ usertype varchar2(255),
+ username varchar2(255) ,
+ password varchar2(255) NOT NULL,
+ email varchar2(255),
+ contact varchar2(255),
+ address varchar2(255));
 
 CREATE TABLE shoppingproduct(
   product_id NUMBER PRIMARY KEY,
-  product_type VARCHAR2(20),
-  product_name VARCHAR2(20),
-  description VARCHAR2(50),
+  product_type VARCHAR2(255),
+  product_name VARCHAR2(255),
+  description VARCHAR2(255),
   price NUMBER,
   inventory NUMBER);
 
 CREATE TABLE shoppingbasket(
  basket_id NUMBER PRIMARY KEY,
- basketuser_id VARCHAR2(50),
+ basketuser_id VARCHAR2(255),
  product_id NUMBER,
  product_count NUMBER,
  validity NUMBER);
  
-DROP SEQUENCE basket_id_seq;
-CREATE SEQUENCE basket_id_seq;
-
-DROP SEQUENCE payment_id_seq;
-
-CREATE SEQUENCE payment_id_seq;
 
 CREATE TABLE shoppingpayment(
   payment_id NUMBER PRIMARY KEY,
-  paymentuser_id VARCHAR2(50),
+  paymentuser_id VARCHAR2(255),
   total_count NUMBER, 
   total_price NUMBER,
-  address VARCHAR2(50),
-  contact VARCHAR2(20),
-  cc_number VARCHAR2(20),
-  cc_expiration VARCHAR2(20),
-  cc_password VARCHAR2(10));
+  address VARCHAR2(255),
+  contact VARCHAR2(255),
+  cc_number VARCHAR2(255),
+  cc_expiration VARCHAR2(255),
+  cc_password VARCHAR2(255));
 
+CREATE SEQUENCE basket_id_seq INCREMENT BY 1;
+CREATE SEQUENCE payment_id_seq INCREMENT BY 1;
 ALTER SEQUENCE shoppingproduct_id_seq INCREMENT BY 1;
 ALTER TABLE shoppingbasket ADD FOREIGN KEY (basketuser_id) REFERENCES shoppinguser  (shoppinguser_id);
 ALTER TABLE shoppingpayment ADD FOREIGN KEY (paymentuser_id)  REFERENCES shoppinguser  (shoppinguser_id);
