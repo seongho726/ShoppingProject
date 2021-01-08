@@ -1,4 +1,4 @@
-<%@page import="model.domain.Basket, model.domain.User"%>
+<%@page import="model.domain.Basket, model.domain.User, model.Service"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -6,9 +6,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
-        <% ArrayList<Basket> baskets = (ArrayList<Basket>) request.getAttribute("baskets");%>
+        <% (List<Basket>) baskets = (ArrayList<Basket>) Service.getBasket(userId);%>
         <% User user = (User) request.getAttribute("user");%>
         <% session.setAttribute("user", user);%>
+       <%--  <%System.out.println(baskets) %> --%>
     </head>
     <body>
         <h2>Hello,<%=session.getAttribute("userId")%></h2>

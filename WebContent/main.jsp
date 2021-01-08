@@ -11,8 +11,6 @@
                 Exception ex = (Exception) errors.next();%>
             <li><%= ex.getMessage()%><%}%></ul></font><%}%>
         <form action="Controller" method="post">
-      	<input type="hidden" name="command" value="validate">
-        
             <table>
               <tr><td>Login Select:</td>
                     <td><select name="userType">
@@ -22,7 +20,9 @@
                 <tr><td>UserId:</td><td>
                         <input type="text" name="userId" size="24"></td></tr>
                 <tr><td>Password:</td><td>
-                        <input type="password" name="password" size="24"></td></tr></table>
+                        <input type="password" name="password" size="24"></td></tr>
+                 </table>
+      		<input type="hidden" name="command" value="validate">
             <input type="submit" value="Submit">
         </form>
         if you have not your ID, you should join to my shopping site!

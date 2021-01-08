@@ -8,23 +8,44 @@ import javax.persistence.EntityTransaction;
 import util.PublicCommon;
 
 public class LoginDAO {
-	public static boolean validate(String userType, String userId, String password) throws Exception {
-		EntityManager em = PublicCommon.getEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		try {
-			em.createNativeQuery(
-					"SELECT * FROM shoppinguser where usertype = ? and shoppinguser_id = ? and password = ?")
-					.setParameter(1, userType).setParameter(2, userId).setParameter(3, password).executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			em.close();
-		}
-		return true;
-	}
+//	public static boolean validate(String userType, String userId, String password) throws ClassNotFoundException, SQLException {
+//		  Connection con = null;
+//	      PreparedStatement pstmt = null;
+//	      ResultSet rset = null;  
+//		  boolean status = false;
+//	      try {
+//	        		con = DBUtil.getConnection();
+//	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where usertype = ? and shoppinguser_id = ? and password = ?");
+//	                pstmt.setString(1, userType);
+//	                pstmt.setString(2, userId);
+//	                pstmt.setString(3, password);
+//	                rset = pstmt.executeQuery();
+//	                status = rset.next();
+//	} finally {
+//    	DBUtil.close(con, pstmt, rset);
+//    } return status;
+//}
 
+		public static boolean validate(String userType, String userId, String password) throws Exception {
+			EntityManager em = PublicCommon.getEntityManager();
+			EntityTransaction tx = em.getTransaction();
+			tx.begin();
+			  boolean status = false;
+			try {
+				em.createNativeQuery(
+						"SELECT * FROM shoppinguser where usertype = ? and shoppinguser_id = ? and password = ?")
+						.setParameter(1, userType).setParameter(2, userId).setParameter(3, password).getSingleResult();
+				status = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			} finally {
+				em.close();
+			}
+			return status;
+		}
+	
+	
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {

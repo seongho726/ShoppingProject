@@ -64,8 +64,7 @@
 		%>
 	</table>
 	<form>&nbsp;&nbsp;&nbsp;
-            <input type="button" value="Basket"
-            Onclick="location.href='basket.jsp'">
+            <input type="button" value="Basket" Onclick="location.href='basket.jsp'">
 </body>
 
 </html>
