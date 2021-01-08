@@ -26,7 +26,7 @@
             <input type="text" name="productname" size="24">
             <input type="submit" value="Submit">
         </form> -->
-	<table border="2px">
+	<table border="2">
 		<tr>
 			<th width="100">Product ID</th>
 			<th width="150">Product Type</th>

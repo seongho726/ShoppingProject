@@ -18,7 +18,7 @@ public class BasketDAO {
 	public static List<Basket> getBasket(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
-			return (List<Basket>) em.createNativeQuery(
+			return em.createNativeQuery(
 					"SELECT * FROM shoppingbasket where basketuser_id = " + userId + " and validity = 1", Basket.class)
 					.getResultList();
 		} catch (Exception e) {
@@ -76,7 +76,7 @@ public class BasketDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			em.createNativeQuery("INSERT INTO shoppingbasket VALUES(shoppingproduct_id_seq.nextval,?,?,?,1)")
+			em.createNativeQuery("INSERT INTO shoppingbasket VALUES(shoppingbasket_id_seq.nextval,?,?,?,1)")
 					.setParameter(1, userId).setParameter(2, productId).setParameter(3, productCount).executeUpdate();
 			tx.commit();
 		} catch (Exception e) {

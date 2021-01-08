@@ -23,7 +23,6 @@ public class User {
 	@Column(name = "shoppinguser_id")
 	String userId;
 
-
 	@Column(name = "usertype")
 	String userType;
 

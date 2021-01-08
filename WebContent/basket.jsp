@@ -6,10 +6,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Product List</title>
-        <% (List<Basket>) baskets = (ArrayList<Basket>) Service.getBasket(userId);%>
+        <% ArrayList<Basket> baskets = (ArrayList<Basket>) Service.getBasket(userId);%>
         <% User user = (User) request.getAttribute("user");%>
+        <%String userId = ((User) session.getAttribute("user")).getUserId(); %>
         <% session.setAttribute("user", user);%>
-       <%--  <%System.out.println(baskets) %> --%>
+        <%System.out.println(); %>
     </head>
     <body>
         <h2>Hello,<%=session.getAttribute("userId")%></h2>
