@@ -112,16 +112,18 @@ public class BasketDAO {
 		EntityManager em = PublicCommon.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
+		boolean result = false;
 		try {
 			em.createNativeQuery("UPDATE shoppingbasket SET validity = 2 WHERE basketuser_id = ?")
 					.setParameter(1, userId).executeUpdate();
 			tx.commit();
+			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
 			em.close();
 		}
-		return true;
+		return result;
 	}
 }

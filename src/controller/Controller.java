@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.BasketDAO;
 import model.LoginDAO;
 import model.Service;
 import model.domain.Basket;
@@ -284,9 +285,11 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		int basketId = Integer.parseInt(request.getParameter("basketId"));
 		String userId = (String) session.getAttribute("userId");
+		
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
+				session.setAttribute("baskets", Service.getBasket(userId));
 				url = "basket.jsp";
 			} else {
 				request.getSession().setAttribute("errMsg", "삭제실패");
@@ -332,6 +335,8 @@ public class Controller extends HttpServlet {
 			boolean result = Service.addPayment(userId, address, contact, ccNumber, ccExpiration, ccPassword);
 			if (result = true) {
 				url = "pay.jsp";
+				BasketDAO.cleanBasket(userId);
+				session.setAttribute("baskets", Service.getBasket(userId));
 			} else {
 				request.setAttribute("error", "주문 실패");
 			}
@@ -350,6 +355,7 @@ public class Controller extends HttpServlet {
 		try {
 			payments = (ArrayList<Payment>) Service.getPayment(userId);
 			session.setAttribute("payments", payments);
+			
 			url = "orderHistory.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("errMsg", e.getMessage());

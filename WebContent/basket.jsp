@@ -32,11 +32,10 @@
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
-                <td alignuse="center"><%=userId%></td>
+                <td align="center"><%=userId%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
                 <td align="center"><%=tempPrice%></td>
-               <%--  <td align="center"><%=*basket.getProductCount()%></td> --%>
               	<td align="center">  
               		<form action="Controller" method="post">
                         <input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
@@ -49,7 +48,7 @@
         </table>
         <br>
         <div>
-        <% out.print(totalPrice); %>
+        <%=totalPrice %>
         </div>
         
         <form action="Controller" method="post">

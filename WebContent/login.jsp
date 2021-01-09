@@ -60,6 +60,7 @@
 	</table>
 		<form></form>
             <button value="Basket" Onclick="location.href='Controller?command=getBasket'"> Basket</button> 
+             <button value="Basket" Onclick="location.href='Controller?command=getPayment'"> 결재내역</button> 
 </body>
 
 </html>
