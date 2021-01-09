@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -238,10 +239,15 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
-		String userId = ((User) session.getAttribute("user")).getUserId();
+		String userId = (String) session.getAttribute("userId");
 		ArrayList<Basket> baskets = null;
 		try {
 			baskets = (ArrayList<Basket>) Service.getBasket(userId);
+			HashMap prices =new HashMap();
+			for (Basket basket : baskets) {
+				prices.put(basket.getProductId(), Service.getProduct(basket.getProductId()).getPrice());
+			}
+			session.setAttribute("prices", prices);
 			session.setAttribute("baskets", baskets);
 			url = "basket.jsp";
 		} catch (Exception e) {

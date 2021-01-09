@@ -59,7 +59,7 @@
 		%>
 	</table>
 		<form></form>
-            <button value="Basket" Onclick="location.href='basket.jsp'"> Basket</button> 
+            <button value="Basket" Onclick="location.href='Controller?command=getBasket'"> Basket</button> 
 </body>
 
 </html>
