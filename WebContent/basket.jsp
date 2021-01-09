@@ -32,7 +32,7 @@
             %>
             <tr>
                 <td align="center"><%=basket.getBasketId()%></td>
-                <td align="center"><%=userId%></td>
+                <td alignuse="center"><%=userId%></td>
                 <td align="center"><%=basket.getProductId()%></td>
                 <td align="center"><%=basket.getProductCount()%></td>
                 <td align="center"><%=tempPrice%></td>

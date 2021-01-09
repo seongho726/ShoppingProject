@@ -102,7 +102,7 @@ public class Service {
 	// 4. Payment
 	// 검색
 	public static List<Payment> getPayment(String userId) throws Exception {
-		return PaymentDAO.getPayement(userId);
+		return PaymentDAO.getPayment(userId);
 	}
 	
 	public static boolean addPayment(String userId, String address, String contact, String ccNumber, String ccExpiration,

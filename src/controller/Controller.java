@@ -59,6 +59,8 @@ public class Controller extends HttpServlet {
 				payBasket(request, response);
 			} else if (command.equals("deleteBasket")) {
 				deleteBasket(request, response);
+			} else if (command.equals("getPayment")) {
+				getPayment(request, response);
 			} else {
 				System.out.println("showError.jsp");
 			}
@@ -298,48 +300,40 @@ public class Controller extends HttpServlet {
 
 	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
-		RequestDispatcher view = null;
-		Service BasketService = null;
-
 		HttpSession session = request.getSession();
-		String userId = ((User) session.getAttribute("user")).getUserId();
+		String userId = (String) session.getAttribute("userId");
+		
+		ArrayList<Basket> baskets = null;
 
-		List<Basket> baskets = null;
-		baskets = Service.getBasket(userId);
+		baskets = (ArrayList<Basket>) Service.getBasket(userId);
+		session.setAttribute("baskets", baskets);
 
 		Calculate calculate = null;
 		calculate = Service.calculateBasket(userId);
+		session.setAttribute("calculate", calculate);
 
-		request.setAttribute("user", session.getAttribute("user"));
-		request.setAttribute("baskets", baskets);
-		request.setAttribute("calculate", calculate);
-		view = request.getRequestDispatcher("checkout.jsp");
-		view.forward(request, response);
+		request.getRequestDispatcher("checkout.jsp").forward(request, response);
 
 	}
 
 	public void payBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "payfail.jsp";
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html");
-		HttpSession HttpSession = request.getSession();
+		HttpSession session = request.getSession();
 
-		String userId = request.getParameter("userId");
-
-		Payment payment = new Payment(userId, request.getParameter("address").trim(),
-				request.getParameter("contact").trim(), request.getParameter("ccNumber").trim(),
-				request.getParameter("ccExpiration").trim(), request.getParameter("ccPassword").trim());
-
+		String userId = (String) session.getAttribute("userId");
+		
+		String address = request.getParameter("address").trim();
+		String contact = request.getParameter("contact").trim();
+		String ccNumber = request.getParameter("ccNumber").trim();
+		String ccExpiration = request.getParameter("ccExpiration").trim();
+		String ccPassword = request.getParameter("ccPassword").trim();
+		
 		try {
-			boolean result = Service.addPayment(userId, payment.getAddress(), payment.getContact(),
-					payment.getCcNumber(), payment.getCcExpiration(), payment.getCcPassword());
-			request.getSession().setAttribute("payment", payment);
+			boolean result = Service.addPayment(userId, address, contact, ccNumber, ccExpiration, ccPassword);
 			if (result = true) {
 				url = "pay.jsp";
-
 			} else {
 				request.setAttribute("error", "주문 실패");
-
 			}
 		} catch (SQLException e) {
 			request.getSession().setAttribute("error", "입력 실패");
@@ -347,5 +341,20 @@ public class Controller extends HttpServlet {
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
-
+	
+	public void getPayment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "showError.jsp";
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		ArrayList<Payment> payments = null;
+		try {
+			payments = (ArrayList<Payment>) Service.getPayment(userId);
+			session.setAttribute("payments", payments);
+			url = "orderHistory.jsp";
+		} catch (Exception e) {
+			request.getSession().setAttribute("errMsg", e.getMessage());
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
 }

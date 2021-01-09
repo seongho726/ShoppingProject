@@ -19,7 +19,7 @@ public class BasketDAO {
 		EntityManager em = PublicCommon.getEntityManager();
 		try {
 			return em.createNativeQuery(
-					"SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1", Basket.class).setParameter(1, userId)
+					"SELECT * FROM shoppingbasket where basketuser_id = ? and validity = 1 order by basket_id", Basket.class).setParameter(1, userId)
 					.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
