@@ -34,3 +34,7 @@ JDBC, Servlet, JSP, Tomcat 8.5, Lombok
 [seongho726](https://github.com/seongho726)
 
 [EunbeeGo](https://github.com/EunbeeGo)
+
+## Credits
+The design template used was not made from scratch.
+We used a T-Mart theme free version found [here] (https://themehunt.com/item/1527068-tmart-free-minimal-ecommerce-html5-template). 
