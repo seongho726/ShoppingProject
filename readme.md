@@ -37,4 +37,4 @@ JDBC, Servlet, JSP, Tomcat 8.5, Lombok
 
 ## Credits
 The design template used was not made from scratch.
-We used a T-Mart theme free version found [here](https://themehunt.com/item/1527068-tmart-free-minimal-ecommerce-html5-template). 
+We used a T-Mart theme free version found [here](https://themehunt.com/item/1527068-tmart-free-minimal-ecommerce-html5-template) for learning purpuse only. 
