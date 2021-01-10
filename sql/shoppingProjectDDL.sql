@@ -14,10 +14,8 @@ PAYMENT
 -- 
 DROP TABLE shoppingpayment cascade constraint;
 
-DROP SEQUENCE shoppinguser_id_seq;
-DROP SEQUENCE basket_id_seq;
-DROP SEQUENCE payment_id_seq;
-DROP TABLE shoppinguser cascade constraint;
+
+
 CREATE TABLE shoppinguser(
  shoppinguser_id varchar2(255) PRIMARY KEY,
  usertype varchar2(255),
@@ -54,9 +52,11 @@ CREATE TABLE shoppingpayment(
   cc_expiration VARCHAR2(255),
   cc_password VARCHAR2(255));
 
+DROP SEQUENCE basket_id_seq;
+DROP SEQUENCE payment_id_seq;
+DROP SEQUENCE shoppingproduct_id_seq;
+
 CREATE SEQUENCE basket_id_seq INCREMENT BY 1;
 CREATE SEQUENCE payment_id_seq INCREMENT BY 1;
-ALTER SEQUENCE shoppingproduct_id_seq INCREMENT BY 1;
-ALTER TABLE shoppingbasket ADD FOREIGN KEY (basketuser_id) REFERENCES shoppinguser  (shoppinguser_id);
-ALTER TABLE shoppingpayment ADD FOREIGN KEY (paymentuser_id)  REFERENCES shoppinguser  (shoppinguser_id);
-ALTER TABLE shoppingbasket ADD FOREIGN KEY (product_id) REFERENCES shoppingproduct  (product_id);
+CREATE SEQUENCE shoppingproduct_id_seq INCREMENT BY 1;
+
