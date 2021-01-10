@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -147,7 +146,7 @@ public class Controller extends HttpServlet {
 					product.getDescription(), product.getPrice(), product.getInventory());
 			request.getSession().setAttribute("product", product);
 			if (result = true) {
-				url = "admin/login.jsp";
+				url = "login.jsp";
 			} else {
 				request.setAttribute("error", "생성 실패");
 			}
@@ -164,7 +163,7 @@ public class Controller extends HttpServlet {
 		try {
 			request.getSession().setAttribute("product",
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
-			url = "admin/update.jsp";
+			url = "update.jsp";
 		} catch (Exception s) {
 			request.getSession().setAttribute("errorMsg", s.getMessage());
 			s.printStackTrace();
@@ -184,7 +183,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("product",
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
 			request.getSession().setAttribute("successMsg", productId + "제품수정");
-			url = "admin/login.jsp";
+			url = "login.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
@@ -198,7 +197,7 @@ public class Controller extends HttpServlet {
 		try {
 			Service.deleteProduct(Integer.parseInt(request.getParameter("productId")));
 			request.getSession().setAttribute("productDelete", Service.deleteProduct(productId));
-			url = "admin/login.jsp";
+			url = "login.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("errMSg", e.getMessage());
 			e.printStackTrace();
@@ -220,16 +219,16 @@ public class Controller extends HttpServlet {
 		try {
 			if (LoginDAO.validate(t, i, p)) {
 				if (t.equals("C")) {
-					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");
 					rd.forward(request, response);
 				}
 				if (t.equals("A")) {
-					RequestDispatcher rd = request.getRequestDispatcher("admin/login.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 					rd.forward(request, response);
 				}
 			} else {
 				out.print("<p style=\"color:red\">Sorry username or password error</p>");
-				RequestDispatcher rd = request.getRequestDispatcher("main.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("login-register.jsp");
 				rd.include(request, response);
 			}
 		} catch (Exception e) {
@@ -252,7 +251,7 @@ public class Controller extends HttpServlet {
 			}
 			session.setAttribute("prices", prices);
 			session.setAttribute("baskets", baskets);
-			url = "basket.jsp";
+			url = "cart.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
@@ -269,7 +268,7 @@ public class Controller extends HttpServlet {
 		try {
 			boolean result = Service.addBasket(userId, productId, productCount);
 			if (result) {
-				url = "login.jsp";
+				url = "shop.jsp";
 			} else {
 				request.getSession().setAttribute("errMsg", "추가실패");
 			}
@@ -290,7 +289,7 @@ public class Controller extends HttpServlet {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
 				session.setAttribute("baskets", Service.getBasket(userId));
-				url = "basket.jsp";
+				url = "cart.jsp";
 			} else {
 				request.getSession().setAttribute("errMsg", "삭제실패");
 			}

@@ -1,0 +1,82 @@
+/*--------------------------------------------------------------
+  Template Name: Tmart-Minimalist eCommerce HTML5 Template.
+  Template URI: #
+  Description: Tmart is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
+  Author: Theme365
+  Version: 1.0
+---------------------------------------------------------------*/
+
+/* ----------------------------------------------------
+	You can put your custom css code here: 
+-------------------------------------------------------*/
+.table-content table td input {
+	background: white none repeat scroll 0 0;
+    border: none;
+    font-size: 15px;
+    font-weight: normal;
+    font-color: #303030;
+    height: 40px;
+    padding: 0 5px 0 10px;
+    width: 60px;
+}
+
+.table-content table td input:hover{
+	color: #ff4136;
+	background: transparent !important;
+}
+ 
+.table-content html input[type="submit"]:hover {
+	background: transparent !important; 
+	}
+
+html input[type="button"], input[type="reset"], input[type="submit"] {
+	background: #252525 none repeat scroll 0 0;
+    border: medium none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-color: white;
+    font-weight: 700;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    text-shadow: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    white-space: nowrap;
+}
+
+.buttons-cart html input[type="submit"]:hover, input[type="reset"]:hover {
+	cursor:pointer;
+    background:#ff4136;
+}
+
+html input[type="submit"]:hover {
+	cursor:pointer;
+    background:#ff4136;
+}
+
+.addtocart-btn input[type=text] {
+	width:30%;
+}
+
+.addtocart-btn input[type="submit"] {
+	height: 28px;
+    line-height: 28px;
+} 
+
+.store__btn input[type="submit"] {
+	background-color: transparent;
+    color: #303030;
+	font-weight: 400;
+	border: 1px solid #d5d5d5;
+    display: inline-block;
+    font-size: 14px;
+    height: 45px;
+    line-height: 41px;
+    padding: 0 40px;
+    text-transform: uppercase;
+    transition: 0.4s;	
+}
