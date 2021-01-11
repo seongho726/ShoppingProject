@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Product List</title>
+    <title>Cart</title>
     <% String userId = (String)session.getAttribute("userId");%>
     <% ArrayList<Basket> baskets = (ArrayList<Basket>) session.getAttribute("baskets");%>
     <% HashMap prices = (HashMap) session.getAttribute("prices");%>

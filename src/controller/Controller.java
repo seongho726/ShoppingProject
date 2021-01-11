@@ -67,7 +67,7 @@ public class Controller extends HttpServlet {
 				System.out.println("showError.jsp");
 			}
 		} catch (Exception s) {
-			request.getSession().setAttribute("errorMsg", s.getMessage());
+			request.getSession().setAttribute("error", s.getMessage());
 			request.getRequestDispatcher("showError.jsp").forward(request, response);
 			s.printStackTrace();
 		}
@@ -81,7 +81,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("successMsg", "모든 회원 검색");
 			url = "userList.jsp";
 		} catch (Exception e) {
-			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -96,7 +96,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("getUser", Service.getUser(userId));
 			url = "userDetail.jsp";
 		} catch (Exception e) {
-			request.setAttribute("errorMsg", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -130,7 +130,7 @@ public class Controller extends HttpServlet {
 //		try {
 //			url = "admin/create.jsp";
 //		} catch (Exception s) {
-//			request.getSession().setAttribute("errorMsg", s.getMessage());
+//			request.getSession().setAttribute("error", s.getMessage());
 //			s.printStackTrace();
 //		}
 //		request.getRequestDispatcher(url).forward(request, response);
@@ -167,7 +167,7 @@ public class Controller extends HttpServlet {
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
 			url = "update.jsp";
 		} catch (Exception s) {
-			request.getSession().setAttribute("errorMsg", s.getMessage());
+			request.getSession().setAttribute("error", s.getMessage());
 			s.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -187,7 +187,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("successMsg", productId + "제품수정");
 			url = "login.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -201,7 +201,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("productDelete", Service.deleteProduct(productId));
 			url = "login.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMSg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -255,7 +255,7 @@ public class Controller extends HttpServlet {
 			session.setAttribute("baskets", baskets);
 			url = "cart.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -272,10 +272,10 @@ public class Controller extends HttpServlet {
 			if (result) {
 				url = "shop.jsp";
 			} else {
-				request.getSession().setAttribute("errMsg", "추가실패");
+				request.getSession().setAttribute("error", "추가실패");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -293,10 +293,10 @@ public class Controller extends HttpServlet {
 				session.setAttribute("baskets", Service.getBasket(userId));
 				url = "cart.jsp";
 			} else {
-				request.getSession().setAttribute("errMsg", "삭제실패");
+				request.getSession().setAttribute("error", "삭제실패");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -314,10 +314,10 @@ public class Controller extends HttpServlet {
 				session.setAttribute("baskets", Service.getBasket(userId));
 				url = "cart.jsp";
 			} else {
-				request.getSession().setAttribute("errMsg", "삭제실패");
+				request.getSession().setAttribute("error", "삭제실패");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
@@ -379,7 +379,7 @@ public class Controller extends HttpServlet {
 			
 			url = "orderHistory.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("errMsg", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher(url).forward(request, response);
