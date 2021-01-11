@@ -312,7 +312,7 @@ public class Controller extends HttpServlet {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
 				session.setAttribute("baskets", Service.getBasket(userId));
-				url = "index.jsp";
+				url = "cart.jsp";
 			} else {
 				request.getSession().setAttribute("errMsg", "삭제실패");
 			}

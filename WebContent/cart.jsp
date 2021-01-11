@@ -36,7 +36,8 @@
     <!-- User style -->
     <link rel="stylesheet" href="css/custom.css">
 
-
+	<!--  Axios -->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -91,7 +92,7 @@
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
                                 <li><a href="login-register.jsp"><span class="ti-user"></span></a></li>
-                                <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                                <li class="cart__menu" onclick="ajaxCart()"><span class="ti-shopping-cart"></span></li>
                                 <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu" style="display: none;"></span></li>
                             </ul>
                         </div>
@@ -126,56 +127,40 @@
             </div>
             <!-- End Search Popap -->
            
-            <!-- Start Cart Panel -->
+         <!-- Start Cart Panel -->
             <div class="shopping__cart">
                 <div class="shopping__cart__inner">
                     <div class="offsetmenu__close__btn">
                         <a href="#"><i class="zmdi zmdi-close"></i></a>
                     </div>
-                    <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="images/product/sm-img/1.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">BO&Play Wireless Speaker</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$105.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
-                        <div class="shp__single__product">
-                            <div class="shp__pro__thumb">
-                                <a href="#">
-                                    <img src="images/product/sm-img/2.jpg" alt="product images">
-                                </a>
-                            </div>
-                            <div class="shp__pro__details">
-                                <h2><a href="product-details.html">Brone Candle</a></h2>
-                                <span class="quantity">QTY: 1</span>
-                                <span class="shp__price">$25.00</span>
-                            </div>
-                            <div class="remove__btn">
-                                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
-                            </div>
-                        </div>
+                    <div id="ajaxcart">
+                       
                     </div>
-                    <ul class="shoping__total">
-                        <li class="subtotal">Subtotal:</li>
-                        <li class="total__price">$130.00</li>
-                    </ul>
+                    
                     <ul class="shopping__btn">
-                       <li><a Onclick="location.href='Controller?command=getBasket'">View Cart</a></li>
-                        <li class="shp__checkout"><a href="checkout.jsp">Checkout</a></li>
+                        <li><a Onclick="location.href='Controller?command=getBasket'">View Cart</a></li>
+                        <li class="shp__checkout"><a Onclick="location.href='Controller?command=buyBasket'">Checkout</a></li>
                     </ul>
                 </div>
             </div>
             <!-- End Cart Panel -->
         </div>
+        
+<script>               
+	function ajaxCart(){
+	   axios.post('responseBasket.jsp')
+	  .then(function (response) { 
+		console.log("성공");
+		document.getElementById("ajaxcart").innerHTML = response.data;
+	  })
+	  .catch(function (error) { 
+	    console.log(error);
+	  })
+	  .then(function () {
+	    // always executed
+	  });
+	} 
+   </script>
         <!-- End Offset Wrapper -->
         <!-- Start Bradcaump area -->
         <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
@@ -199,77 +184,25 @@
         <!-- End Bradcaump area -->
         <!-- cart-main-area start -->
         <div class="cart-main-area ptb--120 bg__white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <form action="#">               
-                            <div class="table-content table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th class="product-thumbnail">Image</th>
-                                            <th class="product-name">Basket ID</th>
-                                            <th class="product-name">User Name</th>
-                                            <th class="product-name">Product ID</th>
-                                            <th class="product-quantity">Product Count</th>
-                                            <th class="product-subtotal">Price</th>
-                                            <th class="product-name">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                   <%
-            	int totalPrice = 0;
-                for (int i = 0; i < baskets.size(); i++) {
-                    Basket basket = baskets.get(i);
-                   	int tempPrice = (int)prices.get(basket.getProductId()) * basket.getProductCount();
-                   	totalPrice += tempPrice;
-            %>
-                                        <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
-                                            <th class="product-name"><%=basket.getBasketId()%></th>
-                                            <th class="product-name"><%=userId%></th>
-                                            <th class="product-name"><%=basket.getProductId()%></th>
-                                            <th class="product-quantity"><%=basket.getProductCount()%></th>
-                                            <th class="product-subtotal"><%=tempPrice%></th>
-                                            <td class="product-remove">
-                                            	<form action="Controller" method="post">
-                        						<input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
-                        						<input type="hidden" name="userId" value="<%=userId%>">
-                      						    <input type="hidden" name="command" value="deleteBasket">
-                      						    <input type="submit" value="Delete">
-                    						</form></td>
-                                        </tr>
-                          <% }%>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8 col-sm-7 col-xs-12">
-                                    <div class="buttons-cart">
-                                    <br>
-                                      <a href="shop.jsp">Continue Shopping</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-5 col-xs-12">
-                                    <div class="cart_totals">
-                                        <div class="wc-proceed-to-checkout">
-                                            <h3> Your Total Price is <%=totalPrice %>.</h3>
-                                            <br>
-                                            <form action="Controller" method="post">
-                        					<input type="hidden" name="userId" value="<%=userId%>">
-                        					<input type="hidden" name="command" value="buyBasket">
-                       						<input type="submit" value="Proceed to Checkout">
-                    						</form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form> 
-                    </div>
-                </div>
+            <div id="pagecart" class="container">
+            <!--  Axios responseCart Data -->
             </div>
         </div>
         <!-- cart-main-area end -->
+    <script>               
+	axios.post('responseCart.jsp')
+	  .then(function (response) { 
+		console.log("성공");
+		document.getElementById("pagecart").innerHTML = response.data;
+	  })
+	  .catch(function (error) { 
+	    console.log(error);
+	  })
+	  .then(function () {
+		  
+	  });
+	 
+   </script>
             <!-- Start Footer Area -->
         <footer class="htc__foooter__area gray-bg">
             <div class="container">

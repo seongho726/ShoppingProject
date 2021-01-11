@@ -80,3 +80,14 @@ html input[type="submit"]:hover {
     text-transform: uppercase;
     transition: 0.4s;	
 }
+
+#myForm input[type="submit"] {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    color: #ccc;
+    font-size: 22px;
+    transition: all 0.5s ease 0s;
+    background: none !important;
+}

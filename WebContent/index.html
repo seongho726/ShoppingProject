@@ -28,6 +28,7 @@
     <!-- User style -->
     <link rel="stylesheet" href="css/custom.css">
 
+	<!--  Axios -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Modernizr JS -->
@@ -140,13 +141,10 @@
         </div>
         
 <script>               
-	
 	function ajaxCart(){
 		axios.post('responseBasket.jsp')
-	  .then(function (response) { //정상 응답시 자동 실행되는 블록 
+	  .then(function (response) { 
 		console.log("성공");
-	  	//axios 로 응답 받을 경우  json 객체 자체로 응답 그래서 JSON.parse 불필요 
-		
 		document.getElementById("ajaxcart").innerHTML = response.data;
 	  })
 	  .catch(function (error) { //비정상 응답시 자동 실행되는 블록 
