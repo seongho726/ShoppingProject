@@ -245,10 +245,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- End Single Product -->
         <%
 		 	}
 		%>
-                            <!-- End Single Product -->
                             
                         </div>
                     </div>
