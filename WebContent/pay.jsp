@@ -7,8 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Product List</title>
-        <%String userId = (String) session.getAttribute("userId");%>
+    <title>Pay</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -167,7 +166,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Thank You, <%= userId%></h2>
+                                <h2 class="bradcaump-title">Thank You, ${userId}</h2>
                                 <nav class="bradcaump-inner">
                                   <a class="breadcrumb-item" href="index.html">Home</a>
                                   <span class="brd-separetor">/</span>
@@ -193,7 +192,7 @@
                         <div class="store__btn">
                             <a href="shop.jsp">Continue Shopping</a>
                             <form action="Controller" method="post">
-	  <input type="hidden" name="userId" value="<%=userId%>"> 
+	  <input type="hidden" name="userId" value="${userId}"> 
             <input type="hidden" name="command" value="getPayment">
             <input type="submit" value="View Order History">&nbsp;&nbsp;
 	</form>

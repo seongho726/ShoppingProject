@@ -91,3 +91,6 @@ html input[type="submit"]:hover {
     transition: all 0.5s ease 0s;
     background: none !important;
 }
+.product-images {
+    max-width: 60%;
+    }

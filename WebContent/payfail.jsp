@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Payment Failed</title>
-        <%String userId = (String) session.getAttribute("userId");%>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -165,7 +164,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Sorry, <%= userId%></h2>
+                                <h2 class="bradcaump-title">Sorry, ${userId}</h2>
                                 <nav class="bradcaump-inner">
                                   <a class="breadcrumb-item" href="index.html">Home</a>
                                   <span class="brd-separetor">/</span>
@@ -186,7 +185,7 @@
                         <div class="section__title section__title--2 text-center">
                             <h2 class="title__line">Opps!</h2>
                             <p>Your payment did not go through due to the following problems.  
-                           <%=request.getAttribute("error")%>
+                           	${error}
                         </div>
                         <div class="store__btn">
                             <a href="index.html">Back to Home</a>

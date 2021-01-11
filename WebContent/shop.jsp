@@ -83,7 +83,7 @@
                                 </nav>
                             </div>                          
                         </div>
-                        < <!-- End MAinmenu Ares -->
+                        <!-- End MAinmenu Ares -->
                         <div class="col-md-2 col-sm-4 col-xs-3">  
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
@@ -165,7 +165,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Hello, <%=session.getAttribute("userId")%></h2>
+                                <h2 class="bradcaump-title">Hello, ${userId}</h2>
                                 <nav class="bradcaump-inner">
                                   <a class="breadcrumb-item" href="index.html">Home</a>
                                   <span class="brd-separetor">/</span>

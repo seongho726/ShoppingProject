@@ -301,13 +301,12 @@
                         <div class="checkout-right-sidebar">
                             <div class="our-important-note">
                                 <h2 class="section-title-3">Note :</h2>
-                                <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
+                                <p class="note-desc">Take caution as we provide no refunds.</p>
                                 <ul class="important-note">
-                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
-                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>All sales are final.</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>No returns accepted.</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Good products guaranteed.</a></li>
+                                   
                                 </ul>
                             </div>
                              <div class="puick-contact-area mt--60">

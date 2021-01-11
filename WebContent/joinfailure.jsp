@@ -199,7 +199,7 @@
                         <div class="section__title section__title--2 text-center">
                             <h2 class="title__line">Opps!</h2>
                             <p>You could not join the membership due to the following problems.  
-                           <%=request.getAttribute("error")%>
+                             ${error}
                         </div>
                         <div class="store__btn">
                             <a href="index.html">Back to Home</a>

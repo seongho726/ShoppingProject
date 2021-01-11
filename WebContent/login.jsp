@@ -135,7 +135,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="bradcaump__inner text-center">
-                                <h2 class="bradcaump-title">Hello, <%=session.getAttribute("userId")%></h2>
+                                <h2 class="bradcaump-title">Hello, ${userId}</h2>
                                 <nav class="bradcaump-inner">
                                   <a class="breadcrumb-item" href="index.html">Home</a>
                                   <span class="brd-separetor">/</span>
