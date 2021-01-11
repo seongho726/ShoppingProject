@@ -118,6 +118,7 @@
                 </div>
             </div>
             <!-- End Search Popap -->
+
             
             <!-- Start Cart Panel -->
             <div class="shopping__cart">
@@ -138,14 +139,15 @@
             <!-- End Cart Panel -->
         </div>
         
-   <script>
+<script>               
+	
 	function ajaxCart(){
 		axios.post('responseBasket.jsp')
 	  .then(function (response) { //정상 응답시 자동 실행되는 블록 
 		console.log("성공");
-	  	alert(response.data);
 	  	//axios 로 응답 받을 경우  json 객체 자체로 응답 그래서 JSON.parse 불필요 
-		document.getElementById("ajaxCart").innerHTML = response.data;
+		
+		document.getElementById("ajaxcart").innerHTML = response.data;
 	  })
 	  .catch(function (error) { //비정상 응답시 자동 실행되는 블록 
 	    console.log(error);
