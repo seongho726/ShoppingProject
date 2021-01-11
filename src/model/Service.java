@@ -54,8 +54,8 @@ public class Service {
 	}
 
 	// 특정 검색
-	public static Product getProduct(int ProductId) throws Exception {
-		return ProductDAO.getProduct(ProductId);
+	public static Product getProduct(int productId) throws Exception {
+		return ProductDAO.getProduct(productId);
 	}
 
 	// 추가

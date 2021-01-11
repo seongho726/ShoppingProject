@@ -208,26 +208,31 @@
                     <!-- Start Filter Menu -->
                   
                     <!-- End Filter Menu -->
-                    <!-- End Product MEnu -->
-                    		<%ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();%>
+                    <!-- End Product Menu -->
+                    	<%ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();%>
                     <div class="row">
                         <div class="product__list another-product-style">
                           <%
-			for (int i = 0; i < products.size(); i++) {
-				Product product = products.get(i);
-		%>
+							for (int i = 0; i < products.size(); i++) {
+								Product product = products.get(i);
+						  %>
                             <!-- Start Single Product -->
                             <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
                                 <div class="product foo">
                                     <div class="product__inner">
                                                   <div class="pro__thumb">
                                             <a href="#">
-                                                <img src="images/product/1.png" alt="product images">
+                                                <img src="images/product/big-img/<%=product.getProductId()%>.jpg">
                                             </a>
                                         </div>
+                                        
                                         <div class="product__hover__info">
                                             <ul class="product__action">
-                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
+                                                <li>
+                                                	<a data-toggle="modal" data-target="#productModal<%=product.getProductId()%>" title="Quick View" class="quick-view modal-view detail-link" href="#">
+                                                           <span class="ti-plus"></span>
+                                                	</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -240,8 +245,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <%
-			}
+        <%
+		 	}
 		%>
                             <!-- End Single Product -->
                             
@@ -249,6 +254,7 @@
                     </div>
                 </div>
             </div>
+            
         </section>
         <!-- End Our Product Area -->
              <!-- Start Footer Area -->
@@ -296,8 +302,6 @@
                         </div>
                         <!-- End Single Footer Widget -->
                         
-                        
-                        
                         <div class="col-md-3 col-lg-2 col-sm-6 smt-30 xmt-30">
                             <div class="ft__widget">
                                 <h2 class="ft__title">Infomation</h2>
@@ -307,9 +311,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
-                        
-                        
                     </div>
                 </div>
                 <!-- Start Copyright Area -->
@@ -335,30 +336,40 @@
         </footer>
         <!-- End Footer Area -->
     </div>
+    
+    
+    
     <!-- Body main wrapper end -->
     <!-- QUICKVIEW PRODUCT -->
     <div id="quickview-wrapper">
         <!-- Modal -->
-         <%
+        <%
 			for (int i = 0; i < products.size(); i++) {
 				Product product = products.get(i);
+				System.out.println("------ " + product);
 		%>
-        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+        <div class="modal fade" id="productModal<%=product.getProductId()%>" tabindex="-1" role="dialog">
             <div class="modal-dialog modal__container" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
+         
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
+                    
+                    <!--  -->
                     <div class="modal-body">
+                    
                         <div class="modal-product">
                             <!-- Start product images -->
                             <div class="product-images">
                                 <div class="main-image images">
-                                    <img alt="big images" src="images/product/big-img/1.jpg">
+                                    <img src="images/product/big-img/<%=product.getProductId()%>.jpg">
+                                  
                                 </div>
                             </div>
                             <!-- end product images -->
                             <div class="product-info">
+                            
                                 <h1><%=product.getProductName()%></h1>
                                 <h3><%=product.getProductType()%></h3>
                                 <div class="price-box-3">
@@ -374,23 +385,27 @@
                                 </div>
                                 <div class="addtocart-btn">
                                     <form action="Controller" method="post">
-									Enter Quantity : 
- 									<input type="hidden" name="productId" value="<%=product.getProductId()%>">
-									<input type="text" name="productCount">
-									<input type="hidden" name="command" value="addBasket">
-									<input type="submit" value="Take">  
+										Enter Quantity : 
+	 									<input type="hidden" name="productId" value="<%=product.getProductId()%>">
+										<input type="text" name="productCount">
+										<input type="hidden" name="command" value="addBasket">
+										<input type="submit" value="Take">  
 									</form>
-		<%
-			}
-		%>
                                 </div>
                             </div><!-- .product-info -->
                         </div><!-- .modal-product -->
                     </div><!-- .modal-body -->
                 </div><!-- .modal-content -->
             </div><!-- .modal-dialog -->
+
         </div>
+		<%
+			}
+		%>
         <!-- END Modal -->
+        
+        
+        
     </div>
     <!-- END QUICKVIEW PRODUCT -->
     <!-- Placed js at the end of the document so the pages load faster -->

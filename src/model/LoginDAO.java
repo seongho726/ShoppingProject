@@ -28,8 +28,6 @@ public class LoginDAO {
 
 		public static boolean validate(String userType, String userId, String password) throws Exception {
 			EntityManager em = PublicCommon.getEntityManager();
-			EntityTransaction tx = em.getTransaction();
-			tx.begin();
 			  boolean status = false;
 			try {
 				em.createNativeQuery(
