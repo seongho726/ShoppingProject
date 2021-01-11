@@ -193,7 +193,6 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th class="product-thumbnail">Image</th>
                                             <th class="product-name">Basket ID</th>
                                             <th class="product-name">User Name</th>
                                             <th class="product-name">Product ID</th>
@@ -210,7 +209,6 @@
                    	totalPrice += tempPrice;
             %>
                                         <tr>
-                                            <td class="product-thumbnail"><a href="#"><img src="images/product/4.png" alt="product img" /></a></td>
                                             <th class="product-name"><%=basket.getBasketId()%></th>
                                             <th class="product-name"><%=userId%></th>
                                             <th class="product-name"><%=basket.getProductId()%></th>
