@@ -59,6 +59,8 @@ public class Controller extends HttpServlet {
 				payBasket(request, response);
 			} else if (command.equals("deleteBasket")) {
 				deleteBasket(request, response);
+			} else if (command.equals("deleteAjaxBasket")) {
+				deleteAjaxBasket(request, response);
 			} else if (command.equals("getPayment")) {
 				getPayment(request, response);
 			} else {
@@ -300,6 +302,26 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	public void deleteAjaxBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = "showError.jsp";
+		HttpSession session = request.getSession();
+		int basketId = Integer.parseInt(request.getParameter("basketId"));
+		String userId = (String) session.getAttribute("userId");
+		
+		try {
+			boolean result = Service.deleteBasket(userId, basketId);
+			if (result) {
+				session.setAttribute("baskets", Service.getBasket(userId));
+				url = "index.jsp";
+			} else {
+				request.getSession().setAttribute("errMsg", "삭제실패");
+			}
+		} catch (Exception e) {
+			request.getSession().setAttribute("errMsg", e.getMessage());
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
 	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
