@@ -12,7 +12,7 @@ import util.DBUtil;
 import util.PublicCommon;
 
 public class PaymentDAO {
-	// id로 payment 검색
+// id로 payment 검색
 //	"SELECT * FROM shoppingpayment WHERE paymentuser_id=?"
 	public static List<Payment> getPayment(String userId) throws Exception {
 		EntityManager em = PublicCommon.getEntityManager();

@@ -21,6 +21,7 @@ public class ProductDAO {
 					.setParameter(4, price).setParameter(5, inventory).executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -41,6 +42,7 @@ public class ProductDAO {
 					.setParameter(4, productId).executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -59,6 +61,7 @@ public class ProductDAO {
 			tx.commit();
 			return true;
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {

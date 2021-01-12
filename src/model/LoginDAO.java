@@ -8,25 +8,7 @@ import javax.persistence.EntityTransaction;
 import util.PublicCommon;
 
 public class LoginDAO {
-//	public static boolean validate(String userType, String userId, String password) throws ClassNotFoundException, SQLException {
-//		  Connection con = null;
-//	      PreparedStatement pstmt = null;
-//	      ResultSet rset = null;  
-//		  boolean status = false;
-//	      try {
-//	        		con = DBUtil.getConnection();
-//	                pstmt = con.prepareStatement("SELECT * FROM shoppinguser where usertype = ? and shoppinguser_id = ? and password = ?");
-//	                pstmt.setString(1, userType);
-//	                pstmt.setString(2, userId);
-//	                pstmt.setString(3, password);
-//	                rset = pstmt.executeQuery();
-//	                status = rset.next();
-//	} finally {
-//    	DBUtil.close(con, pstmt, rset);
-//    } return status;
-//}
-
-		public static boolean validate(String userType, String userId, String password) throws Exception {
+	public static boolean validate(String userType, String userId, String password) throws Exception {
 			EntityManager em = PublicCommon.getEntityManager();
 			  boolean status = false;
 			try {
