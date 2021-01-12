@@ -1,8 +1,10 @@
 ﻿# :iphone: 쇼핑몰 구축 프로젝트 
  # Welcome to TECHNOLOGI
+ Technologi 는 최신 핸드폰과 블루투스 이어폰등을 판매하는 전자제품 쇼핑몰입니다. 
  
- ![Logo](ShoppingProject/WebContent/images/logo/logo.png)
+ ![Logo](https://github.com/seongho726/ShoppingProject/blob/main/WebContent/images/logo/logo.png)
 
+# Project Scope
 Customer와 Admin 두 타입의 사용자를 고객으로 두고 있는 쇼핑몰 구축
 
 ## Status 
@@ -40,15 +42,16 @@ Validity의 데이터는 1과 2로 구성되어있고 Validity의 값이 1인 �
 
 ## Technologies Used 
 
-DB: Oracle SQL, JDBC, JPA
-Web: Servlet, JSP, 
-Server: Tomcat 8.5   
-Ajax: Axios 
-Log: Sl4j
-etc: Lombok 
+- DB: Oracle SQL, JDBC, JPA
+- Web: Servlet, JSP, 
+- Server: Tomcat 8.5   
+- Ajax: Axios 
+- Log: Sl4j
+- etc: Lombok 
 
 ## Team Member 
 Part 1:
+
 [ajdeve](https://github.com/ajdeve)
 
 [seongho726](https://github.com/seongho726)
