@@ -293,7 +293,6 @@ public class Controller extends HttpServlet {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
 				session.setAttribute("baskets", Service.getBasket(userId));
-				url = "cart.jsp";
 				log.info("Deleting product in ajax basket succeeded");
 			} else {
 				request.getSession().setAttribute("error", "Deleting ajax basket failed");

@@ -146,7 +146,7 @@
             <!-- End Cart Panel -->
         </div>
         
-<script>               
+ <script>               
 	function ajaxCart(){
 	   axios.post('responseBasket.jsp')
 	  .then(function (response) { 

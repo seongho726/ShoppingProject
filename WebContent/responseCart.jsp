@@ -35,7 +35,7 @@
                                             <th class="product-quantity"><%=basket.getProductCount()%></th>
                                             <th class="product-subtotal"><%=tempPrice%></th>
                                             <td class="product-remove">
-                                            	<form action="Controller" method="post">
+                                            	<form>
                         						<input type="hidden" name="basketId" value="<%=basket.getBasketId()%>">
                         						<input type="hidden" name="userId" value="<%=userId%>">
                       						    <input type="hidden" name="command" value="deleteBasket">

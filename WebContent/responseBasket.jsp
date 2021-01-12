@@ -24,7 +24,7 @@
 					<div class="remove__btn">
 						<form id="myForm" action="Controller" method="post">
 							<input type="hidden" name="basketId" value="${data.basketId}">
-							<input type="hidden" name="userId" value="${userId}"> <input
+							<input type="hidden" name="userId" value="${sessionScope.userId}"> <input
 								type="hidden" name="command" value="deleteBasket"> <input
 								class="zmdi zmdi-close" type="submit" value="X">
 						</form>
