@@ -12,28 +12,35 @@
 %>
 <div class="shp__cart__wrap">
 
-	<c:forEach items="${sessionScope.all}" var="data">
+	<c:choose>
+		<c:when test="${not empty all}">
+			<c:forEach items="${sessionScope.all}" var="data">
+				<div class="shp__single__product">
+					<div class="shp__pro__details">
+						<h2>${data.productId}</h2>
+						<span class="quantity"> QTY:${data.productCount} </span>
+					</div>
+					<div class="remove__btn">
+						<form id="myForm" action="Controller" method="post">
+							<input type="hidden" name="basketId" value="${data.basketId}">
+							<input type="hidden" name="userId" value="${userId}"> <input
+								type="hidden" name="command" value="deleteBasket"> <input
+								class="zmdi zmdi-close" type="submit" value="X">
+						</form>
 
-		<div class="shp__single__product">
-			<div class="shp__pro__details">
-				<h2>${data.productId}</h2>
-				<span class="quantity"> QTY:${data.productCount} </span>
-				<!--                                 <span id="ajaxprice" class="shp__price">$ 10 </span>
- -->
+					</div>
+				</div>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<div class="shp__single__product">
+				<div class="shp__pro__details">
+					<h2>Your cart is empty.</h2>
+					<span class="quantity"> Add products.</span>
+				</div>
 			</div>
-			<div class="remove__btn">
-				<%--                                 <a href='Controller?command=deleteAjaxBasket?basketId=${data.basketId}?userId=${userId}' title="Remove this item"><i class="zmdi zmdi-close"></i></a>
- --%>
-				<form id="myForm" action="Controller" method="post">
-					<input type="hidden" name="basketId" value="${data.basketId}">
-					<input type="hidden" name="userId" value="${userId}"> <input
-						type="hidden" name="command" value="deleteAjaxBasket"> <input
-						class="zmdi zmdi-close" type="submit" value="X">
-				</form>
-
-			</div>
-		</div>
-	</c:forEach>
+		</c:otherwise>
+	</c:choose>
 
 	<ul class="shoping__total">
 		<li class="subtotal">Subtotal:</li>
@@ -41,17 +48,3 @@
 	</ul>
 </div>
 
-
-<!-- <script>
-$('#myForm').click(function(){
-	   $.ajax({
-	        type: 'post',
-	        url: 'Controller',
-	        success: function(data){
-	            alert(data);
-	        }
-	   });
-	    return false; //<- 이 문장으로 새로고침(reload)이 방지됨
-	});
-
-</script>  -->

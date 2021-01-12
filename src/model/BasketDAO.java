@@ -28,19 +28,7 @@ public class BasketDAO {
 			em.close();
 		}
 	}
-//	public static List<Basket> getBaskets() throws Exception {
-//		EntityManager em = PublicCommon.getEntityManager();
-//		try {
-//			return (List<Basket>) em.createNativeQuery(
-//					"SELECT * FROM shoppingbasket where basketuser_id = " + userId + " and validity = 1", Basket.class)
-//					.getResultList();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		} finally {
-//			em.close();
-//		}
-//	}
+
 	public static Calculate calculateBasket(String userId) throws SQLException {
 		Calculate calculate = null;
 		Connection con = null;

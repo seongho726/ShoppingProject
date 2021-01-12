@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
 import model.BasketDAO;
 import model.LoginDAO;
 import model.Service;
@@ -23,6 +24,7 @@ import model.domain.Payment;
 import model.domain.Product;
 import model.domain.User;
 
+@Slf4j
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	public static Service instance = Service.getInstance();
@@ -67,9 +69,10 @@ public class Controller extends HttpServlet {
 				System.out.println("showError.jsp");
 			}
 		} catch (Exception s) {
+			s.printStackTrace();
 			request.getSession().setAttribute("error", s.getMessage());
 			request.getRequestDispatcher("showError.jsp").forward(request, response);
-			s.printStackTrace();
+			log.debug("error");
 		}
 	}
 
@@ -78,11 +81,12 @@ public class Controller extends HttpServlet {
 		String url = "showError.jsp";
 		try {
 			request.getSession().setAttribute("getUsers", Service.getUsers());
-			request.getSession().setAttribute("successMsg", "모든 회원 검색");
-			url = "userList.jsp";
+			log.info("Found users.");
+			// url = "userList.jsp"; userList doesn't exist
 		} catch (Exception e) {
-			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			log.debug("Getting users failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -92,21 +96,22 @@ public class Controller extends HttpServlet {
 		String userId;
 		try {
 			userId = (String) request.getSession().getAttribute("userId");
-
 			request.getSession().setAttribute("getUser", Service.getUser(userId));
-			url = "userDetail.jsp";
+			log.info("Found a user.");
+			// url = "userDetail.jsp"; userDetail doesn't exist
 		} catch (Exception e) {
-			request.setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			log.debug("Getting user failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = "showError.jsp";
 		User user = new User(request.getParameter("userId"), request.getParameter("userName"),
 				request.getParameter("password"), request.getParameter("email"), request.getParameter("contact"),
 				request.getParameter("address"));
-		String url = "showError.jsp";
 		try {
 			Service.getInstance();
 			boolean result = Service.addUser(user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(),
@@ -114,27 +119,18 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 			if (result = true) {
 				url = "joinconfirm.jsp";
+				log.info("New member joined");
 			} else {
-				request.setAttribute("error", "가입 실패");
+				request.setAttribute("error", "Join failed");
+				log.debug("New member join failed");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", "입력 실패");
+			request.getSession().setAttribute("error", "Request Failed");
 			e.printStackTrace();
+			log.debug("New member join failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
-
-//	public void addProductReq(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String url = "showError.jsp";
-//		try {
-//			url = "admin/create.jsp";
-//		} catch (Exception s) {
-//			request.getSession().setAttribute("error", s.getMessage());
-//			s.printStackTrace();
-//		}
-//		request.getRequestDispatcher(url).forward(request, response);
-//	}
 
 	public void addProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -155,6 +151,7 @@ public class Controller extends HttpServlet {
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", "입력 실패");
 			e.printStackTrace();
+			log.debug("Adding product failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -166,9 +163,10 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("product",
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
 			url = "update.jsp";
-		} catch (Exception s) {
-			request.getSession().setAttribute("error", s.getMessage());
-			s.printStackTrace();
+		} catch (Exception e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			e.printStackTrace();
+			log.debug("Processing updating product request failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -189,6 +187,7 @@ public class Controller extends HttpServlet {
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Updating product failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -203,40 +202,42 @@ public class Controller extends HttpServlet {
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Deleting product failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	public void validate(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+		String url = "showError.jsp";
+		HttpSession session = request.getSession();
 
 		String t = request.getParameter("userType").trim().replaceAll("\\\"", "");
 		String i = request.getParameter("userId").trim().replaceAll("\\\"", "");
 		String p = request.getParameter("password").trim().replaceAll("\\\"", "");
 
-		HttpSession session = request.getSession(false);
 		if (session != null)
 			session.setAttribute("userId", i);
 		try {
 			if (LoginDAO.validate(t, i, p)) {
 				if (t.equals("C")) {
-					RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");
-					rd.forward(request, response);
+					url = "shop.jsp";
+					log.info("Customer login succeeded");
 				}
 				if (t.equals("A")) {
-					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-					rd.forward(request, response);
+					url = "login.jsp";
+					log.info("Admin login succeeded");
+				} else {
+					request.setAttribute("error", "Login failed");
+					log.debug("Login faied");
 				}
-			} else {
-				out.print("<p style=\"color:red\">Sorry username or password error</p>");
-				RequestDispatcher rd = request.getRequestDispatcher("login-register.jsp");
-				rd.include(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("error", e.getMessage());
+			log.debug("Login validation failed due to " + e.getMessage());
 		}
-		out.close();
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	public void getBasket(HttpServletRequest request, HttpServletResponse response)
@@ -247,16 +248,18 @@ public class Controller extends HttpServlet {
 		ArrayList<Basket> baskets = null;
 		try {
 			baskets = (ArrayList<Basket>) Service.getBasket(userId);
-			HashMap prices =new HashMap();
+			HashMap prices = new HashMap();
 			for (Basket basket : baskets) {
 				prices.put(basket.getProductId(), Service.getProduct(basket.getProductId()).getPrice());
 			}
 			session.setAttribute("prices", prices);
 			session.setAttribute("baskets", baskets);
 			url = "cart.jsp";
+			log.info("Getting basket succeeded");
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Getting basket failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -271,12 +274,14 @@ public class Controller extends HttpServlet {
 			boolean result = Service.addBasket(userId, productId, productCount);
 			if (result) {
 				url = "shop.jsp";
+				log.info("Adding to basket succeeded");
 			} else {
 				request.getSession().setAttribute("error", "추가실패");
 			}
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Adding produc to basket failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -286,18 +291,21 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		int basketId = Integer.parseInt(request.getParameter("basketId"));
 		String userId = (String) session.getAttribute("userId");
-		
+
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
 				session.setAttribute("baskets", Service.getBasket(userId));
 				url = "cart.jsp";
+				log.info("Deleting product in basket succeeded");
 			} else {
 				request.getSession().setAttribute("error", "삭제실패");
+				log.debug("Deleting product in basket failed");
 			}
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Deleting product in basket failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -307,37 +315,45 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 		int basketId = Integer.parseInt(request.getParameter("basketId"));
 		String userId = (String) session.getAttribute("userId");
-		
+
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
 				session.setAttribute("baskets", Service.getBasket(userId));
 				url = "cart.jsp";
+				log.info("Deleting product in ajax basket succeeded");
 			} else {
 				request.getSession().setAttribute("error", "삭제실패");
 			}
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Deleting product in ajax basket failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+
 	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		
-		ArrayList<Basket> baskets = null;
+		try {
+			ArrayList<Basket> baskets = null;
 
-		baskets = (ArrayList<Basket>) Service.getBasket(userId);
-		session.setAttribute("baskets", baskets);
+			baskets = (ArrayList<Basket>) Service.getBasket(userId);
+			session.setAttribute("baskets", baskets);
 
-		Calculate calculate = null;
-		calculate = Service.calculateBasket(userId);
-		session.setAttribute("calculate", calculate);
-
-		request.getRequestDispatcher("checkout.jsp").forward(request, response);
-
+			Calculate calculate = null;
+			calculate = Service.calculateBasket(userId);
+			session.setAttribute("calculate", calculate);
+			url = "checkout.jsp";
+			log.info("Showing checkout page succeeded");
+		} catch (Exception e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			e.printStackTrace();
+			log.debug("Showing the checkout failed due to " + e.getMessage());
+		}
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	public void payBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -345,29 +361,32 @@ public class Controller extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
-		
+
 		String address = request.getParameter("address").trim();
 		String contact = request.getParameter("contact").trim();
 		String ccNumber = request.getParameter("ccNumber").trim();
 		String ccExpiration = request.getParameter("ccExpiration").trim();
 		String ccPassword = request.getParameter("ccPassword").trim();
-		
+
 		try {
 			boolean result = Service.addPayment(userId, address, contact, ccNumber, ccExpiration, ccPassword);
 			if (result = true) {
-				url = "pay.jsp";
 				BasketDAO.cleanBasket(userId);
 				session.setAttribute("baskets", Service.getBasket(userId));
+				url = "pay.jsp";
+				log.info("Basket cleaned and order created.");
 			} else {
-				request.setAttribute("error", "주문 실패");
+				request.setAttribute("error", "Order failed to create.");
+				log.debug("Order failed to create");
 			}
 		} catch (SQLException e) {
-			request.getSession().setAttribute("error", "입력 실패");
+			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Creating order failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
-	
+
 	public void getPayment(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
@@ -376,11 +395,13 @@ public class Controller extends HttpServlet {
 		try {
 			payments = (ArrayList<Payment>) Service.getPayment(userId);
 			session.setAttribute("payments", payments);
-			
+
 			url = "orderHistory.jsp";
+			log.info("Getting order history succeeded");
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
+			log.debug("Getting order history failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
