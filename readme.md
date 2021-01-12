@@ -9,10 +9,10 @@ Customer와 Admin 두 타입의 사용자를 고객으로 두고 있는 쇼핑�
 
 ## Status 
 
-Part 1:
+### Part 1:
 로그인, 상품 검색, 상품 장바구니에 추가, 상품 구매 후 구매 내역 DB에 보관하는 과정까지 구축 
 
-Part 2: 
+### Part 2: 
 - 구현된 기능을 Front End 로 구현
 - Native Query를 활용해 코어 메소드를 JPA로 변환
 - Service 와 Controller을 사용해 Code Refactoring 시도 및 Servlet을 Controller를 통해 관리하는 구조로 변경
