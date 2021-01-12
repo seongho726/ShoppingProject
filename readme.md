@@ -19,7 +19,7 @@ Customer와 Admin 두 타입의 사용자를 고객으로 두고 있는 쇼핑�
 - Controller에서의 예외처리와 Sl4j를 활용한 Log 기록
 - Axios를 활용한 Ajax cart 구현 
 - 고객의 상품 구매 후 구매 내역 출력
-- Admin 쪽의 기능을 완료
+- Admin 쪽의 제품 수정및 삭제 기능을 추가 
 - 제품에 이미지 출력
 - 모달 적용
 
