@@ -50,7 +50,7 @@ Validity의 데이터는 1과 2로 구성되어있고 Validity의 값이 1인 �
 - etc: Lombok 
 
 ## Team Member 
-Part 1:
+### Part 1:
 
 [ajdeve](https://github.com/ajdeve)
 
@@ -58,7 +58,7 @@ Part 1:
 
 [EunbeeGo](https://github.com/EunbeeGo)
 
-Part 2:
+### Part 2:
 
 [ajdeve](https://github.com/ajdeve)
 
