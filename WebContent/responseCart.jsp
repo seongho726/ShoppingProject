@@ -1,10 +1,17 @@
 <%@page import="model.domain.Basket, model.domain.User, model.Service"%>
 <%@page import="java.util.ArrayList, java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Product List</title>
     <% String userId = (String)session.getAttribute("userId");%>
     <% ArrayList<Basket> baskets = (ArrayList<Basket>) session.getAttribute("baskets");%>
     <% HashMap prices = (HashMap) session.getAttribute("prices");%>
+</head>
+<body>
              <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <form action="#">               

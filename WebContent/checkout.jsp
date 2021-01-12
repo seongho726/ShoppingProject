@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Checkout</title>
+    <title>Product List</title>
         <% String userId=(String) session.getAttribute("userId");%>
         <% ArrayList<Basket> baskets = (ArrayList<Basket>) session.getAttribute("baskets");%>
         <% Calculate calculate = (Calculate) session.getAttribute("calculate");%>

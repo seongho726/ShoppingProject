@@ -65,11 +65,47 @@ public class Controller extends HttpServlet {
 				System.out.println("showError.jsp");
 			}
 		} catch (Exception s) {
+<<<<<<< HEAD
 			s.printStackTrace();
 			request.getSession().setAttribute("error", s.getMessage());
 			request.getRequestDispatcher("showError.jsp").forward(request, response);
 			log.debug("error");
 		}
+=======
+			request.getSession().setAttribute("errorMsg", s.getMessage());
+			request.getRequestDispatcher("showError.jsp").forward(request, response);
+			s.printStackTrace();
+		}
+	}
+
+	public void getUsers(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "showError.jsp";
+		try {
+			request.getSession().setAttribute("getUsers", Service.getUsers());
+			request.getSession().setAttribute("successMsg", "모든 회원 검색");
+			url = "userList.jsp";
+		} catch (Exception e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+
+	public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = "showError.jsp";
+		String userId;
+		try {
+			userId = (String) request.getSession().getAttribute("userId");
+
+			request.getSession().setAttribute("getUser", Service.getUser(userId));
+			url = "userDetail.jsp";
+		} catch (Exception e) {
+			request.setAttribute("errorMsg", e.getMessage());
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+>>>>>>> parent of b37089e... dawn changes2
 	}
 
 	
@@ -98,7 +134,22 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+<<<<<<< HEAD
 	
+=======
+//	public void addProductReq(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		String url = "showError.jsp";
+//		try {
+//			url = "admin/create.jsp";
+//		} catch (Exception s) {
+//			request.getSession().setAttribute("errorMsg", s.getMessage());
+//			s.printStackTrace();
+//		}
+//		request.getRequestDispatcher(url).forward(request, response);
+//	}
+
+>>>>>>> parent of b37089e... dawn changes2
 	public void addProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Product product = new Product(request.getParameter("producttype").trim(),
@@ -131,10 +182,16 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("product",
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
 			url = "update.jsp";
+<<<<<<< HEAD
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
 			log.debug("Processing updating product request failed due to " + e.getMessage());
+=======
+		} catch (Exception s) {
+			request.getSession().setAttribute("errorMsg", s.getMessage());
+			s.printStackTrace();
+>>>>>>> parent of b37089e... dawn changes2
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
@@ -154,7 +211,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("successMsg", productId + "제품수정");
 			url = "login.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Updating product failed due to " + e.getMessage());
 		}
@@ -170,7 +227,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("productDelete", Service.deleteProduct(productId));
 			url = "login.jsp";
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMSg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Deleting product failed due to " + e.getMessage());
 		}
@@ -229,7 +286,7 @@ public class Controller extends HttpServlet {
 			url = "cart.jsp";
 			log.info("Getting basket succeeded");
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Getting basket failed due to " + e.getMessage());
 		}
@@ -249,10 +306,10 @@ public class Controller extends HttpServlet {
 				url = "shop.jsp";
 				log.info("Adding to basket succeeded");
 			} else {
-				request.getSession().setAttribute("error", "추가실패");
+				request.getSession().setAttribute("errMsg", "추가실패");
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Adding produc to basket failed due to " + e.getMessage());
 		}
@@ -272,11 +329,15 @@ public class Controller extends HttpServlet {
 				url = "cart.jsp";
 				log.info("Deleting product in basket succeeded");
 			} else {
+<<<<<<< HEAD
 				request.getSession().setAttribute("error", "삭제실패");
 				log.debug("Deleting product in basket failed");
+=======
+				request.getSession().setAttribute("errMsg", "삭제실패");
+>>>>>>> parent of b37089e... dawn changes2
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Deleting product in basket failed due to " + e.getMessage());
 		}
@@ -296,10 +357,14 @@ public class Controller extends HttpServlet {
 				url = "cart.jsp";
 				log.info("Deleting product in ajax basket succeeded");
 			} else {
+<<<<<<< HEAD
 				request.getSession().setAttribute("error", "Deleting ajax basket failed");
+=======
+				request.getSession().setAttribute("errMsg", "삭제실패");
+>>>>>>> parent of b37089e... dawn changes2
 			}
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Deleting product in ajax basket failed due to " + e.getMessage());
 		}
@@ -375,7 +440,7 @@ public class Controller extends HttpServlet {
 			url = "orderHistory.jsp";
 			log.info("Getting order history succeeded");
 		} catch (Exception e) {
-			request.getSession().setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("errMsg", e.getMessage());
 			e.printStackTrace();
 			log.debug("Getting order history failed due to " + e.getMessage());
 		}
