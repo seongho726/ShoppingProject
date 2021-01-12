@@ -3,8 +3,6 @@ package model.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,14 +30,6 @@ public class Basket {
     int validity;
 	
 	
-//	@ManyToOne
-//	@JoinColumn (name = "basketuser_id", referencedColumnName = "shoppinguser_id", nullable=false)	
-//	User usersId;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable=false)
-//	Product productsId;
-	
 	public Basket(int basketId, String userId, int productId, int productCount, int validity) {
 		super();
 		this.basketId = basketId;
@@ -48,7 +38,6 @@ public class Basket {
 		this.productCount = productCount;
 		this.validity = validity;
 	}
-
 	
 
 	public int getBasketId() {
@@ -66,8 +55,6 @@ public class Basket {
 	public int getProductCount() {
 		return productCount;
 	}
-
-
 
 
 	@Override

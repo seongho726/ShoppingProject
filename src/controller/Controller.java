@@ -35,11 +35,7 @@ public class Controller extends HttpServlet {
 		String command = request.getParameter("command");
 		HttpSession session = request.getSession();
 		try {
-			if (command.equals("getUsers")) {
-				getUsers(request, response);
-			} else if (command.equals("getUser")) {
-				getUser(request, response);
-			} else if (command.equals("addUser")) {
+			if (command.equals("addUser")) {
 				addUser(request, response);
 			} else if (command.equals("addProduct")) {
 				addProduct(request, response);
@@ -76,37 +72,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	public void getUsers(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String url = "showError.jsp";
-		try {
-			request.getSession().setAttribute("getUsers", Service.getUsers());
-			log.info("Found users.");
-			// url = "userList.jsp"; userList doesn't exist
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
-			log.debug("Getting users failed due to " + e.getMessage());
-		}
-		request.getRequestDispatcher(url).forward(request, response);
-	}
-
-	public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "showError.jsp";
-		String userId;
-		try {
-			userId = (String) request.getSession().getAttribute("userId");
-			request.getSession().setAttribute("getUser", Service.getUser(userId));
-			log.info("Found a user.");
-			// url = "userDetail.jsp"; userDetail doesn't exist
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
-			log.debug("Getting user failed due to " + e.getMessage());
-		}
-		request.getRequestDispatcher(url).forward(request, response);
-	}
-
+	
 	public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "showError.jsp";
 		User user = new User(request.getParameter("userId"), request.getParameter("userName"),
@@ -132,6 +98,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void addProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Product product = new Product(request.getParameter("producttype").trim(),
@@ -156,6 +123,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void updateProductReq(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
@@ -171,6 +139,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void updateProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
@@ -192,6 +161,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void deleteProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		int productId = Integer.parseInt(request.getParameter("productId"));
@@ -207,6 +177,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void validate(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
@@ -240,6 +211,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void getBasket(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
@@ -264,6 +236,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void addBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
@@ -286,12 +259,12 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void deleteBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
 		int basketId = Integer.parseInt(request.getParameter("basketId"));
 		String userId = (String) session.getAttribute("userId");
-
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
@@ -310,12 +283,12 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void deleteAjaxBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
 		int basketId = Integer.parseInt(request.getParameter("basketId"));
 		String userId = (String) session.getAttribute("userId");
-
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
@@ -323,7 +296,7 @@ public class Controller extends HttpServlet {
 				url = "cart.jsp";
 				log.info("Deleting product in ajax basket succeeded");
 			} else {
-				request.getSession().setAttribute("error", "삭제실패");
+				request.getSession().setAttribute("error", "Deleting ajax basket failed");
 			}
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
@@ -333,6 +306,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void buyBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
@@ -356,6 +330,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void payBasket(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "payfail.jsp";
 		HttpSession session = request.getSession();
@@ -387,6 +362,7 @@ public class Controller extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 
+	
 	public void getPayment(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
@@ -405,4 +381,39 @@ public class Controller extends HttpServlet {
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+
+	/* SAVE FOR FUTURE USE
+	 
+	public void getUsers(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "showError.jsp";
+		try {
+			request.getSession().setAttribute("getUsers", Service.getUsers());
+			log.info("Found users.");
+			// url = "userList.jsp"; userList doesn't exist
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			log.debug("Getting users failed due to " + e.getMessage());
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+
+	public void getUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = "showError.jsp";
+		String userId;
+		try {
+			userId = (String) request.getSession().getAttribute("userId");
+			request.getSession().setAttribute("getUser", Service.getUser(userId));
+			log.info("Found a user.");
+			// url = "userDetail.jsp"; userDetail doesn't exist
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", e.getMessage());
+			log.debug("Getting user failed due to " + e.getMessage());
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+	
+*/
 }

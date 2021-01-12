@@ -13,6 +13,7 @@
 <div class="shp__cart__wrap">
 
 	<c:choose>
+		
 		<c:when test="${not empty all}">
 			<c:forEach items="${sessionScope.all}" var="data">
 				<div class="shp__single__product">
@@ -27,11 +28,11 @@
 								type="hidden" name="command" value="deleteBasket"> <input
 								class="zmdi zmdi-close" type="submit" value="X">
 						</form>
-
 					</div>
 				</div>
 			</c:forEach>
 		</c:when>
+		
 		<c:otherwise>
 			<div class="shp__single__product">
 				<div class="shp__pro__details">
@@ -40,11 +41,13 @@
 				</div>
 			</div>
 		</c:otherwise>
+	
 	</c:choose>
 
 	<ul class="shoping__total">
 		<li class="subtotal">Subtotal:</li>
 		<li class="total__price">$ ${calculate.totalBasketPrice}</li>
 	</ul>
+
 </div>
 
