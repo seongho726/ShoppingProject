@@ -68,6 +68,7 @@ public class BasketDAO {
 					.setParameter(1, userId).setParameter(2, productId).setParameter(3, productCount).executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -88,6 +89,7 @@ public class BasketDAO {
 			tx.commit();
 			result = true;
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -107,6 +109,7 @@ public class BasketDAO {
 			tx.commit();
 			result = true;
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {

@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="model.BasketDAO, java.util.ArrayList, model.domain.Basket, model.domain.User, model.Service, java.util.HashMap, model.domain.Calculate"%>
+	import="java.util.ArrayList, model.domain.Basket, model.domain.User, model.Service, java.util.HashMap, model.domain.Product, model.domain.Calculate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	String userId = (String) session.getAttribute("userId");
-	ArrayList<Basket> all = (ArrayList<Basket>) Service.getBasket(userId);
-	session.setAttribute("all", all);
-	Calculate calculate = (Calculate) Service.calculateBasket(userId);
-	session.setAttribute("calculate", calculate);
+	session.setAttribute("all", Service.getBasket(userId));
+	session.setAttribute("calculate", Service.calculateBasket(userId));
 %>
 <div class="shp__cart__wrap">
 

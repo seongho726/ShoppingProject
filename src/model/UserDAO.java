@@ -32,6 +32,7 @@ public class UserDAO {
 					.setParameter(6, address).executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -51,6 +52,7 @@ public class UserDAO {
 					.executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {
@@ -70,6 +72,7 @@ public class UserDAO {
 			tx.commit();
 			return true;
 		} catch (Exception e) {
+			tx.rollback();
 			e.printStackTrace();
 			throw e;
 		} finally {

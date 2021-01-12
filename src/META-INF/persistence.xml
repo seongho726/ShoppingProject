@@ -16,11 +16,10 @@
 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
 			
-			<property name="hibernate.show_sql" value="true" />
 			<!-- SQL출력시 보기쉽게 정렬-->
-		<!-- 	<property name="hibernate.format_sql" value="true" /> -->
+			<!-- 	<property name="hibernate.format_sql" value="true" /> -->
 			<!-- 쿼리 출력시 주석도 함께 출력 -->
-		<!-- 	<property name="hibernate.use_sql_comments" value="true" /> -->
+			<!-- 	<property name="hibernate.use_sql_comments" value="true" /> -->
 			<!-- JPA표준에 맞춘 새로운 키 생성 전략 사용 -->
 			<property name="hibernate.id.new_generator_mappings" value="true" />
 
