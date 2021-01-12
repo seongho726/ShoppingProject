@@ -1,4 +1,7 @@
-﻿# 쇼핑몰 구축 프로젝트 
+﻿# :iphone: 쇼핑몰 구축 프로젝트 
+ # Welcome to TECHNOLOGI
+ 
+ ![Logo](ShoppingProject/WebContent/images/logo/logo.png)
 
 Customer와 Admin 두 타입의 사용자를 고객으로 두고 있는 쇼핑몰 구축
 
