@@ -1,5 +1,6 @@
 <%@page import="model.domain.User, model.domain.Product, model.Service"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList, java.util.HashMap"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -86,8 +87,8 @@
 								<li class="search search__open hidden-xs"><span
 									class="ti-search"></span></li>
 								<li><a href="login-register.jsp"><span class="ti-user"></span></a></li>
-								<li class="cart__menu" onclick="ajaxCart()"><span
-									class="ti-shopping-cart"></span></li>
+								<li class="cart__menu" onclick="ajaxCart()">
+								<span class="ti-shopping-cart"></span></li>
 								<li class="toggle__menu hidden-xs hidden-sm"><span
 									class="ti-menu" style="display: none;"></span></li>
 							</ul>
@@ -145,7 +146,7 @@
 
 		<script>               
 	function ajaxCart(){
-	   axios.post('responseBasket.jsp')
+	   axios.get('responseBasket.jsp')
 	  .then(function (response) { 
 		console.log("성공");
 		document.getElementById("ajaxcart").innerHTML = response.data;
@@ -199,53 +200,44 @@
 
 					<!-- End Filter Menu -->
 					<!-- End Product Menu -->
-					<%
-						ArrayList<Product> products = (ArrayList<Product>) Service.getProducts();
-					%>
 					<div class="row">
 						<div class="product__list another-product-style">
-							<%
-								for (int i = 0; i < products.size(); i++) {
-									Product product = products.get(i);
-							%>
-							<!-- Start Single Product -->
-							<div
-								class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
-								<div class="product foo">
-									<div class="product__inner">
-										<div class="pro__thumb">
-											<a href="#"> <img
-												src="images/product/big-img/<%=product.getProductId()%>.jpg">
-											</a>
-										</div>
+							<c:forEach items="${sessionScope.products}" var="pro">
+								<!-- Start Single Product -->
+								<div
+									class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+									<div class="product foo">
+										<div class="product__inner">
+											<div class="pro__thumb">
+												<a href="#">
+			 										<img src="images/product/big-img/${pro.productId}.jpg">
+												</a>
+											</div>
 
-										<div class="product__hover__info">
-											<ul class="product__action">
-												<li><a data-toggle="modal"
-													data-target="#productModal<%=product.getProductId()%>"
-													title="Quick View"
-													class="quick-view modal-view detail-link" href="#"> <span
-														class="ti-plus"></span>
-												</a></li>
+											<div class="product__hover__info">
+												<ul class="product__action">
+													<li><a data-toggle="modal"
+														data-target="#productModal${pro.productId}"
+														title="Quick View"
+														class="quick-view modal-view detail-link" href="#">
+														 <span class="ti-plus"></span>
+													</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="product__details">
+											<h2>
+												<a href="product-details.html">${pro.productName}</a>
+											</h2>
+											<ul class="product__price">
+												<li class="old__price">$${pro.price*1.2}</li>
+												<li class="new__price">$${pro.price}</li>
 											</ul>
 										</div>
 									</div>
-									<div class="product__details">
-										<h2>
-											<a href="product-details.html"><%=product.getProductName()%></a>
-										</h2>
-										<ul class="product__price">
-											<li class="old__price">$<%=product.getPrice() * 1.2%></li>
-											<li class="new__price">$<%=product.getPrice()%></li>
-										</ul>
-									</div>
 								</div>
-							</div>
-							<!-- End Single Product -->
-							<%
-								}
-							%>
-
+								<!-- End Single Product -->
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -338,77 +330,60 @@
 	<!-- QUICKVIEW PRODUCT -->
 	<div id="quickview-wrapper">
 		<!-- Modal -->
-		<%
-			for (int i = 0; i < products.size(); i++) {
-				Product product = products.get(i);
-				System.out.println("------ " + product);
-		%>
-		<div class="modal fade" id="productModal<%=product.getProductId()%>"
-			tabindex="-1" role="dialog">
-			<div class="modal-dialog modal__container" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-
-					<!--  -->
-					<div class="modal-body">
-
-						<div class="modal-product">
-							<!-- Start product images -->
-							<div class="product-images">
-								<div class="main-image images">
-									<img
-										src="images/product/big-img/<%=product.getProductId()%>.jpg">
-
-								</div>
-							</div>
-							<!-- end product images -->
-							<div class="product-info">
-
-								<h1><%=product.getProductName()%></h1>
-								<h3><%=product.getProductType()%></h3>
-								<div class="price-box-3">
-									<div class="s-price-box">
-										<span class="new-price">$<%=product.getPrice()%></span> <span
-											class="old-price">$<%=product.getPrice() * 1.2%></span>
+		<c:forEach items="${sessionScope.products}" var="pro">
+			<div class="modal fade" id="productModal${pro.productId}"
+				tabindex="-1" role="dialog">
+				<div class="modal-dialog modal__container" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<!--  -->
+						<div class="modal-body">
+							<div class="modal-product">
+								<!-- Start product images -->
+								<div class="product-images">
+									<div class="main-image images">
+										<img src="images/product/big-img/${pro.productId}.jpg">
 									</div>
 								</div>
-								<div class="quick-desc">
-									<%=product.getDescription()%>
-									Type:
-									<%=product.getProductType()%>
-									Available:
-									<%=product.getInventory()%>
+								<!-- end product images -->
+								<div class="product-info">
+									<h1>${pro.productName}</h1>
+									<h3>${pro.productType}</h3>
+									<div class="price-box-3">
+										<div class="s-price-box">
+											<span class="new-price">$${pro.price}</span> <span
+												class="old-price">$${pro.price*1.2}</span>
+										</div>
+									</div>
+									<div class="quick-desc">${pro.description} Type:
+										${pro.productType} Available: ${pro.inventory}</div>
+									<div class="addtocart-btn">
+										<form action="Controller" method="post">
+											Enter Quantity : <input type="hidden" name="productId"
+												value="${pro.productId}"> <input type="text"
+												name="productCount"> <input type="hidden"
+												name="command" value="addBasket"> <input
+												type="submit" value="Take">
+										</form>
+									</div>
 								</div>
-								<div class="addtocart-btn">
-									<form action="Controller" method="post">
-										Enter Quantity : <input type="hidden" name="productId"
-											value="<%=product.getProductId()%>"> <input
-											type="text" name="productCount"> <input type="hidden"
-											name="command" value="addBasket"> <input
-											type="submit" value="Take">
-									</form>
-								</div>
+								<!-- .product-info -->
 							</div>
-							<!-- .product-info -->
+							<!-- .modal-product -->
 						</div>
-						<!-- .modal-product -->
+						<!-- .modal-body -->
 					</div>
-					<!-- .modal-body -->
+					<!-- .modal-content -->
 				</div>
-				<!-- .modal-content -->
-			</div>
-			<!-- .modal-dialog -->
+				<!-- .modal-dialog -->
 
-		</div>
-		<%
-			}
-		%>
+			</div>
+		</c:forEach>
 		<!-- END Modal -->
 
 

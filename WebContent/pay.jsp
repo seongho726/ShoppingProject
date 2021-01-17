@@ -1,6 +1,6 @@
 <%@page import="model.domain.Basket, model.domain.User, model.domain.Calculate"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.ArrayList, java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html class="no-js" lang="en">

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -106,6 +107,7 @@ public class Controller extends HttpServlet {
 			boolean result = Service.addProduct(product.getProductType(), product.getProductName(),
 					product.getDescription(), product.getPrice(), product.getInventory());
 			request.getSession().setAttribute("product", product);
+			request.getSession().setAttribute("products",Service.getProducts() );
 			if (result = true) {
 				url = "login.jsp";
 			} else {
@@ -146,6 +148,7 @@ public class Controller extends HttpServlet {
 			request.getSession().setAttribute("product",
 					Service.getProduct(Integer.parseInt(request.getParameter("productId"))));
 			request.getSession().setAttribute("successMsg", productId + "제품수정");
+			request.getSession().setAttribute("products",Service.getProducts() );
 			url = "login.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
@@ -161,6 +164,7 @@ public class Controller extends HttpServlet {
 		try {
 			Service.deleteProduct(Integer.parseInt(request.getParameter("productId")));
 			request.getSession().setAttribute("productDelete", Service.deleteProduct(productId));
+			request.getSession().setAttribute("products",Service.getProducts() );
 			url = "login.jsp";
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
@@ -174,20 +178,24 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		String url = "showError.jsp";
 		HttpSession session = request.getSession();
-
 		String t = request.getParameter("userType").trim().replaceAll("\\\"", "");
 		String i = request.getParameter("userId").trim().replaceAll("\\\"", "");
 		String p = request.getParameter("password").trim().replaceAll("\\\"", "");
-
+		String userId = (String) session.getAttribute("userId");
+		ArrayList<Basket> baskets = null;
 		if (session != null)
 			session.setAttribute("userId", i);
 		try {
 			if (LoginDAO.validate(t, i, p)) {
 				if (t.equals("C")) {
+					request.getSession().setAttribute("products",Service.getProducts());
+					baskets = (ArrayList<Basket>) Service.getBasket(userId);
+					request.getSession().setAttribute("baskets", baskets);
 					url = "shop.jsp";
 					log.info("Customer login succeeded");
 				}
 				if (t.equals("A")) {
+					request.getSession().setAttribute("products",Service.getProducts());
 					url = "login.jsp";
 					log.info("Admin login succeeded");
 				} else {
@@ -201,6 +209,7 @@ public class Controller extends HttpServlet {
 			log.debug("Login validation failed due to " + e.getMessage());
 		}
 		request.getRequestDispatcher(url).forward(request, response);
+		System.out.println(session.getAttribute("products"));
 	}
 
 	public void getBasket(HttpServletRequest request, HttpServletResponse response)
@@ -215,10 +224,12 @@ public class Controller extends HttpServlet {
 			for (Basket basket : baskets) {
 				prices.put(basket.getProductId(), Service.getProduct(basket.getProductId()).getPrice());
 			}
-			session.setAttribute("prices", prices);
-			session.setAttribute("baskets", baskets);
+			request.getSession().setAttribute("prices", prices);
+			request.getSession().setAttribute("baskets", baskets);
 			url = "cart.jsp";
 			log.info("Getting basket succeeded");
+//			System.out.println(session.getAttribute("baskets"));
+//			System.out.println(session.getAttribute("prices"));
 		} catch (Exception e) {
 			request.getSession().setAttribute("error", e.getMessage());
 			e.printStackTrace();
@@ -236,6 +247,7 @@ public class Controller extends HttpServlet {
 		try {
 			boolean result = Service.addBasket(userId, productId, productCount);
 			if (result) {
+				request.getSession().setAttribute("baskets", Service.getBasket(userId));
 				url = "shop.jsp";
 				log.info("Adding to basket succeeded");
 			} else {
@@ -257,7 +269,7 @@ public class Controller extends HttpServlet {
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
-				session.setAttribute("baskets", Service.getBasket(userId));
+				request.getSession().setAttribute("baskets", Service.getBasket(userId));
 				url = "cart.jsp";
 				log.info("Deleting product in basket succeeded");
 			} else {
@@ -280,7 +292,7 @@ public class Controller extends HttpServlet {
 		try {
 			boolean result = Service.deleteBasket(userId, basketId);
 			if (result) {
-				session.setAttribute("baskets", Service.getBasket(userId));
+				request.getSession().setAttribute("baskets", Service.getBasket(userId));
 				log.info("Deleting product in ajax basket succeeded");
 			} else {
 				request.getSession().setAttribute("error", "Deleting ajax basket failed");
@@ -332,7 +344,7 @@ public class Controller extends HttpServlet {
 			boolean result = Service.addPayment(userId, address, contact, ccNumber, ccExpiration, ccPassword);
 			if (result = true) {
 				BasketDAO.cleanBasket(userId);
-				session.setAttribute("baskets", Service.getBasket(userId));
+				request.getSession().setAttribute("baskets", Service.getBasket(userId));
 				url = "pay.jsp";
 				log.info("Basket cleaned and order created.");
 			} else {
@@ -354,7 +366,7 @@ public class Controller extends HttpServlet {
 		ArrayList<Payment> payments = null;
 		try {
 			payments = (ArrayList<Payment>) Service.getPayment(userId);
-			session.setAttribute("payments", payments);
+			request.getSession().setAttribute("payments", payments);
 			url = "orderHistory.jsp";
 			log.info("Getting order history succeeded");
 		} catch (Exception e) {

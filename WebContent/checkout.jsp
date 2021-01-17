@@ -1,26 +1,15 @@
 <%@page
 	import="model.domain.Basket, model.domain.User, model.domain.Calculate"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList, java.util.HashMap"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Product List</title>
-<%
-	String userId = (String) session.getAttribute("userId");
-%>
-<%
-	ArrayList<Basket> baskets = (ArrayList<Basket>) session.getAttribute("baskets");
-%>
-<%
-	Calculate calculate = (Calculate) session.getAttribute("calculate");
-%>
-<%
-	HashMap prices = (HashMap) session.getAttribute("prices");
-%>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -100,8 +89,9 @@
 								<li class="search search__open hidden-xs"><span
 									class="ti-search"></span></li>
 								<li><a href="login-register.jsp"><span class="ti-user"></span></a></li>
-								<li class="cart__menu" onclick="ajaxCart()"><span
-									class="ti-shopping-cart"></span></li>
+								<li class="cart__menu" onclick="ajaxCart()">
+								<span class="ti-shopping-cart"></span>
+								</li>
 								<li class="toggle__menu hidden-xs hidden-sm"><span
 									class="ti-menu" style="display: none;"></span></li>
 							</ul>
@@ -145,7 +135,6 @@
 						<a href="#"><i class="zmdi zmdi-close"></i></a>
 					</div>
 					<div id="ajaxcart"></div>
-
 					<ul class="shopping__btn">
 						<li><a Onclick="location.href='Controller?command=getBasket'">View
 								Cart</a></li>
@@ -157,14 +146,13 @@
 			<!-- End Cart Panel -->
 		</div>
 
-		<script>               
+   		<script>               
 	function ajaxCart(){
-	  try{
-	   axios.post('responseBasket.jsp')
+	   axios.get('responseBasket.jsp')
 	  .then(function (response) { 
 		console.log("성공");
 		document.getElementById("ajaxcart").innerHTML = response.data;
-	  })}
+	  })
 	  .catch(function (error) { 
 	    console.log(error);
 	  })
@@ -182,9 +170,7 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="bradcaump__inner text-center">
-								<h2 class="bradcaump-title">
-									Hello,
-									<%=userId%></h2>
+								<h2 class="bradcaump-title">Hello, ${sessionScope.userId}</h2>
 								<nav class="bradcaump-inner">
 									<a class="breadcrumb-item" href="index.html">Home</a> <span
 										class="brd-separetor">/</span> <span
@@ -207,39 +193,40 @@
 								<table>
 									<thead>
 										<tr>
-											<th class="product-name">Basket ID</th>
-											<th class="product-name">User Name</th>
-											<th class="product-name">Product ID</th>
-											<th class="product-quantity">Product Count</th>
-											<!-- <th class="product-subtotal">Price</th>-->
+											<th class="Basket ID">Basket ID</th>
+											<th class="User Name">User Name</th>
+											<th class="Product ID">Product ID</th>
+											<th class="Product Count">Product Count</th>
+											<th class="product-subtotal">Price</th>
 										</tr>
 									</thead>
 									<tbody>
-										<%
-											int totalPrice = 0;
-											for (int i = 0; i < baskets.size(); i++) {
-												Basket basket = baskets.get(i);
-												/* int tempPrice = (int)prices.get(basket.getProductId()) * basket.getProductCount();
-												totalPrice += tempPrice; */
-										%>
-										<tr>
-											<th class="product-name"><%=basket.getBasketId()%></th>
-											<th class="product-name"><%=userId%></th>
-											<th class="product-name"><%=basket.getProductId()%></th>
-											<th class="product-quantity"><%=basket.getProductCount()%></th>
-											<%--<th class="product-subtotal"><%=tempPrice%><</th>
- --%>
-										</tr>
-										<%
-											}
-										%>
+									<script type="text/javascript">
+											var totalCount = 0;
+											var totalPrice = 0;
+											</script>
+										<c:forEach items="${sessionScope.baskets}" var="data">
+											<tr>
+												
+												<th class="Basket ID">${data.basketId}</th>
+												<th class="User Name">${data.userId}</th>
+												<th class="Product ID">${data.productId}</th>
+												<th class="Product Count">${data.productCount}</th>
+												<th class="product-subtotal">${sessionScope.prices.get(data.productId)*data.productCount}</th>
+												<script type="text/javascript">
+												 totalCount += parseInt(`${data.productCount}`);
+												 totalPrice += parseInt(`${sessionScope.prices.get(data.productId)*data.productCount}`); 
+												 </script>
+											</tr>
+										</c:forEach>
+											
 									</tbody>
 								</table>
 							</div>
 							<div class="row">
 								<div class="col-md-8 col-sm-7 col-xs-12">
 									<div class="buttons-cart">
-										<a href="location.href='login.jsp'">Continue Shopping</a>
+										<a href="shop.jsp">Continue Shopping</a>
 									</div>
 								</div>
 								<div class="col-md-4 col-sm-5 col-xs-12">
@@ -249,17 +236,20 @@
 											<tbody>
 												<tr class="order-total">
 													<th>Total Count</th>
-													<td><strong><span class="amount"><%=calculate.getTotalProductCount()%></span></strong>
-													</td>
+													<td><div id="tc"></div></td>
 												</tr>
 												<tr class="order-total">
-													<th>Total</th>
-													<td><strong><span class="amount"><%=calculate.getTotalBasketPrice()%></span></strong>
+													<th>Total Price</th>
+													<td >
+													<div id="tp"></div>
 													</td>
 												</tr>
 											</tbody>
 										</table>
-
+										<script type="text/javascript">
+											document.getElementById("tc").innerHTML = totalCount;
+											document.getElementById("tp").innerHTML = totalPrice;
+										</script>
 									</div>
 								</div>
 							</div>
@@ -294,7 +284,7 @@
 											<input type="text" name="ccPassword" size="24"
 												required="required" placeholder="Credit Card Password">
 										</div>
-										<input type="hidden" name="userId" value="<%=userId%>">
+										<input type="hidden" name="userId" value=${sessionScope.userId}>
 										<input type="hidden" name="command" value="payBasket">
 										<input type="submit" value="Confirm & Buy Now">&nbsp;&nbsp;
 										<input type="reset" value="reset">&nbsp;&nbsp;
@@ -449,5 +439,11 @@
 	<script src="js/main.js"></script>
 
 </body>
-
+<%-- <%
+											int totalPrice = 0;
+											for (int i = 0; i < baskets.size(); i++) {
+												Basket basket = baskets.get(i);
+												/* int tempPrice = (int)prices.get(basket.getProductId()) * basket.getProductCount();
+												totalPrice += tempPrice; */
+										%> --%>
 </html>

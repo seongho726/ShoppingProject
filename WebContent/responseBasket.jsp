@@ -2,18 +2,12 @@
 	pageEncoding="UTF-8"
 	import="java.util.ArrayList, model.domain.Basket, model.domain.User, model.Service, java.util.HashMap, model.domain.Product, model.domain.Calculate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
- <%
-	String userId = (String) session.getAttribute("userId");
-	session.setAttribute("all", Service.getBasket(userId));
-	session.setAttribute("calculate", Service.calculateBasket(userId));
-%> 
 <div class="shp__cart__wrap">
 
 	<c:choose>
 		
-		<c:when test="${not empty all}">
-			<c:forEach items="${sessionScope.all}" var="data">
+		<c:when test="${not empty baskets}">
+			<c:forEach items="${sessionScope.baskets}" var="data">
 				<div class="shp__single__product">
 					<div class="shp__pro__details">
 						<h2>${data.productId}</h2>
@@ -22,7 +16,7 @@
 					<div class="remove__btn">
 						<form id="myForm" action="Controller" method="post">
 							<input type="hidden" name="basketId" value="${data.basketId}">
-							<input type="hidden" name="userId" value="${sessionScope.userId}"> <input
+							<input type="hidden" name="userId" value="${data.userId}"> <input
 								type="hidden" name="command" value="deleteBasket"> <input
 								class="zmdi zmdi-close" type="submit" value="X">
 						</form>
@@ -46,6 +40,5 @@
 		<li class="subtotal">Subtotal:</li>
 		<li class="total__price">$ ${calculate.totalBasketPrice}</li>
 	</ul>
-
 </div>
 
