@@ -15,7 +15,6 @@ PAYMENT
 DROP TABLE shoppingpayment cascade constraint;
 
 
-
 CREATE TABLE shoppinguser(
  shoppinguser_id varchar2(255) PRIMARY KEY,
  usertype varchar2(255),
