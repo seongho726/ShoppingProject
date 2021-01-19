@@ -134,21 +134,21 @@
 					<div id="ajaxcart"></div>
 
 					<ul class="shopping__btn">
-						<li><a Onclick="location.href='Controller?command=getBasket'">View
+						<li><a onclick="location.href='Controller?command=getBasket'">View
 								Cart</a></li>
-						<li class="shp__checkout"><a
-							Onclick="location.href='Controller?command=buyBasket'">Checkout</a></li>
+						<li class="shp__checkout">
+							<a onclick="location.href='Controller?command=buyBasket'">Checkout</a>
+						</li>
 					</ul>
 				</div>
 			</div>
 			<!-- End Cart Panel -->
 		</div>
 
-		<script>               
+	<script>               
 	function ajaxCart(){
 	   axios.get('responseBasket.jsp')
 	  .then(function (response) { 
-		console.log("성공");
 		document.getElementById("ajaxcart").innerHTML = response.data;
 	  })
 	  .catch(function (error) { 

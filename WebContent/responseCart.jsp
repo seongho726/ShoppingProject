@@ -26,12 +26,13 @@
                                             <th class="product-quantity">${data.productCount}</th>
                                             <th class="product-subtotal">${sessionScope.prices.get(data.productId)*data.productCount}</th> 
                                             <td class="product-remove">
-                                            	<form>
-                        						<input type="hidden" name="basketId" value="${data.basketId}">
-                        						<input type="hidden" name="userId" value="${data.userId}">
-                      						    <input type="hidden" name="command" value="deleteBasket">
-                      						    <input type="submit" value="Delete">
-                    						</form></td>
+	                                            <form>
+	                        						<input type="hidden" name="basketId" value="${data.basketId}">
+	                        						<input type="hidden" name="userId" value="${data.userId}">
+	                      						    <input type="hidden" name="command" value="deleteBasket">
+	                      						    <input type="submit" value="Delete">
+	                    						</form>
+                    						</td>
                                         </tr>
                          <%--  <% }%> --%>
                          </c:forEach>
@@ -51,9 +52,9 @@
                                        <%--      <h3> Your Total Price is <%=totalPrice %>.</h3> --%>
                                             <br>
                                             <form action="Controller" method="post">
-                        					<input type="hidden" name="userId" value="${sessionScope.userId}">
-                        					<input type="hidden" name="command" value="buyBasket">
-                       						<input type="submit" value="Proceed to Checkout">
+	                        					<input type="hidden" name="userId" value="${sessionScope.userId}">
+	                        					<input type="hidden" name="command" value="buyBasket">
+	                       						<input type="submit" value="Proceed to Checkout">
                     						</form>
                                         </div>
                                     </div>
